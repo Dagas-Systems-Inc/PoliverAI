@@ -23,7 +23,7 @@ export default function useReports(initialPage = 1, initialLimit = 10) {
     setIsLoading(true)
     setError(null)
     try {
-      const resp = await policyService.getUserReports()
+      const resp = await policyService.getUserReports() as any
       let arr: ReportMetadata[] = []
       if (Array.isArray(resp)) {
         arr = resp as ReportMetadata[]
@@ -31,10 +31,10 @@ export default function useReports(initialPage = 1, initialLimit = 10) {
         setTotal(arr.length)
         setTotalPages(1)
       } else {
-        arr = resp.reports || []
+        arr = resp?.reports || []
         setReports(arr)
-        setTotal(resp.total ?? arr.length)
-        setTotalPages(resp.total_pages ?? 1)
+        setTotal(resp?.total ?? arr.length)
+        setTotalPages(resp?.total_pages ?? 1)
       }
       if (!arr || arr.length === 0) setError('You have no reports on file with us yet 🙂')
       else setError(null)

@@ -1,4 +1,4 @@
-import React from 'react'
+// React import not required with modern JSX runtime
 import { Modal, View, Text, Button, ScrollView, StyleSheet, Linking } from 'react-native'
 import rnStyleFromTokens from './rnStyleTokens'
 

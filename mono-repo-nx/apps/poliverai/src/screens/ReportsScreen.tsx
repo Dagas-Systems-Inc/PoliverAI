@@ -28,7 +28,7 @@ export default function ReportsScreen() {
     const toDelete = getSelected()
     if (toDelete.length === 0) return
     try {
-      await policyService.bulkDeleteReports({ filenames: toDelete })
+  await policyService.bulkDeleteReports(toDelete)
       await fetchReports()
       clear()
     } catch (e) {

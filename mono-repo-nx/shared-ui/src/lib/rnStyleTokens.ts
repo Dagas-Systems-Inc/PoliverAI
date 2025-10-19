@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native'
 
-// Local token subset for RN usage. Keep minimal and extend as needed.
-// These values are synced with frontend/src/styles/styleTokens.ts where possible
+// Single clean RN tokens file used by shared-ui. Keep small and extend as
+// needed while porting web components to React Native.
 const tokens = {
   textSizes: {
     xs: { size: 12 },
@@ -20,30 +20,6 @@ const tokens = {
     normal: { weight: '400' },
   },
   colors: {
-    // core palette
-    gray900: { hex: '#111827' },
-    gray800: { hex: '#1F2937' },
-    gray700: { hex: '#374151' },
-    gray600: { hex: '#4B5563' },
-    gray500: { hex: '#6B7280' },
-    gray400: { hex: '#9CA3AF' },
-    gray300: { hex: '#D1D5DB' },
-    gray200: { hex: '#E5E7EB' },
-    gray100: { hex: '#F3F4F6' },
-    gray50: { hex: '#FAFAFA' },
-
-    blue600: { hex: '#2563EB' },
-    blue500: { hex: '#3B82F6' },
-    blue100: { hex: '#DBEAFE' },
-
-    green600: { hex: '#16A34A' },
-    green100: { hex: '#DCFCE7' },
-
-    red600: { hex: '#DC2626' },
-    red100: { hex: '#FEE2E2' },
-
-    white: { hex: '#FFFFFF' },
-
     // semantic
     textPrimary: { hex: '#111827' },
     textSecondary: { hex: '#374151' },
@@ -56,6 +32,16 @@ const tokens = {
     primaryBgLight: { hex: '#DBEAFE' },
     success: { hex: '#16A34A' },
     danger: { hex: '#DC2626' },
+    dangerBg: { hex: '#FEE2E2' },
+    mutedText: { hex: '#9CA3AF' },
+    mutedBorder: { hex: '#E5E7EB' },
+    // palette aliases used by various components
+    white: { hex: '#FFFFFF' },
+    red600: { hex: '#DC2626' },
+    blue100: { hex: '#DBEAFE' },
+    gray600: { hex: '#4B5563' },
+    ctaText: { hex: '#FFFFFF' },
+    onPrimary: { hex: '#FFFFFF' },
   },
   spacing: {
     card: 16,
@@ -63,18 +49,13 @@ const tokens = {
     small: 8,
     medium: 16,
     large: 24,
-    // more tokens aligned with web spacing map
     formRow: 16,
-    formRowSmall: 4,
-    buttonSmall: 8,
     cardDefault: 12,
-    cardLg: 40,
     iconMd: 24,
   },
   buttons: {
     base: { paddingVertical: 12, paddingHorizontal: 16, borderRadius: 8 },
     small: { paddingVertical: 8, paddingHorizontal: 12, borderRadius: 6 },
-    pill: { paddingVertical: 10, paddingHorizontal: 20, borderRadius: 999 },
   },
   fontPresets: {
     heading: { size: '5xl', weight: 'bold' },
@@ -124,5 +105,35 @@ export const rnStyleFromTokens = (opts: { size?: keyof typeof tokens.textSizes |
 }
 
 export const rnTokens = tokens
+
+// Convenience aliases used throughout the RN app to match earlier styleTokens exports
+export const colors = tokens.colors
+export const textSizes = {
+  h1: { size: tokens.textSizes['5xl'].size },
+  h2: { size: tokens.textSizes['3xl'].size },
+  h3: { size: tokens.textSizes['2xl'].size },
+  md: { size: tokens.textSizes.md.size },
+  sm: { size: tokens.textSizes.sm.size },
+}
+export const spacing = {
+  pageBg: { value: tokens.spacing.card },
+}
+
+// Helper: accept a token key (eg 'white'), a token object ({ hex: '#fff' }), or
+// a raw hex string and return a hex ColorValue usable by RN color props.
+export const colorFromToken = (input?: string | { hex?: string } | null): string | undefined => {
+  if (!input) return undefined
+  // raw hex string
+  if (typeof input === 'string') {
+    if (input.startsWith('#')) return input
+    // treat as token key
+    const t = (tokens.colors as any)[input]
+    if (t && typeof t.hex === 'string') return t.hex
+    return undefined
+  }
+  // token object
+  if (typeof input === 'object' && typeof (input as any).hex === 'string') return (input as any).hex
+  return undefined
+}
 
 export default rnStyleFromTokens

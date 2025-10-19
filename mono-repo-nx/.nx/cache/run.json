@@ -1,21 +1,9 @@
 {
   "run": {
-    "command": "nx run @poliverai/poliverai:run-macos",
-    "startTime": "2025-10-02T23:39:41.523Z",
-    "endTime": "2025-10-02T23:40:18.370Z",
+    "command": "nx run @poliverai/poliverai:serve",
+    "startTime": "2025-10-17T05:55:59.115Z",
+    "endTime": "2025-10-17T05:58:14.628Z",
     "inner": false
   },
-  "tasks": [
-    {
-      "taskId": "@poliverai/poliverai:run-macos",
-      "target": "run-macos",
-      "projectName": "@poliverai/poliverai",
-      "hash": "9220891365439208914",
-      "startTime": "2025-10-02T23:39:41.820Z",
-      "endTime": "2025-10-02T23:40:18.264Z",
-      "params": "",
-      "cacheStatus": "cache-miss",
-      "status": 1
-    }
-  ]
+  "tasks": []
 }

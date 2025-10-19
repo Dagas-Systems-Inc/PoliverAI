@@ -1,17 +1,29 @@
 import React from 'react';
-import { View, Image, Text, StyleSheet } from 'react-native';
-import { colors, spacing, twFromTokens } from './styleTokens';
+import { View, Image, Text, StyleSheet, ImageSourcePropType } from 'react-native';
+import { colors } from './styleTokens';
 
 import { useTranslation } from '@poliverai/intl';
 
-const logoSrc = require('../../assets/poliverai-logo.png'); // Update path as needed
-const andelaLogoSrc = require('../../assets/andela-logo-transparent.png'); // Update path as needed
+// Inline data-URI placeholders to avoid dev-server asset resolution issues during porting.
+// Replace these with real asset imports or public file URLs when you copy assets from `frontend/dist`.
+const logoDataUri = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEX///+nxBvIAAAACklEQVQI12NgAAAAAgAB4iG8MwAAAABJRU5ErkJggg==';
+const andelaDataUri = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEX///+nxBvIAAAACklEQVQI12NgAAAAAgAB4iG8MwAAAABJRU5ErkJggg==';
+
+// Convert imported asset values (which are strings in ESM env) into ImageSourcePropType
+const toImageSource = (src: unknown): ImageSourcePropType => {
+  if (!src) return undefined as any
+  // In native/metro static requires -> numbers/objects; in web vite imports -> string URL
+  if (typeof src === 'string') return { uri: src }
+  return src as ImageSourcePropType
+}
 
 const HeroSection: React.FC = () => {
   const { t } = useTranslation();
+  const logoSource = toImageSource(logoDataUri)
+  const andelaSource = toImageSource(andelaDataUri)
   return (
     <View style={styles.container}>
-      <Image source={logoSrc} style={styles.logo} resizeMode="contain" />
+      <Image source={logoSource} style={styles.logo} resizeMode="contain" />
       <Text style={styles.heading}>
         {t('landing.hero.prefix')} <Text style={styles.highlight}>{t('landing.hero.highlight')}</Text> {t('landing.hero.suffix')}
       </Text>
@@ -19,7 +31,7 @@ const HeroSection: React.FC = () => {
       {/* CTA buttons would go here */}
       <View style={styles.partnerRow}>
         <Text style={styles.partnerText}>{t('landing.partner.prefix')}</Text>
-        <Image source={andelaLogoSrc} style={styles.andelaLogo} resizeMode="contain" />
+  <Image source={andelaSource} style={styles.andelaLogo} resizeMode="contain" />
         <Text style={styles.partnerText}>{t('landing.partner.suffix')}</Text>
       </View>
     </View>

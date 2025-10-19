@@ -2,10 +2,10 @@ import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { View, Text, StyleSheet, ScrollView, ActivityIndicator, TouchableOpacity, Dimensions } from 'react-native';
 import { useAuth } from '@poliverai/intl';
 import { transactionsService, PaymentsService, t } from '@poliverai/intl';
-import { colors, textSizes } from '@poliverai/shared-ui';
+import { colors, textSizes, colorFromToken, CreditsSummary } from '@poliverai/shared-ui';
 import { Button } from '@poliverai/shared-ui';
-import { CreditsSummary } from '@poliverai/shared-ui';
 import { useCreditsSummary } from '@poliverai/intl';
+import type { Transaction } from '@poliverai/intl';
 
 // Placeholder for TransactionList and TransactionFilters
 // You should port these as RN components and add them to shared-ui
@@ -14,7 +14,6 @@ const TransactionFilters = () => <View><Text>Transaction Filters (RN version nee
 
 const CreditsScreen: React.FC = () => {
   const { user, isAuthenticated, loading } = useAuth();
-  import type { Transaction } from '@poliverai/intl';
   const [items, setItems] = useState<Transaction[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -56,7 +55,7 @@ const CreditsScreen: React.FC = () => {
   if (loading || isLoading) {
     return (
       <View style={styles.centered}>
-        <ActivityIndicator size="large" color={colors.primary.hex} />
+        <ActivityIndicator size="large" color={colorFromToken(colors.primary)} />
         <Text style={styles.loadingText}>{t('credits.loading')}</Text>
       </View>
     );
@@ -96,41 +95,41 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     padding: 24,
-    backgroundColor: colors.pageBg.hex,
+    backgroundColor: colorFromToken(colors.pageBg) as string,
   },
   centered: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.pageBg.hex,
+  backgroundColor: colorFromToken(colors.pageBg) as string,
   },
   title: {
     fontSize: textSizes.h2.size,
-    color: colors.textPrimary.hex,
+  color: colorFromToken(colors.textPrimary) as string,
     fontWeight: '700',
     marginBottom: 16,
     textAlign: 'center',
   },
   loadingText: {
     fontSize: textSizes.md.size,
-    color: colors.textMuted.hex,
+  color: colorFromToken(colors.textMuted) as string,
     marginTop: 12,
   },
   error: {
-    color: colors.danger.hex,
+  color: colorFromToken(colors.danger) as string,
     fontSize: textSizes.md.size,
     marginVertical: 12,
     textAlign: 'center',
   },
   addCreditsBtn: {
     marginTop: 24,
-    backgroundColor: colors.primaryBg.hex,
+  backgroundColor: colorFromToken(colors.primaryBg) as string,
     borderRadius: 8,
     padding: 12,
     alignItems: 'center',
   },
   addCreditsText: {
-    color: colors.ctaText.hex,
+  color: colorFromToken(colors.ctaText) as string,
     fontSize: textSizes.md.size,
     fontWeight: '600',
   },

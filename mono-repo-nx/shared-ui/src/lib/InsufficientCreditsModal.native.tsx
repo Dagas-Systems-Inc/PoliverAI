@@ -1,4 +1,4 @@
-import React from 'react'
+// React import not required with modern JSX runtime
 import { Modal, View, Text, Button, StyleSheet } from 'react-native'
 
 type Props = { open: boolean, onClose: () => void }

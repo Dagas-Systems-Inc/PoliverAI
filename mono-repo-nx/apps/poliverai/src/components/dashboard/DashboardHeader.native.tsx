@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import useDashboardHeader from '../../hooks/useDashboardHeader'
-import { rnTokens, rnStyleFromTokens } from '@poliverai/shared-ui'
+import { rnTokens, rnStyleFromTokens, colorFromToken } from '@poliverai/shared-ui'
 
 export default function DashboardHeader() {
   const { title, subtitle } = useDashboardHeader()
@@ -15,6 +15,6 @@ export default function DashboardHeader() {
 
 const styles = StyleSheet.create({
   container: { marginBottom: 12 },
-  title: { fontSize: 20, fontWeight: '700', color: rnTokens.colors.textPrimary },
-  subtitle: { fontSize: 14, color: rnTokens.colors.textMuted, marginTop: 4 },
+  title: { fontSize: 20, fontWeight: '700', color: colorFromToken(rnTokens.colors.textPrimary) },
+  subtitle: { fontSize: 14, color: colorFromToken(rnTokens.colors.textMuted), marginTop: 4 },
 })

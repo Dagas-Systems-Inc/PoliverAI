@@ -9,6 +9,9 @@ interface SplashProps {
   onFinish?: () => void;
   source?: unknown;
   duration?: number;
+  // legacy aliases used by some callers
+  delayMs?: number;
+  durationMs?: number;
 }
 
 // Runtime guard helpers
@@ -28,14 +31,15 @@ const tryRequire = (name: string) => {
 
 const LottieView: any = isReactNative ? tryRequire('lottie-react-native') : null;
 
-export const Splash: React.FC<SplashProps> = ({ onFinish, source, duration = 4000 }) => {
+export const Splash: React.FC<SplashProps> = ({ onFinish, source, duration = 4000, delayMs, durationMs }) => {
   const animRef = useRef<any>(null);
 
   useEffect(() => {
     // Simple in-app splash timing; do not call any Expo/native API here.
+    const ms = typeof durationMs === 'number' ? durationMs : (typeof delayMs === 'number' ? delayMs : duration)
     const timer = setTimeout(() => {
       if (typeof onFinish === 'function') onFinish();
-    }, duration);
+    }, ms);
 
     return () => clearTimeout(timer);
   }, [duration, onFinish]);

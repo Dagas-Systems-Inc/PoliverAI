@@ -1,34 +1,11 @@
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import React, { useContext, useEffect, useState, ReactNode } from 'react';
 import axios from 'axios';
 import { Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch } from 'react-redux';
 import { setUser as setUserAction, clearUser as clearUserAction } from '../slices/authSlice';
-
-export interface User {
-  id: string;
-  email: string;
-  name: string;
-  tier?: 'free' | 'pro';
-  credits?: number;
-  subscription_expires?: string;
-}
-
-export interface AuthContextType {
-  user: User | null;
-  login: (email: string, password: string) => Promise<void>;
-  register: (name: string, email: string, password: string) => Promise<void>;
-  logout: () => Promise<void>;
-  loading: boolean;
-  // Backwards-compatible alias expected by some consumers in the repo
-  isLoading?: boolean;
-  isAuthenticated: boolean;
-  isPro: boolean;
-  reportsCount?: number;
-  refreshReportsCount?: () => Promise<number>;
-}
-
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+import type { User } from '../types/user';
+import { AuthContext } from '../contexts/auth-context';
 
 // Resolve API base URL from a variety of environments without referencing
 // globals that may be absent in secure runtimes (SES) or other sandboxes.
@@ -123,6 +100,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   };
 
+  const refreshUser = async () => {
+    await fetchUser();
+  };
+
   const saveToken = async (token: string) => {
     if (Platform.OS === 'web') {
       window.localStorage.setItem('token', token);
@@ -177,7 +158,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     dispatch(clearUserAction());
   };
 
-  const value: AuthContextType = {
+  const value = {
     user,
     login,
     register,
@@ -188,6 +169,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     isPro: !!user && (user.tier === 'pro' || (user as any).isPro === true),
     reportsCount,
     refreshReportsCount,
+    refreshUser,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

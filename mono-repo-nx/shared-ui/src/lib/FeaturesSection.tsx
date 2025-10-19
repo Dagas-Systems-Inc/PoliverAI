@@ -3,10 +3,20 @@ import { View, Text, StyleSheet } from 'react-native';
 import { colors } from './styleTokens';
 import FeatureCard from './FeatureCard';
 import { CheckCircle2, Zap } from 'lucide-react-native';
-import { useAvailableFeatures } from '@poliverai/intl';
+// Try to call the workspace hook if available; otherwise fall back to a local stub.
+function tryUseAvailableFeatures(hasCredits: boolean) {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const intl = require('@poliverai/intl')
+    if (intl && typeof intl.useAvailableFeatures === 'function') return intl.useAvailableFeatures(hasCredits)
+  } catch (e) {
+    // ignore
+  }
+  return { freeFeatures: [], proFeatures: [] }
+}
 
 const FeaturesSection: React.FC = () => {
-  const { freeFeatures, proFeatures } = useAvailableFeatures(false);
+  const { freeFeatures, proFeatures } = tryUseAvailableFeatures(false as any) as any
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Features</Text>

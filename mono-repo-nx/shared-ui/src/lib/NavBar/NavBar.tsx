@@ -18,7 +18,8 @@ export const NavBar: React.FC<NavBarProps> = ({ logo }) => {
     }
   })();
 
-  const { user, logout, isAuthenticated, isPro, reportsCount } = useAuth();
+  const { user, logout, isAuthenticated, isPro } = useAuth();
+  const reportsCount = (useAuth() as any).reportsCount as number | undefined;
   const { t } = useTranslation();
 
   const handleLogout = async () => {

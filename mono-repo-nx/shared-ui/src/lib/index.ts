@@ -19,8 +19,9 @@ export { default as TeamWriteup } from './TeamWriteup';
 // goal is to provide a small surface area (`@poliverai/shared-ui`) that
 // screens can import from while porting web code to React Native.
 
-import rnStyleFromTokens, { rnTokens } from './rnStyleTokens'
-export { rnStyleFromTokens, rnTokens }
+import rnStyleFromTokens, { rnTokens, colorFromToken } from './rnStyleTokens'
+export { rnStyleFromTokens, rnTokens, colorFromToken }
+export { AuthProvider } from '@poliverai/intl';
 export * from './styleTokens'
 export { default as AccountStatus } from './AccountStatus'
 export { default as QuickActions } from './QuickActions'

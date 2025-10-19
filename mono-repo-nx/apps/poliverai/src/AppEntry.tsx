@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { AuthProvider, useAuth } from '@poliverai/intl';
-import { NavBar } from '@poliverai/shared-ui';
+import { Navbar } from '@poliverai/shared-ui';
 import brandAssets from '../assets/brand';
 import { AppNavigator } from './navigation/AppNavigator/AppNavigator';
 
@@ -18,7 +18,7 @@ function WebApp() {
 
   return (
     <View style={styles.root}>
-  <NavBar logo={brandAssets.poliveraiIconTransparent} />
+  <Navbar />
       <AppNavigator initialPlatform="web" isAuthenticated={isAuthenticated} isLoading={loading} />
     </View>
   );
