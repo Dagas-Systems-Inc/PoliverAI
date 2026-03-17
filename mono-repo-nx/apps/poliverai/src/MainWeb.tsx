@@ -1,33 +1,30 @@
-import React, { StrictMode, useEffect, useState } from 'react';
-// Mount the existing web frontend (Vite app) inside the monorepo
-// Use a short splash before mounting so web shows the same entry flow as native
-import WebApp from './AppEntry';
-import { ReduxProvider } from '@poliverai/intl';
-import { Splash } from '@poliverai/shared-ui';
+import React, { StrictMode, useEffect } from 'react';
+import '../../../../frontend/src/index.css';
+import FrontendApp from '../../../../frontend/src/App';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistStore } from 'redux-persist';
+import { store } from '../../../../frontend/src/store/store';
+import { bootstrapLegacyLocalStorage } from '../../../../frontend/src/store/legacyBootstrap';
+
+const persistor = persistStore(store);
 
 function WebBootstrap() {
-  const [showSplash, setShowSplash] = useState(true);
-
   useEffect(() => {
-    // Use the Splash component's visual rhythm; hide after 1200ms by default.
-    const t = setTimeout(() => setShowSplash(false), 1200);
-    return () => clearTimeout(t);
+    bootstrapLegacyLocalStorage();
   }, []);
 
-  if (showSplash) return <Splash />;
-
-  return <WebApp />;
+  return <FrontendApp />;
 }
 
 export default function MainWeb() {
-
-  console.log('Web app started');
-  
   return (
     <StrictMode>
-      <ReduxProvider>
-        <WebBootstrap />
-      </ReduxProvider>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <WebBootstrap />
+        </PersistGate>
+      </Provider>
     </StrictMode>
   );
 }

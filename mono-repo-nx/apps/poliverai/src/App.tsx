@@ -3,12 +3,7 @@ import { StatusBar, Platform, View, Text } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AppNavigator } from './navigation';
 import { Splash } from '@poliverai/shared-ui';
-
-// Lightweight local AuthProvider to avoid importing from @poliverai/shared-ui and break the circular dependency.
-const AuthProvider: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
-  // TODO: replace with real auth logic or move to a separate package that doesn't depend on this app.
-  return children as React.ReactElement;
-};
+import { AuthProvider } from '@poliverai/intl';
 
 // Minimal PlatformGreeting replacement to avoid importing from shared-ui.
 const PlatformGreeting: React.FC = () => {

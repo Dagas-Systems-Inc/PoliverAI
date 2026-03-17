@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, ActivityIndicator, Alert, Dimensions } from 'react-native';
+import { useRoute, RouteProp } from '@react-navigation/native';
 import { useAuth } from '@poliverai/intl';
 import { transactionsService, PaymentsService, t } from '@poliverai/intl';
 import { colors, textSizes, colorFromToken, CreditsSummary } from '@poliverai/shared-ui';
@@ -12,8 +13,14 @@ import type { Transaction } from '@poliverai/intl';
 const TransactionList = () => <View><Text>Transaction List (RN version needed)</Text></View>;
 const TransactionFilters = () => <View><Text>Transaction Filters (RN version needed)</Text></View>;
 
+type CreditsRouteParams = {
+  session_id?: string;
+  status?: string;
+};
+
 const CreditsScreen: React.FC = () => {
-  const { user, isAuthenticated, loading } = useAuth();
+  const route = useRoute<RouteProp<Record<string, CreditsRouteParams | undefined>, string>>();
+  const { user, isAuthenticated, loading, refreshUser } = useAuth();
   const [items, setItems] = useState<Transaction[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -43,6 +50,23 @@ const CreditsScreen: React.FC = () => {
   useEffect(() => {
     fetchTx();
   }, [fetchTx]);
+
+  useEffect(() => {
+    const status = route.params?.status;
+    const sessionId = route.params?.session_id;
+    if (!status) return;
+
+    PaymentsService.handlePaymentReturn({ status, session_id: sessionId }).catch(() => undefined);
+    if (refreshUser) refreshUser().catch(() => undefined);
+    fetchTx().catch(() => undefined);
+
+    const title = status === 'completed' ? 'Payment completed' : 'Payment failed';
+    const message =
+      status === 'completed'
+        ? 'Your purchase was applied and your account is being refreshed.'
+        : 'The checkout did not complete. You can try again from this screen.';
+    Alert.alert(title, message);
+  }, [fetchTx, refreshUser, route.params?.session_id, route.params?.status]);
 
   const purchasedCredits = user?.credits ?? 0;
   // If you have a subscription credits field, use it here; otherwise, set to 0
@@ -86,7 +110,7 @@ const CreditsScreen: React.FC = () => {
       <TransactionFilters />
       <TransactionList />
       {error && <Text style={styles.error}>{error}</Text>}
-      {/* EnterCreditsModal would be ported as a RN modal */}
+      <Button title="Buy 100 credits" onPress={() => { PaymentsService.purchaseCredits(10).catch((err) => setError(err instanceof Error ? err.message : String(err))) }} />
     </ScrollView>
   );
 };

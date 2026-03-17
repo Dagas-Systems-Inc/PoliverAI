@@ -13,6 +13,9 @@
     ],
     "@assets/*": [
       "apps/poliverai/assets/*"
+    ],
+    "@/*": [
+      "../frontend/src/*"
     ]
   },
   "nxJsonPlugins": [
@@ -91,6 +94,208 @@
         {
           "file": "apps/backend/project.json",
           "hash": "1901762643705807133"
+        }
+      ],
+      "@poliverai/intl": [
+        {
+          "file": "libs/intl/package.json",
+          "hash": "18081475502638237688"
+        },
+        {
+          "file": "libs/intl/src/contexts/auth-context.ts",
+          "hash": "9902205910197039385",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "libs/intl/src/contexts/useAuth.ts",
+          "hash": "8338893413458689133",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "libs/intl/src/hooks/useAccountStatus.ts",
+          "hash": "10750230790380600308"
+        },
+        {
+          "file": "libs/intl/src/hooks/useAnalysisProgress.ts",
+          "hash": "245404019684765536"
+        },
+        {
+          "file": "libs/intl/src/hooks/useAuth.tsx",
+          "hash": "4779303447164308679",
+          "deps": [
+            "npm:react",
+            "npm:axios",
+            "npm:react-native",
+            "npm:@react-native-async-storage/async-storage",
+            "npm:react-redux"
+          ]
+        },
+        {
+          "file": "libs/intl/src/hooks/useAvailableFeatures.ts",
+          "hash": "7469551708450597288",
+          "deps": [
+            "@poliverai/shared-ui"
+          ]
+        },
+        {
+          "file": "libs/intl/src/hooks/useCreditsSummary.ts",
+          "hash": "4671589617335865068"
+        },
+        {
+          "file": "libs/intl/src/i18n.ts",
+          "hash": "3343752786328715505",
+          "deps": [
+            "npm:react-redux"
+          ]
+        },
+        {
+          "file": "libs/intl/src/i18n/index.ts",
+          "hash": "5844569588801625279"
+        },
+        {
+          "file": "libs/intl/src/i18n/locales/en.ts",
+          "hash": "17621861692707538132"
+        },
+        {
+          "file": "libs/intl/src/index.ts",
+          "hash": "1870919232425713439"
+        },
+        {
+          "file": "libs/intl/src/lib/authHelpers.ts",
+          "hash": "12898438545314597577"
+        },
+        {
+          "file": "libs/intl/src/lib/dashboardHelpers.ts",
+          "hash": "4983812968203113729"
+        },
+        {
+          "file": "libs/intl/src/lib/errorHelpers.ts",
+          "hash": "7070483877526315995"
+        },
+        {
+          "file": "libs/intl/src/lib/eventHelpers.ts",
+          "hash": "7782995236264238630"
+        },
+        {
+          "file": "libs/intl/src/lib/fileHelpers.ts",
+          "hash": "1026472820605201296"
+        },
+        {
+          "file": "libs/intl/src/lib/paymentsHelpers.ts",
+          "hash": "12423737348670434021",
+          "deps": [
+            "npm:react-native"
+          ]
+        },
+        {
+          "file": "libs/intl/src/lib/transactionHelpers.ts",
+          "hash": "15158004932885376477"
+        },
+        {
+          "file": "libs/intl/src/lib/urlHelpers.ts",
+          "hash": "13582505931222900591"
+        },
+        {
+          "file": "libs/intl/src/lib/utils.ts",
+          "hash": "16099772572521786089"
+        },
+        {
+          "file": "libs/intl/src/locales/en-US.json",
+          "hash": "8475635836672221928"
+        },
+        {
+          "file": "libs/intl/src/locales/en-US.reduced.json",
+          "hash": "5865168391254347054"
+        },
+        {
+          "file": "libs/intl/src/provider.tsx",
+          "hash": "5784255659666271652",
+          "deps": [
+            "npm:react",
+            "npm:react-redux",
+            "npm:redux-persist",
+            "npm:react-native"
+          ]
+        },
+        {
+          "file": "libs/intl/src/services/api.ts",
+          "hash": "994580958290916559"
+        },
+        {
+          "file": "libs/intl/src/services/authService.ts",
+          "hash": "8377460633098761782"
+        },
+        {
+          "file": "libs/intl/src/services/payments.ts",
+          "hash": "3949832977361883801",
+          "deps": [
+            "npm:react-native",
+            "npm:@react-native-async-storage/async-storage"
+          ]
+        },
+        {
+          "file": "libs/intl/src/services/policyService.ts",
+          "hash": "4007621785872376220"
+        },
+        {
+          "file": "libs/intl/src/services/streamingService.ts",
+          "hash": "48241733109461091"
+        },
+        {
+          "file": "libs/intl/src/services/transactions.ts",
+          "hash": "17374319634422493787"
+        },
+        {
+          "file": "libs/intl/src/slices/authSlice.ts",
+          "hash": "4127731598481922695",
+          "deps": [
+            "npm:@reduxjs/toolkit"
+          ]
+        },
+        {
+          "file": "libs/intl/src/slices/localeSlice.ts",
+          "hash": "1820278012315914749",
+          "deps": [
+            "npm:@reduxjs/toolkit"
+          ]
+        },
+        {
+          "file": "libs/intl/src/store.ts",
+          "hash": "3973423530967195178",
+          "deps": [
+            "npm:@reduxjs/toolkit",
+            "npm:redux",
+            "npm:redux-persist",
+            "npm:@react-native-async-storage/async-storage",
+            "npm:react-native"
+          ]
+        },
+        {
+          "file": "libs/intl/src/types/api.ts",
+          "hash": "1794623772159251499"
+        },
+        {
+          "file": "libs/intl/src/types/feature.ts",
+          "hash": "9387895665725394901",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "libs/intl/src/types/user.ts",
+          "hash": "17253464488466273021"
+        },
+        {
+          "file": "libs/intl/src/utils/cn.ts",
+          "hash": "15516058123845190687",
+          "deps": [
+            "npm:clsx",
+            "npm:tailwind-merge"
+          ]
         }
       ],
       "@poliverai/poliverai-e2e": [
@@ -2621,7 +2826,7 @@
         },
         {
           "file": "apps/poliverai/android/app/src/main/AndroidManifest.xml",
-          "hash": "8439592262627536205"
+          "hash": "11750132059948239805"
         },
         {
           "file": "apps/poliverai/android/app/src/main/java/com/poliverai/app/MainActivity.kt",
@@ -2769,7 +2974,7 @@
         },
         {
           "file": "apps/poliverai/app.json",
-          "hash": "2146135795048611960"
+          "hash": "9995508486894827244"
         },
         {
           "file": "apps/poliverai/apps/poliverai/macos/Pods/Headers/Public/rnsvg/rnsvg-generated.mm",
@@ -2823,7 +3028,7 @@
         },
         {
           "file": "apps/poliverai/index.html",
-          "hash": "14583640089770276659"
+          "hash": "3258785348340088018"
         },
         {
           "file": "apps/poliverai/index.js",
@@ -2859,7 +3064,7 @@
         },
         {
           "file": "apps/poliverai/ios/PoliverAI/AppDelegate.swift",
-          "hash": "2013120382238551258"
+          "hash": "14888320067313949087"
         },
         {
           "file": "apps/poliverai/ios/PoliverAI/Images.xcassets/AppIcon.appiconset/100.png",
@@ -3031,7 +3236,7 @@
         },
         {
           "file": "apps/poliverai/ios/PoliverAI/Info.plist",
-          "hash": "1581786869131099592"
+          "hash": "1869499201577051626"
         },
         {
           "file": "apps/poliverai/ios/PoliverAI/LaunchScreen.storyboard",
@@ -3346,12 +3551,13 @@
         },
         {
           "file": "apps/poliverai/src/App.tsx",
-          "hash": "8296049617815764890",
+          "hash": "8701619703061015120",
           "deps": [
             "npm:react",
             "npm:react-native@0.81.4",
             "npm:react-native-safe-area-context",
-            "@poliverai/shared-ui"
+            "@poliverai/shared-ui",
+            "@poliverai/intl"
           ]
         },
         {
@@ -3375,11 +3581,9 @@
         },
         {
           "file": "apps/poliverai/src/MainWeb.tsx",
-          "hash": "537130466876223333",
+          "hash": "13571239717338951770",
           "deps": [
-            "npm:react",
-            "@poliverai/intl",
-            "@poliverai/shared-ui"
+            "npm:react"
           ]
         },
         {
@@ -3658,7 +3862,7 @@
         },
         {
           "file": "apps/poliverai/src/navigation/AppNavigator/AppNavigator.tsx",
-          "hash": "7875456770931300981",
+          "hash": "16341753442058654758",
           "deps": [
             "npm:react",
             "npm:@react-navigation/native",
@@ -3667,7 +3871,7 @@
         },
         {
           "file": "apps/poliverai/src/navigation/TabNavigator/TabNavigator.tsx",
-          "hash": "13648882722049440688",
+          "hash": "17078409920055566638",
           "deps": [
             "npm:react",
             "npm:react-native@0.81.4",
@@ -3681,21 +3885,20 @@
         },
         {
           "file": "apps/poliverai/src/screens/CreditsScreen.tsx",
-          "hash": "18021824578521629892",
+          "hash": "12003430072704653069",
           "deps": [
             "npm:react",
             "npm:react-native@0.81.4",
+            "npm:@react-navigation/native",
             "@poliverai/intl",
             "@poliverai/shared-ui"
           ]
         },
         {
           "file": "apps/poliverai/src/screens/DashboardScreen.tsx",
-          "hash": "11603101344779348260",
+          "hash": "17940003828517971042",
           "deps": [
-            "npm:react",
-            "npm:react-native@0.81.4",
-            "@poliverai/shared-ui"
+            "npm:react"
           ]
         },
         {
@@ -3714,10 +3917,9 @@
         },
         {
           "file": "apps/poliverai/src/screens/HomeScreen/HomeScreen.tsx",
-          "hash": "9453129043750195156",
+          "hash": "8182675980356485728",
           "deps": [
             "npm:react",
-            "npm:react-native@0.81.4",
             "npm:react-native-safe-area-context"
           ]
         },
@@ -3831,7 +4033,7 @@
         },
         {
           "file": "apps/poliverai/tsconfig.app.json",
-          "hash": "5133049084682008047"
+          "hash": "8446088155400617159"
         },
         {
           "file": "apps/poliverai/tsconfig.json",
@@ -3843,12 +4045,15 @@
         },
         {
           "file": "apps/poliverai/vite.config.ts",
-          "hash": "6660395040784771867",
+          "hash": "1895429003933019074",
           "deps": [
             "npm:vite",
             "npm:@vitejs/plugin-react",
             "npm:@nx/vite",
-            "npm:esbuild"
+            "npm:esbuild",
+            "npm:autoprefixer",
+            "npm:tailwindcss",
+            "npm:tailwindcss-animate"
           ]
         },
         {
@@ -3980,197 +4185,6 @@
           "hash": "3013222065611708352"
         }
       ],
-      "@poliverai/intl": [
-        {
-          "file": "libs/intl/package.json",
-          "hash": "18081475502638237688"
-        },
-        {
-          "file": "libs/intl/src/contexts/auth-context.ts",
-          "hash": "9902205910197039385",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "libs/intl/src/contexts/useAuth.ts",
-          "hash": "8338893413458689133",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "libs/intl/src/hooks/useAccountStatus.ts",
-          "hash": "10750230790380600308"
-        },
-        {
-          "file": "libs/intl/src/hooks/useAnalysisProgress.ts",
-          "hash": "245404019684765536"
-        },
-        {
-          "file": "libs/intl/src/hooks/useAuth.tsx",
-          "hash": "4779303447164308679",
-          "deps": [
-            "npm:react",
-            "npm:axios",
-            "npm:react-native",
-            "npm:@react-native-async-storage/async-storage",
-            "npm:react-redux"
-          ]
-        },
-        {
-          "file": "libs/intl/src/hooks/useAvailableFeatures.ts",
-          "hash": "7469551708450597288",
-          "deps": [
-            "@poliverai/shared-ui"
-          ]
-        },
-        {
-          "file": "libs/intl/src/hooks/useCreditsSummary.ts",
-          "hash": "4671589617335865068"
-        },
-        {
-          "file": "libs/intl/src/i18n.ts",
-          "hash": "3343752786328715505",
-          "deps": [
-            "npm:react-redux"
-          ]
-        },
-        {
-          "file": "libs/intl/src/i18n/index.ts",
-          "hash": "5844569588801625279"
-        },
-        {
-          "file": "libs/intl/src/i18n/locales/en.ts",
-          "hash": "17621861692707538132"
-        },
-        {
-          "file": "libs/intl/src/index.ts",
-          "hash": "8598649194735337911"
-        },
-        {
-          "file": "libs/intl/src/lib/authHelpers.ts",
-          "hash": "12898438545314597577"
-        },
-        {
-          "file": "libs/intl/src/lib/dashboardHelpers.ts",
-          "hash": "4983812968203113729"
-        },
-        {
-          "file": "libs/intl/src/lib/errorHelpers.ts",
-          "hash": "7070483877526315995"
-        },
-        {
-          "file": "libs/intl/src/lib/eventHelpers.ts",
-          "hash": "7782995236264238630"
-        },
-        {
-          "file": "libs/intl/src/lib/fileHelpers.ts",
-          "hash": "1026472820605201296"
-        },
-        {
-          "file": "libs/intl/src/lib/transactionHelpers.ts",
-          "hash": "15158004932885376477"
-        },
-        {
-          "file": "libs/intl/src/lib/urlHelpers.ts",
-          "hash": "13582505931222900591"
-        },
-        {
-          "file": "libs/intl/src/lib/utils.ts",
-          "hash": "16099772572521786089"
-        },
-        {
-          "file": "libs/intl/src/locales/en-US.json",
-          "hash": "8475635836672221928"
-        },
-        {
-          "file": "libs/intl/src/locales/en-US.reduced.json",
-          "hash": "5865168391254347054"
-        },
-        {
-          "file": "libs/intl/src/provider.tsx",
-          "hash": "5784255659666271652",
-          "deps": [
-            "npm:react",
-            "npm:react-redux",
-            "npm:redux-persist",
-            "npm:react-native"
-          ]
-        },
-        {
-          "file": "libs/intl/src/services/api.ts",
-          "hash": "994580958290916559"
-        },
-        {
-          "file": "libs/intl/src/services/authService.ts",
-          "hash": "8377460633098761782"
-        },
-        {
-          "file": "libs/intl/src/services/payments.ts",
-          "hash": "7983907913677769358"
-        },
-        {
-          "file": "libs/intl/src/services/policyService.ts",
-          "hash": "4007621785872376220"
-        },
-        {
-          "file": "libs/intl/src/services/streamingService.ts",
-          "hash": "48241733109461091"
-        },
-        {
-          "file": "libs/intl/src/services/transactions.ts",
-          "hash": "17374319634422493787"
-        },
-        {
-          "file": "libs/intl/src/slices/authSlice.ts",
-          "hash": "4127731598481922695",
-          "deps": [
-            "npm:@reduxjs/toolkit"
-          ]
-        },
-        {
-          "file": "libs/intl/src/slices/localeSlice.ts",
-          "hash": "1820278012315914749",
-          "deps": [
-            "npm:@reduxjs/toolkit"
-          ]
-        },
-        {
-          "file": "libs/intl/src/store.ts",
-          "hash": "3973423530967195178",
-          "deps": [
-            "npm:@reduxjs/toolkit",
-            "npm:redux",
-            "npm:redux-persist",
-            "npm:@react-native-async-storage/async-storage",
-            "npm:react-native"
-          ]
-        },
-        {
-          "file": "libs/intl/src/types/api.ts",
-          "hash": "1794623772159251499"
-        },
-        {
-          "file": "libs/intl/src/types/feature.ts",
-          "hash": "9387895665725394901",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "libs/intl/src/types/user.ts",
-          "hash": "17253464488466273021"
-        },
-        {
-          "file": "libs/intl/src/utils/cn.ts",
-          "hash": "15516058123845190687",
-          "deps": [
-            "npm:clsx",
-            "npm:tailwind-merge"
-          ]
-        }
-      ],
       "@poliverai/shared-ui": [
         {
           "file": "shared-ui/.babelrc.js",
@@ -4216,6 +4230,14 @@
           ]
         },
         {
+          "file": "shared-ui/src/lib/AppPlatforms.native.tsx",
+          "hash": "9404121866371324668",
+          "deps": [
+            "npm:react",
+            "npm:react-native"
+          ]
+        },
+        {
           "file": "shared-ui/src/lib/AppPlatforms.tsx",
           "hash": "12139354266431272718",
           "deps": [
@@ -4253,6 +4275,16 @@
           "deps": [
             "npm:react",
             "npm:react-native"
+          ]
+        },
+        {
+          "file": "shared-ui/src/lib/CTASection.native.tsx",
+          "hash": "11494089373900899665",
+          "deps": [
+            "npm:react",
+            "npm:react-native",
+            "npm:@react-navigation/native",
+            "@poliverai/intl"
           ]
         },
         {
@@ -4347,6 +4379,14 @@
           ]
         },
         {
+          "file": "shared-ui/src/lib/FeaturesSection.native.tsx",
+          "hash": "14986642040516119906",
+          "deps": [
+            "npm:react",
+            "npm:react-native"
+          ]
+        },
+        {
           "file": "shared-ui/src/lib/FeaturesSection.tsx",
           "hash": "8237220827875350423",
           "deps": [
@@ -4357,6 +4397,14 @@
               "@poliverai/intl",
               "dynamic"
             ]
+          ]
+        },
+        {
+          "file": "shared-ui/src/lib/Footer.native.tsx",
+          "hash": "1198829977056453310",
+          "deps": [
+            "npm:react",
+            "npm:react-native"
           ]
         },
         {
@@ -4405,12 +4453,30 @@
           ]
         },
         {
+          "file": "shared-ui/src/lib/HeroSection.native.tsx",
+          "hash": "9070948282341355204",
+          "deps": [
+            "npm:react",
+            "npm:react-native",
+            "npm:@react-navigation/native",
+            "@poliverai/intl"
+          ]
+        },
+        {
           "file": "shared-ui/src/lib/HeroSection.tsx",
           "hash": "6163811563309267029",
           "deps": [
             "npm:react",
             "npm:react-native",
             "@poliverai/intl"
+          ]
+        },
+        {
+          "file": "shared-ui/src/lib/HowItWorks.native.tsx",
+          "hash": "15525786983834135082",
+          "deps": [
+            "npm:react",
+            "npm:react-native"
           ]
         },
         {
@@ -4541,6 +4607,16 @@
           "deps": [
             "npm:react",
             "npm:react-native"
+          ]
+        },
+        {
+          "file": "shared-ui/src/lib/PricingSection.native.tsx",
+          "hash": "3673491710816431658",
+          "deps": [
+            "npm:react",
+            "npm:react-native",
+            "npm:@react-navigation/native",
+            "@poliverai/intl"
           ]
         },
         {
@@ -7544,7 +7620,7 @@
       },
       {
         "file": "tsconfig.base.json",
-        "hash": "9686451369022131490"
+        "hash": "17899364780978242297"
       },
       {
         "file": "tsconfig.json",

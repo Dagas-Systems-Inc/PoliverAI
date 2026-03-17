@@ -3,9 +3,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { LoginScreen } from '../../screens';
 import { RegisterScreen } from '../../screens/RegisterScreen';
-import { HomeScreen } from '../../screens/HomeScreen/HomeScreen';
+import DashboardScreen from '../../screens/DashboardScreen';
 import { TabNavigator } from '../TabNavigator/TabNavigator';
 import { LandingScreen } from '../../screens/LandingScreen';
+import CreditsScreen from '../../screens/CreditsScreen';
 
 const Stack = createStackNavigator();
 
@@ -37,7 +38,10 @@ export const AppNavigator = ({
         // - '/register' and '/signup': RegisterScreen
         // - '/dashboard': HomeScreen (dashboard)
         {
-          prefixes: [typeof window !== 'undefined' ? window.location.origin : 'app://'],
+          prefixes: [
+            typeof window !== 'undefined' ? window.location.origin : 'app://',
+            'poliverai://',
+          ],
           config: {
             screens: {
               WebLanding: '',
@@ -45,6 +49,8 @@ export const AppNavigator = ({
               Register: 'register',
               Signup: 'signup',
               Dashboard: 'dashboard',
+              Credits: 'credits',
+              PaymentReturn: 'payments/return',
               Main: {
                 path: 'app',
               },
@@ -59,7 +65,9 @@ export const AppNavigator = ({
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="Signup" component={RegisterScreen} />
-        <Stack.Screen name="Dashboard" component={HomeScreen} />
+        <Stack.Screen name="Dashboard" component={DashboardScreen} />
+        <Stack.Screen name="Credits" component={CreditsScreen} />
+        <Stack.Screen name="PaymentReturn" component={CreditsScreen} />
         {authenticated ? (
           <Stack.Screen name="Main" component={TabNavigator} />
         ) : null}

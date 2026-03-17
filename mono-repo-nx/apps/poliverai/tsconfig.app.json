@@ -3,7 +3,7 @@
   "compilerOptions": {
   "outDir": "dist",
   "types": ["node"],
-  "rootDir": "../../",
+  "rootDir": "../../../",
     "jsx": "react-jsx",
     "noUnusedLocals": false,
     "lib": ["dom"],
@@ -38,6 +38,9 @@
     "../../libs/intl/src/**/*.tsx",
     "../../libs/intl/src/**/*.json"
     ,
-    "assets/**/*"
+    "assets/**/*",
+    "../../../frontend/src/**/*.ts",
+    "../../../frontend/src/**/*.tsx",
+    "../../../frontend/src/**/*.d.ts"
   ]
 }
