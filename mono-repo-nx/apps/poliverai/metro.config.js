@@ -7,6 +7,7 @@ const { assetExts, sourceExts } = defaultConfig.resolver;
 const workspaceRoot = path.resolve(__dirname, '..', '..');
 const appNodeModules = path.resolve(__dirname, 'node_modules');
 const rootNodeModules = path.resolve(workspaceRoot, 'node_modules');
+const rnghEntry = path.resolve(rootNodeModules, 'react-native-gesture-handler');
 const intlEntry = path.resolve(workspaceRoot, 'libs', 'intl', 'src', 'index.ts');
 const sharedUiEntry = path.resolve(workspaceRoot, 'shared-ui', 'src', 'index.ts');
 
@@ -32,6 +33,7 @@ const customConfig = {
       {},
       {
         get: (_, name) => {
+          if (name === 'react-native-gesture-handler') return rnghEntry;
           if (name === '@poliverai/intl') return intlEntry;
           if (name === '@poliverai/shared-ui') return sharedUiEntry;
           return path.join(rootNodeModules, name);
@@ -56,6 +58,8 @@ module.exports = withNxMetro(mergeConfig(defaultConfig, customConfig), {
     // workspace root so Metro can resolve workspaces/libs
     workspaceRoot,
     // shared-ui source folder (explicit)
-    path.resolve(workspaceRoot, 'shared-ui', 'src')
+    path.resolve(workspaceRoot, 'shared-ui', 'src'),
+    // explicit watch on hoisted native packages Metro must resolve from workspace root
+    rnghEntry,
   ],
 });

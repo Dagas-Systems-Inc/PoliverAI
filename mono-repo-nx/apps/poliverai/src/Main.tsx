@@ -1,5 +1,5 @@
 import './NativewindEnv';
-import '../../../node_modules/react-native-gesture-handler/lib/commonjs/index.js';
+import 'react-native-gesture-handler';
 import { AppRegistry } from 'react-native';
 import App from './App';
 import { ReduxProvider } from '@poliverai/intl';

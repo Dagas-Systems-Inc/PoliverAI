@@ -2,6 +2,7 @@
 const { spawnSync } = require('child_process');
 const path = require('path');
 const fs = require('fs');
+const { ensureAppHoistedLinks } = require('../../../scripts/ensure-app-hoisted-links');
 
 const appRoot = path.resolve(__dirname, '..');
 const marker = path.join(appRoot, '.patches_applied');
@@ -24,10 +25,17 @@ function run(cmd, args, opts = {}) {
 const restore = path.join(appRoot, 'scripts', 'restore-codegen-stubs.js');
 const patch = path.join(appRoot, 'scripts', 'patch-react-native-worklets.js');
 const applyRepo = path.join(appRoot, '..', '..', 'scripts', 'apply-react-native-worklets-patch.js');
+const repoRoot = path.resolve(appRoot, '..', '..');
 
 if (fs.existsSync(restore)) run('node', [restore], { cwd: appRoot });
 if (fs.existsSync(patch)) run('node', [patch], { cwd: appRoot });
-if (fs.existsSync(applyRepo)) run('node', [applyRepo], { cwd: path.resolve(appRoot, '..', '..') });
+if (fs.existsSync(applyRepo)) run('node', [applyRepo], { cwd: repoRoot });
+
+ensureAppHoistedLinks({
+  repoRoot,
+  appRoot,
+  logPrefix: 'postinstall-apply-patches',
+});
 
 fs.writeFileSync(marker, `applied ${new Date().toISOString()}\n`);
 console.log('postinstall-apply-patches: applied and recorded marker', marker);

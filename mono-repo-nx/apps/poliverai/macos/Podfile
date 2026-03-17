@@ -2,11 +2,14 @@ require 'pathname'
 require 'fileutils'
 
 # If a committed snapshot of macOS generated iOS artifacts exists under
-# ../../patches/macos-generated/ios, copy it into this project's
+# ../../../patches/macos-generated/ios/ios-generated, copy it into this project's
 # build/generated/ios directory before CocoaPods/React codegen runs. This
 # ensures `pod install` can succeed in CI or fresh checkouts when codegen
 # artifacts are not available.
-patch_dir = File.expand_path('../../patches/macos-generated/ios', __dir__)
+# Only copy the canonical generated subtree. The parent directory also contains
+# historical stub podspecs that were used as a temporary workaround and must
+# not override the real generated ReactCodegen podspec.
+patch_dir = File.expand_path('../../../patches/macos-generated/ios/ios-generated', __dir__)
 if File.directory?(patch_dir)
   target_build_dir = File.join(__dir__, 'build', 'generated', 'ios')
   FileUtils.mkdir_p(target_build_dir)

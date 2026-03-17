@@ -31,7 +31,7 @@
   "scripts": {
     "android": "npx react-native run-android",
     "ios": "npx react-native run-ios",
-    "macos": "npx react-native run-macos",
+    "macos": "node ./scripts/run-macos-with-metro.js",
     "postinstall": "node ./scripts/postinstall-apply-patches.js"
   }
 }
