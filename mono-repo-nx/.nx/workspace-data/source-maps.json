@@ -9,48 +9,48 @@
       "@nx/js/typescript"
     ],
     "targets.typecheck": [
-      "apps/poliverai/tsconfig.json",
-      "@nx/js/typescript"
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
     ],
     "targets.typecheck.dependsOn": [
-      "apps/poliverai/tsconfig.json",
-      "@nx/js/typescript"
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
     ],
     "targets.typecheck.options": [
-      "apps/poliverai/tsconfig.json",
-      "@nx/js/typescript"
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
     ],
     "targets.typecheck.cache": [
-      "apps/poliverai/tsconfig.json",
-      "@nx/js/typescript"
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
     ],
     "targets.typecheck.inputs": [
-      "apps/poliverai/tsconfig.json",
-      "@nx/js/typescript"
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
     ],
     "targets.typecheck.outputs": [
       "apps/poliverai/tsconfig.json",
       "@nx/js/typescript"
     ],
     "targets.typecheck.syncGenerators": [
-      "apps/poliverai/tsconfig.json",
-      "@nx/js/typescript"
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
     ],
     "targets.typecheck.metadata": [
-      "apps/poliverai/tsconfig.json",
-      "@nx/js/typescript"
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
     ],
     "targets.typecheck.executor": [
-      "apps/poliverai/tsconfig.json",
-      "@nx/js/typescript"
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
     ],
     "targets.typecheck.options.cwd": [
-      "apps/poliverai/tsconfig.json",
-      "@nx/js/typescript"
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
     ],
     "targets.typecheck.options.command": [
-      "apps/poliverai/tsconfig.json",
-      "@nx/js/typescript"
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
     ],
     "targets.typecheck.metadata.technologies": [
       "apps/poliverai/tsconfig.json",
@@ -61,12 +61,12 @@
       "@nx/js/typescript"
     ],
     "targets.typecheck.metadata.description": [
-      "apps/poliverai/tsconfig.json",
-      "@nx/js/typescript"
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
     ],
     "targets.typecheck.metadata.help": [
-      "apps/poliverai/tsconfig.json",
-      "@nx/js/typescript"
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
     ],
     "targets.typecheck.metadata.help.command": [
       "apps/poliverai/tsconfig.json",
@@ -199,6 +199,94 @@
     "targets.test.metadata.help.example": [
       "apps/poliverai/jest.config.ts",
       "@nx/jest/plugin"
+    ],
+    "projectType": [
+      "apps/poliverai/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.dev": [
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.continuous": [
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.options": [
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.metadata": [
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.syncGenerators": [
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.executor": [
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.options.cwd": [
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.options.command": [
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.metadata.technologies": [
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.metadata.technologies.0": [
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.metadata.description": [
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.metadata.help": [
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.metadata.help.command": [
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.metadata.help.example": [
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.typecheck.metadata.technologies.1": [
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.watch-deps": [
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.watch-deps.continuous": [
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.watch-deps.dependsOn": [
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.watch-deps.executor": [
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.watch-deps.options": [
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.watch-deps.options.command": [
+      "apps/poliverai/vite.config.ts",
+      "@nx/vite/plugin"
     ],
     "name": [
       "apps/poliverai/project.json",
@@ -364,10 +452,6 @@
       "apps/poliverai/project.json",
       "nx/core/project-json"
     ],
-    "projectType": [
-      "apps/poliverai/project.json",
-      "nx/core/project-json"
-    ],
     "targets.start": [
       "apps/poliverai/project.json",
       "nx/core/project-json"
@@ -401,30 +485,6 @@
       "nx/core/project-json"
     ],
     "targets.run-ios.options": [
-      "apps/poliverai/project.json",
-      "nx/core/project-json"
-    ],
-    "targets.build-android": [
-      "apps/poliverai/project.json",
-      "nx/core/project-json"
-    ],
-    "targets.build-android.executor": [
-      "apps/poliverai/project.json",
-      "nx/core/project-json"
-    ],
-    "targets.build-android.options": [
-      "apps/poliverai/project.json",
-      "nx/core/project-json"
-    ],
-    "targets.build-ios": [
-      "apps/poliverai/project.json",
-      "nx/core/project-json"
-    ],
-    "targets.build-ios.executor": [
-      "apps/poliverai/project.json",
-      "nx/core/project-json"
-    ],
-    "targets.build-ios.options": [
       "apps/poliverai/project.json",
       "nx/core/project-json"
     ],
@@ -473,54 +533,6 @@
       "nx/core/project-json"
     ],
     "targets.run-windows.options.parallel": [
-      "apps/poliverai/project.json",
-      "nx/core/project-json"
-    ],
-    "targets.build-macos": [
-      "apps/poliverai/project.json",
-      "nx/core/project-json"
-    ],
-    "targets.build-macos.executor": [
-      "apps/poliverai/project.json",
-      "nx/core/project-json"
-    ],
-    "targets.build-macos.options": [
-      "apps/poliverai/project.json",
-      "nx/core/project-json"
-    ],
-    "targets.build-macos.options.commands": [
-      "apps/poliverai/project.json",
-      "nx/core/project-json"
-    ],
-    "targets.build-macos.options.cwd": [
-      "apps/poliverai/project.json",
-      "nx/core/project-json"
-    ],
-    "targets.build-macos.options.parallel": [
-      "apps/poliverai/project.json",
-      "nx/core/project-json"
-    ],
-    "targets.build-windows": [
-      "apps/poliverai/project.json",
-      "nx/core/project-json"
-    ],
-    "targets.build-windows.executor": [
-      "apps/poliverai/project.json",
-      "nx/core/project-json"
-    ],
-    "targets.build-windows.options": [
-      "apps/poliverai/project.json",
-      "nx/core/project-json"
-    ],
-    "targets.build-windows.options.commands": [
-      "apps/poliverai/project.json",
-      "nx/core/project-json"
-    ],
-    "targets.build-windows.options.cwd": [
-      "apps/poliverai/project.json",
-      "nx/core/project-json"
-    ],
-    "targets.build-windows.options.parallel": [
       "apps/poliverai/project.json",
       "nx/core/project-json"
     ],

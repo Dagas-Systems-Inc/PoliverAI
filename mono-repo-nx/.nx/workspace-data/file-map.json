@@ -86,16 +86,6 @@
   ],
   "fileMap": {
     "projectFileMap": {
-      "backend": [
-        {
-          "file": "apps/backend/README.md",
-          "hash": "1828311541741101327"
-        },
-        {
-          "file": "apps/backend/project.json",
-          "hash": "1901762643705807133"
-        }
-      ],
       "@poliverai/intl": [
         {
           "file": "libs/intl/package.json",
@@ -296,39 +286,6 @@
             "npm:clsx",
             "npm:tailwind-merge"
           ]
-        }
-      ],
-      "@poliverai/poliverai-e2e": [
-        {
-          "file": "apps/poliverai-e2e/eslint.config.mjs",
-          "hash": "1172734138943286526",
-          "deps": [
-            "npm:eslint-plugin-playwright"
-          ]
-        },
-        {
-          "file": "apps/poliverai-e2e/package.json",
-          "hash": "1314024798413686166"
-        },
-        {
-          "file": "apps/poliverai-e2e/playwright.config.ts",
-          "hash": "1851517654716273094",
-          "deps": [
-            "npm:@playwright/test",
-            "npm:@nx/playwright",
-            "npm:@nx/devkit"
-          ]
-        },
-        {
-          "file": "apps/poliverai-e2e/src/example.spec.ts",
-          "hash": "16019101014373124625",
-          "deps": [
-            "npm:@playwright/test"
-          ]
-        },
-        {
-          "file": "apps/poliverai-e2e/tsconfig.json",
-          "hash": "15001458170383955177"
         }
       ],
       "@poliverai/poliverai": [
@@ -3028,7 +2985,7 @@
         },
         {
           "file": "apps/poliverai/index.html",
-          "hash": "3258785348340088018"
+          "hash": "10113491649673436261"
         },
         {
           "file": "apps/poliverai/index.js",
@@ -3581,9 +3538,11 @@
         },
         {
           "file": "apps/poliverai/src/MainWeb.tsx",
-          "hash": "13571239717338951770",
+          "hash": "16086856254576991737",
           "deps": [
-            "npm:react"
+            "npm:react",
+            "npm:react-redux",
+            "npm:redux-persist"
           ]
         },
         {
@@ -4045,10 +4004,8 @@
         },
         {
           "file": "apps/poliverai/vite.config.ts",
-          "hash": "1895429003933019074",
+          "hash": "1042820936830216833",
           "deps": [
-            "npm:vite",
-            "npm:@vitejs/plugin-react",
             "npm:@nx/vite",
             "npm:esbuild",
             "npm:autoprefixer",
@@ -4183,6 +4140,39 @@
         {
           "file": "apps/poliverai/windows/poliverai/poliverai.vcxproj.filters",
           "hash": "3013222065611708352"
+        }
+      ],
+      "@poliverai/poliverai-e2e": [
+        {
+          "file": "apps/poliverai-e2e/eslint.config.mjs",
+          "hash": "1172734138943286526",
+          "deps": [
+            "npm:eslint-plugin-playwright"
+          ]
+        },
+        {
+          "file": "apps/poliverai-e2e/package.json",
+          "hash": "1314024798413686166"
+        },
+        {
+          "file": "apps/poliverai-e2e/playwright.config.ts",
+          "hash": "1851517654716273094",
+          "deps": [
+            "npm:@playwright/test",
+            "npm:@nx/playwright",
+            "npm:@nx/devkit"
+          ]
+        },
+        {
+          "file": "apps/poliverai-e2e/src/example.spec.ts",
+          "hash": "16019101014373124625",
+          "deps": [
+            "npm:@playwright/test"
+          ]
+        },
+        {
+          "file": "apps/poliverai-e2e/tsconfig.json",
+          "hash": "15001458170383955177"
         }
       ],
       "@poliverai/shared-ui": [
@@ -4750,6 +4740,16 @@
         {
           "file": "shared-ui/types/poliverai-intl/index.d.ts",
           "hash": "12062670755262846032"
+        }
+      ],
+      "backend": [
+        {
+          "file": "apps/backend/README.md",
+          "hash": "1828311541741101327"
+        },
+        {
+          "file": "apps/backend/project.json",
+          "hash": "1901762643705807133"
         }
       ]
     },
@@ -7652,11 +7652,11 @@
       },
       {
         "file": "types/poliverai-intl-global.d.ts",
-        "hash": "1874695732665944825"
+        "hash": "7007636762546695819"
       },
       {
         "file": "types/poliverai-intl.d.ts",
-        "hash": "8522270170485839445"
+        "hash": "1393513151598702819"
       },
       {
         "file": "yarn.lock",

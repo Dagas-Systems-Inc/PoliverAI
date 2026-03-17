@@ -272,46 +272,9 @@
             "dependsOn": [
               "^typecheck"
             ],
-            "options": {
-              "cwd": "apps/poliverai",
-              "command": "tsc --build --emitDeclarationOnly"
-            },
             "cache": true,
             "inputs": [
-              "{projectRoot}/package.json",
-              "{workspaceRoot}/tsconfig.base.json",
-              "{projectRoot}/tsconfig.json",
-              "{projectRoot}/tsconfig.app.json",
-              "{projectRoot}/tsconfig.spec.json",
-              "{projectRoot}/src/**/*.ts",
-              "{projectRoot}/src/**/*.tsx",
-              "{projectRoot}/src/**/*.js",
-              "{projectRoot}/src/**/*.jsx",
-              "{workspaceRoot}/shared-ui/src/**/*.ts",
-              "{workspaceRoot}/shared-ui/src/**/*.tsx",
-              "{workspaceRoot}/libs/intl/src/**/*.ts",
-              "{workspaceRoot}/libs/intl/src/**/*.tsx",
-              "{workspaceRoot}/libs/intl/src/**/*.json",
-              "{projectRoot}/assets/**/*",
-              "frontend/src/**/*.ts",
-              "frontend/src/**/*.tsx",
-              "frontend/src/**/*.d.ts",
-              "{projectRoot}/jest.config.ts",
-              "{projectRoot}/src/**/*.test.ts",
-              "{projectRoot}/src/**/*.spec.ts",
-              "{projectRoot}/src/**/*.test.tsx",
-              "{projectRoot}/src/**/*.spec.tsx",
-              "{projectRoot}/src/**/*.test.js",
-              "{projectRoot}/src/**/*.spec.js",
-              "{projectRoot}/src/**/*.test.jsx",
-              "{projectRoot}/src/**/*.spec.jsx",
-              "{projectRoot}/src/**/*.d.ts",
-              "!{projectRoot}/out-tsc",
-              "!{projectRoot}/dist",
-              "!{projectRoot}/src/TestSetup.ts",
-              "!{projectRoot}/eslint.config.js",
-              "!{projectRoot}/eslint.config.cjs",
-              "!{projectRoot}/eslint.config.mjs",
+              "production",
               "^production",
               {
                 "externalDependencies": [
@@ -332,6 +295,7 @@
             ],
             "metadata": {
               "technologies": [
+                "typescript",
                 "typescript"
               ],
               "description": "Runs type-checking for the project.",
@@ -345,6 +309,10 @@
               }
             },
             "executor": "nx:run-commands",
+            "options": {
+              "cwd": "apps/poliverai",
+              "command": "tsc --build --emitDeclarationOnly"
+            },
             "configurations": {},
             "parallelism": true
           },
@@ -429,6 +397,94 @@
             "dependsOn": [
               "^build"
             ]
+          },
+          "build": {
+            "executor": "@nx/vite:build",
+            "options": {
+              "config": "apps/poliverai/vite.config.ts"
+            },
+            "configurations": {},
+            "parallelism": true
+          },
+          "serve": {
+            "executor": "@nx/vite:dev-server",
+            "options": {
+              "config": "apps/poliverai/vite.config.ts",
+              "buildTarget": "@poliverai/poliverai:build"
+            },
+            "configurations": {},
+            "parallelism": true,
+            "continuous": true
+          },
+          "dev": {
+            "continuous": true,
+            "options": {
+              "cwd": "apps/poliverai",
+              "command": "vite"
+            },
+            "metadata": {
+              "technologies": [
+                "vite"
+              ],
+              "description": "Starts Vite dev server",
+              "help": {
+                "command": "yarn vite --help",
+                "example": {
+                  "options": {
+                    "port": 3000
+                  }
+                }
+              }
+            },
+            "syncGenerators": [
+              "@nx/js:typescript-sync"
+            ],
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "preview": {
+            "executor": "@nx/vite:preview-server",
+            "options": {
+              "config": "apps/poliverai/vite.config.ts"
+            },
+            "configurations": {},
+            "parallelism": true,
+            "continuous": true
+          },
+          "serve-static": {
+            "continuous": true,
+            "executor": "@nx/web:file-server",
+            "options": {
+              "buildTarget": "build",
+              "spa": true
+            },
+            "syncGenerators": [
+              "@nx/js:typescript-sync"
+            ],
+            "configurations": {},
+            "parallelism": true
+          },
+          "build-deps": {
+            "dependsOn": [
+              "^build"
+            ],
+            "configurations": {},
+            "options": {},
+            "parallelism": true,
+            "executor": "nx:noop"
+          },
+          "watch-deps": {
+            "continuous": true,
+            "dependsOn": [
+              "build-deps"
+            ],
+            "executor": "nx:run-commands",
+            "options": {
+              "command": "yarn nx watch --projects @poliverai/poliverai --includeDependentProjects -- yarn nx build-deps @poliverai/poliverai"
+            },
+            "configurations": {},
+            "parallelism": true
           },
           "android": {
             "executor": "nx:run-script",
@@ -606,39 +662,9 @@
             },
             "configurations": {},
             "parallelism": true
-          },
-          "serve": {
-            "executor": "@nx/vite:dev-server",
-            "options": {
-              "config": "apps/poliverai/vite.config.ts",
-              "buildTarget": "@poliverai/poliverai:build"
-            },
-            "configurations": {},
-            "parallelism": true,
-            "continuous": true
-          },
-          "build": {
-            "executor": "@nx/vite:build",
-            "options": {
-              "config": "apps/poliverai/vite.config.ts"
-            },
-            "configurations": {},
-            "parallelism": true
-          },
-          "preview": {
-            "executor": "@nx/vite:preview-server",
-            "options": {
-              "config": "apps/poliverai/vite.config.ts"
-            },
-            "configurations": {},
-            "parallelism": true,
-            "continuous": true
           }
         },
-        "name": "@poliverai/poliverai",
-        "tags": [
-          "npm:private"
-        ],
+        "projectType": "application",
         "metadata": {
           "targetGroups": {
             "NPM Scripts": [
@@ -653,8 +679,11 @@
             "isInPackageManagerWorkspaces": true
           }
         },
+        "name": "@poliverai/poliverai",
+        "tags": [
+          "npm:private"
+        ],
         "sourceRoot": "apps/poliverai/src",
-        "projectType": "application",
         "implicitDependencies": []
       }
     },
@@ -18686,11 +18715,6 @@
       {
         "source": "@poliverai/poliverai",
         "target": "npm:lucide-react-native",
-        "type": "static"
-      },
-      {
-        "source": "@poliverai/poliverai",
-        "target": "npm:@vitejs/plugin-react",
         "type": "static"
       },
       {
@@ -43807,24 +43831,6 @@
     ]
   },
   "version": "6.0",
-  "errors": [
-    {
-      "stack": " - apps/poliverai/vite.config.ts: Error [ERR_REQUIRE_ESM]: require() of ES Module /Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/vite/dist/node/index.js from /Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/@vitejs/plugin-react/dist/index.cjs not supported.\nInstead change the require of index.js in /Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/@vitejs/plugin-react/dist/index.cjs to a dynamic import() which is available in all CommonJS modules.\n    at _require.extensions.<computed> [as .js] (file:///Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:36241:9)\n    at Object.<anonymous> (/Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/@vitejs/plugin-react/dist/index.cjs:27:22)\n    at _require.extensions.<computed> [as .js] (file:///Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:36241:9)\n    at Object.<anonymous> (/Users/gabrieldagadu/PoliverAI/mono-repo-nx/apps/poliverai/vite.config.ts:36:35)\n    at _require.extensions.<computed> [as .js] (file:///Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:36240:44)\n    at loadConfigFromBundledFile (file:///Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:36244:15)\n    at async bundleAndLoadConfigFile (file:///Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:36116:17)\n    at async loadConfigFromFile (file:///Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:36083:42)\n    at async resolveConfig (file:///Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:35732:22)\n    at async buildViteTargets (/Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/@nx/vite/src/plugins/plugin.js:144:29)\n    at async /Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/@nx/vite/src/plugins/plugin.js:72:21\n    at async /Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/nx/src/project-graph/plugins/utils.js:10:27\n    at async Promise.all (index 0)\n    at async createNodesFromFiles (/Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/nx/src/project-graph/plugins/utils.js:8:5)\n    at async exports.createNodesV2 (/Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/@nx/vite/src/plugins/plugin.js:55:20)\n    at async LoadedNxPlugin.createNodes (/Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/nx/src/project-graph/plugins/loaded-nx-plugin.js:22:36)\n    at async LoadedNxPlugin.createNodes.<computed> (/Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/nx/src/project-graph/plugins/loaded-nx-plugin.js:32:28)\n    at async createNodes (/Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/nx/src/project-graph/plugins/isolation/plugin-worker.js:76:36)\n    at async consumeMessage (/Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/nx/src/project-graph/plugins/isolation/messaging.js:42:26)",
-      "message": "An error occurred while processing files for the @nx/vite/plugin plugin (Defined at nx.json#plugins[4])\n.\n  - apps/poliverai/vite.config.ts: require() of ES Module /Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/vite/dist/node/index.js from /Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/@vitejs/plugin-react/dist/index.cjs not supported.\nInstead change the require of index.js in /Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/@vitejs/plugin-react/dist/index.cjs to a dynamic import() which is available in all CommonJS modules.",
-      "errors": [
-        [
-          "apps/poliverai/vite.config.ts",
-          {
-            "stack": "Error [ERR_REQUIRE_ESM]: require() of ES Module /Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/vite/dist/node/index.js from /Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/@vitejs/plugin-react/dist/index.cjs not supported.\nInstead change the require of index.js in /Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/@vitejs/plugin-react/dist/index.cjs to a dynamic import() which is available in all CommonJS modules.\n    at _require.extensions.<computed> [as .js] (file:///Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:36241:9)\n    at Object.<anonymous> (/Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/@vitejs/plugin-react/dist/index.cjs:27:22)\n    at _require.extensions.<computed> [as .js] (file:///Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:36241:9)\n    at Object.<anonymous> (/Users/gabrieldagadu/PoliverAI/mono-repo-nx/apps/poliverai/vite.config.ts:36:35)\n    at _require.extensions.<computed> [as .js] (file:///Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:36240:44)\n    at loadConfigFromBundledFile (file:///Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:36244:15)\n    at async bundleAndLoadConfigFile (file:///Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:36116:17)\n    at async loadConfigFromFile (file:///Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:36083:42)\n    at async resolveConfig (file:///Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:35732:22)\n    at async buildViteTargets (/Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/@nx/vite/src/plugins/plugin.js:144:29)\n    at async /Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/@nx/vite/src/plugins/plugin.js:72:21\n    at async /Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/nx/src/project-graph/plugins/utils.js:10:27\n    at async Promise.all (index 0)\n    at async createNodesFromFiles (/Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/nx/src/project-graph/plugins/utils.js:8:5)\n    at async exports.createNodesV2 (/Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/@nx/vite/src/plugins/plugin.js:55:20)\n    at async LoadedNxPlugin.createNodes (/Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/nx/src/project-graph/plugins/loaded-nx-plugin.js:22:36)\n    at async LoadedNxPlugin.createNodes.<computed> (/Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/nx/src/project-graph/plugins/loaded-nx-plugin.js:32:28)\n    at async createNodes (/Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/nx/src/project-graph/plugins/isolation/plugin-worker.js:76:36)\n    at async consumeMessage (/Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/nx/src/project-graph/plugins/isolation/messaging.js:42:26)",
-            "message": "require() of ES Module /Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/vite/dist/node/index.js from /Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/@vitejs/plugin-react/dist/index.cjs not supported.\nInstead change the require of index.js in /Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/@vitejs/plugin-react/dist/index.cjs to a dynamic import() which is available in all CommonJS modules.",
-            "code": "ERR_REQUIRE_ESM"
-          }
-        ]
-      ],
-      "partialResults": [],
-      "name": "AggregateCreateNodesError",
-      "pluginIndex": 4
-    }
-  ],
-  "computedAt": 1773721898873
+  "errors": [],
+  "computedAt": 1773721927154
 }
