@@ -1098,13 +1098,22 @@
         "hash": "sha512-l7WfQfX0WK4M0v2RudjuQK4u99BS6yLHYEmdtVPP7lKV013zr9DygFuWNlnbvQ9LR+LS0Egz/XAvGx5U9MX0fQ=="
       }
     },
-    "npm:@babel/runtime": {
+    "npm:@babel/runtime@7.28.4": {
       "type": "npm",
-      "name": "npm:@babel/runtime",
+      "name": "npm:@babel/runtime@7.28.4",
       "data": {
         "version": "7.28.4",
         "packageName": "@babel/runtime",
         "hash": "sha512-Q/N6JNWvIvPnLDvjlE1OUBLPQHH6l3CltCEsHIujp45zQUSSh8K+gHnaEX45yAT1nyngnINhvWtzN+Nb9D8RAQ=="
+      }
+    },
+    "npm:@babel/runtime": {
+      "type": "npm",
+      "name": "npm:@babel/runtime",
+      "data": {
+        "version": "7.29.2",
+        "packageName": "@babel/runtime",
+        "hash": "sha512-JiDShH45zKHWyGe4ZNVRrCjBz8Nh9TMmZG1kh4QTK8hCBTWBi8Da+i7s1fJw7/lYpM4ccepSNfqzZ/QvABBi5g=="
       }
     },
     "npm:@babel/template": {
@@ -14508,6 +14517,15 @@
         "hash": "sha512-/wJE58HLEAkATzhhX1xSr+fostLsK8Q97EfpfMDKo8jlOc1QKESSX/FQrhk7HhQH/2uSaox4Y86sNaI02kteiA=="
       }
     },
+    "npm:react-native-screens@4.24.0": {
+      "type": "npm",
+      "name": "npm:react-native-screens@4.24.0",
+      "data": {
+        "version": "4.24.0",
+        "packageName": "react-native-screens",
+        "hash": "sha512-SyoiGaDofiyGPFrUkn1oGsAzkRuX1JUvTD9YQQK3G1JGQ5VWkvHgYSsc1K9OrLsDQxN7NmV71O0sHCAh8cBetA=="
+      }
+    },
     "npm:react-native-screens": {
       "type": "npm",
       "name": "npm:react-native-screens",
@@ -23986,7 +24004,7 @@
     },
     {
       "source": "npm:@nx/js",
-      "target": "npm:@babel/runtime",
+      "target": "npm:@babel/runtime@7.28.4",
       "type": "static"
     },
     {
@@ -30011,7 +30029,7 @@
     },
     {
       "source": "npm:babel-plugin-macros",
-      "target": "npm:@babel/runtime",
+      "target": "npm:@babel/runtime@7.28.4",
       "type": "static"
     },
     {
@@ -40481,7 +40499,7 @@
     },
     {
       "source": "npm:metro-runtime",
-      "target": "npm:@babel/runtime",
+      "target": "npm:@babel/runtime@7.28.4",
       "type": "static"
     },
     {
@@ -40491,7 +40509,7 @@
     },
     {
       "source": "npm:metro-runtime",
-      "target": "npm:@babel/runtime",
+      "target": "npm:@babel/runtime@7.28.4",
       "type": "static"
     },
     {
@@ -40501,7 +40519,7 @@
     },
     {
       "source": "npm:metro-runtime@0.83.2",
-      "target": "npm:@babel/runtime",
+      "target": "npm:@babel/runtime@7.28.4",
       "type": "static"
     },
     {
@@ -40511,7 +40529,7 @@
     },
     {
       "source": "npm:metro-runtime@0.83.2",
-      "target": "npm:@babel/runtime",
+      "target": "npm:@babel/runtime@7.28.4",
       "type": "static"
     },
     {
@@ -44055,6 +44073,16 @@
       "type": "static"
     },
     {
+      "source": "npm:react-native-screens@4.24.0",
+      "target": "npm:react-freeze",
+      "type": "static"
+    },
+    {
+      "source": "npm:react-native-screens@4.24.0",
+      "target": "npm:warn-once",
+      "type": "static"
+    },
+    {
       "source": "npm:react-native-screens",
       "target": "npm:react-freeze",
       "type": "static"
@@ -44121,7 +44149,7 @@
     },
     {
       "source": "npm:react-native-web",
-      "target": "npm:@babel/runtime",
+      "target": "npm:@babel/runtime@7.28.4",
       "type": "static"
     },
     {
@@ -44161,7 +44189,7 @@
     },
     {
       "source": "npm:react-native-windows",
-      "target": "npm:@babel/runtime",
+      "target": "npm:@babel/runtime@7.28.4",
       "type": "static"
     },
     {
@@ -44381,7 +44409,7 @@
     },
     {
       "source": "npm:react-native-windows",
-      "target": "npm:@babel/runtime",
+      "target": "npm:@babel/runtime@7.28.4",
       "type": "static"
     },
     {
@@ -45051,7 +45079,7 @@
     },
     {
       "source": "npm:react-redux",
-      "target": "npm:@babel/runtime",
+      "target": "npm:@babel/runtime@7.28.4",
       "type": "static"
     },
     {
@@ -45226,7 +45254,7 @@
     },
     {
       "source": "npm:redux",
-      "target": "npm:@babel/runtime",
+      "target": "npm:@babel/runtime@7.28.4",
       "type": "static"
     },
     {

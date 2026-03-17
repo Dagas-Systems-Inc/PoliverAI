@@ -3,6 +3,13 @@ export type { Transaction } from './services/transactions';
 export { default as PaymentsService } from './services/payments';
 export * from './lib/eventHelpers';
 export * from './lib/paymentsHelpers';
+export {
+  getApiBaseOrigin,
+  buildCheckoutUrls,
+  buildNativePaymentReturnUrl,
+  POLIVERAI_DEEP_LINK_SCHEME,
+  POLIVERAI_PAYMENT_RETURN_PATH,
+} from './lib/paymentsHelpers';
 export { default as transactionsService } from './services/transactions';
 export * from './lib/transactionHelpers';
 export * from './lib/dashboardHelpers';

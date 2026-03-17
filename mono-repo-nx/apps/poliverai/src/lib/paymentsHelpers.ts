@@ -1,9 +1,22 @@
-export function getApiBaseOrigin(): string | undefined {
+const FALLBACK_API_BASE = 'https://poliverai.com'
+
+export function getApiBaseOrigin(): string {
   try {
-    const envApi = process.env.VITE_API_URL || process.env.API_BASE
-    if (envApi && String(envApi).trim() !== '') return String(envApi)
-    const mode = process.env.NODE_ENV
-    if (mode === 'development') return 'http://localhost:8000'
-  } catch {}
-  return 'http://localhost:8000'
+    const meta = import.meta as unknown as { env?: Record<string, unknown> }
+    const viteEnv = meta?.env ?? {}
+    const apiUrl = (viteEnv.VITE_API_BASE_URL ?? viteEnv.VITE_API_URL ?? process.env.VITE_API_URL ?? process.env.API_BASE) as string | undefined
+    if (apiUrl && apiUrl.trim() !== '') return apiUrl.replace(/\/$/, '')
+  } catch {
+    // Fall through to runtime-based detection.
+  }
+
+  if (
+    typeof window !== 'undefined' &&
+    window.location?.origin &&
+    !/localhost|127\.0\.0\.1/.test(window.location.origin)
+  ) {
+    return window.location.origin
+  }
+
+  return FALLBACK_API_BASE
 }

@@ -3,7 +3,8 @@
 // used by both web (Vite) and React Native. Do not import Expo or app assets
 // from here. A calling app should pass a `source` prop for the animation.
 import React, { useEffect, useRef } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, Image } from 'react-native';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 interface SplashProps {
   onFinish?: () => void;
@@ -47,7 +48,7 @@ export const Splash: React.FC<SplashProps> = ({ onFinish, source, duration = 400
   // If Lottie is available (native), render it. Otherwise render a simple web fallback.
   if (LottieView) {
     return (
-      <View style={styles.container} pointerEvents="none">
+      <View style={[styles.container, styles.pointerEventsNone]}>
         <LottieView
           ref={animRef}
           source={(source as any) || undefined}
@@ -61,9 +62,24 @@ export const Splash: React.FC<SplashProps> = ({ onFinish, source, duration = 400
     );
   }
 
+  if (isWeb) {
+    return (
+      <div style={webOverlayStyle}>
+        <div style={webInnerStyle}>
+          <DotLottieReact
+            src="https://lottie.host/60d101b5-d7e9-4e51-8c0c-2624f51e642a/sGDt58V29f.lottie"
+            autoplay
+            style={webPlayerStyle}
+          />
+        </div>
+      </div>
+    );
+  }
+
   // Web / fallback rendering
   return (
-    <View style={styles.container} pointerEvents="none">
+    <View style={[styles.container, styles.pointerEventsNone]}>
+      <Image source={{ uri: '/poliverai-logo.svg' }} style={styles.logo} resizeMode="contain" />
       <Text style={styles.brand}>PoliverAI</Text>
     </View>
   );
@@ -77,9 +93,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     zIndex: 9999,
   },
+  pointerEventsNone: {
+    pointerEvents: 'none',
+  },
   lottie: {
     width: '100%',
     height: '100%',
+  },
+  logo: {
+    width: 160,
+    height: 72,
+    marginBottom: 12,
   },
   brand: {
     fontSize: 24,
@@ -87,5 +111,32 @@ const styles = StyleSheet.create({
     color: '#0f172a',
   },
 });
+
+const webOverlayStyle: React.CSSProperties = {
+  position: 'fixed',
+  inset: 0,
+  background: 'rgba(255,255,255,0.92)',
+  backdropFilter: 'blur(8px)',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  zIndex: 9999,
+  pointerEvents: 'none',
+};
+
+const webInnerStyle: React.CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: 'min(360px, 70vw)',
+};
+
+const webPlayerStyle: React.CSSProperties = {
+  width: '100%',
+  height: 'auto',
+  maxWidth: '70vw',
+  maxHeight: '70vh',
+  filter: 'drop-shadow(0 20px 45px rgba(15, 23, 42, 0.08))',
+};
 
 export default Splash;

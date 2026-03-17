@@ -1,7 +1,7 @@
-import './NativewindEnv.js';
-import 'react-native-gesture-handler';
+import './NativewindEnv';
+import '../../../node_modules/react-native-gesture-handler/lib/commonjs/index.js';
 import { AppRegistry } from 'react-native';
-import App from './App.js';
+import App from './App';
 import { ReduxProvider } from '@poliverai/intl';
 
 const WrappedApp = () => (

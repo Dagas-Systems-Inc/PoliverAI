@@ -1,87 +1,216 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { colors } from './styleTokens';
-import FeatureCard from './FeatureCard';
-import { CheckCircle2, Zap } from 'lucide-react-native';
-// Try to call the workspace hook if available; otherwise fall back to a local stub.
-function tryUseAvailableFeatures(hasCredits: boolean) {
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const intl = require('@poliverai/intl')
-    if (intl && typeof intl.useAvailableFeatures === 'function') return intl.useAvailableFeatures(hasCredits)
-  } catch (e) {
-    // ignore
-  }
-  return { freeFeatures: [], proFeatures: [] }
+import { StyleSheet, Text, View } from 'react-native';
+import { t } from '@poliverai/intl';
+
+const freeFeatures = [
+  {
+    badge: 'F',
+    title: 'Basic Policy Verification',
+    description: 'Upload and analyze privacy policies for basic GDPR compliance checks using rule-based detection.',
+  },
+  {
+    badge: 'E',
+    title: 'Essential Compliance Checks',
+    description: 'Detect fundamental GDPR violations and get basic recommendations for improvement.',
+  },
+  {
+    badge: 'Q',
+    title: 'Fast Analysis',
+    description: 'Quick compliance screening using our optimized rule-based analysis engine.',
+  },
+];
+
+const proFeatures = [
+  {
+    badge: 'AI',
+    title: 'AI-Powered Deep Analysis',
+    description: 'Advanced AI analysis that detects nuanced privacy violations and complex compliance issues.',
+  },
+  {
+    badge: 'R',
+    title: 'Comprehensive Reporting',
+    description: 'Detailed compliance reports with confidence scores, evidence, and actionable recommendations.',
+  },
+  {
+    badge: 'P',
+    title: 'Policy Generation & Revision',
+    description: 'Generate revised policies automatically based on detected compliance gaps.',
+  },
+];
+
+function copy(path: string, fallback: string) {
+  const value = t(path, fallback);
+  return typeof value === 'string' ? value : fallback;
 }
 
-const FeaturesSection: React.FC = () => {
-  const { freeFeatures, proFeatures } = tryUseAvailableFeatures(false as any) as any
+function FeatureCard({
+  badge,
+  title,
+  description,
+  pro = false,
+}: {
+  badge: string;
+  title: string;
+  description: string;
+  pro?: boolean;
+}) {
   return (
-    <View style={styles.container}>
-      <Text style={styles.heading}>Features</Text>
-      {/* Free Features */}
-      <View style={styles.sectionTitle}>
-        <View style={styles.headingRow}>
-          <CheckCircle2 size={24} color={colors.success.hex} />
-          <Text style={styles.subheading}>Free Features</Text>
+    <View style={[styles.featureCard, pro ? styles.proCard : null]}>
+      <View style={styles.featureHeader}>
+        <View style={[styles.featureBadge, pro ? styles.proBadge : styles.freeBadge]}>
+          <Text style={[styles.featureBadgeText, pro ? styles.proBadgeText : styles.freeBadgeText]}>{badge}</Text>
         </View>
-        <View style={styles.cardsRow}>
-          {freeFeatures.map((f: any, i: number) => (
-            <FeatureCard key={i} {...f} />
+        <Text style={styles.featureTitle}>{title}</Text>
+        {pro ? (
+          <View style={styles.proPill}>
+            <Text style={styles.proPillText}>PRO</Text>
+          </View>
+        ) : null}
+      </View>
+      <Text style={styles.featureDescription}>{description}</Text>
+    </View>
+  );
+}
+
+export default function FeaturesSection() {
+  return (
+    <View style={styles.section}>
+      <View style={styles.header}>
+        <Text style={styles.heading}>{copy('landing.features.title', 'Powerful Features for Every Need')}</Text>
+        <Text style={styles.subheading}>
+          {copy('landing.features.subtitle', 'From basic compliance checks to advanced AI-powered analysis')}
+        </Text>
+      </View>
+
+      <View style={styles.group}>
+        <Text style={styles.groupTitle}>{copy('landing.features.free_heading', 'Free Tier Features')}</Text>
+        <View style={styles.grid}>
+          {freeFeatures.map((feature) => (
+            <FeatureCard key={feature.title} {...feature} />
           ))}
         </View>
       </View>
-      {/* Pro Features */}
-      <View style={styles.sectionTitle}>
-        <View style={styles.headingRow}>
-          <Zap size={24} color={colors.primary.hex} />
-          <Text style={styles.subheading}>Pro Features</Text>
-        </View>
-        <View style={styles.cardsRow}>
-          {proFeatures.map((f: any, i: number) => (
-            <FeatureCard key={`pro-${i}`} {...f} isPro />
+
+      <View style={styles.group}>
+        <Text style={styles.groupTitle}>{copy('landing.features.pro_heading', 'Pro Tier Features')}</Text>
+        <View style={styles.grid}>
+          {proFeatures.map((feature) => (
+            <FeatureCard key={feature.title} {...feature} pro />
           ))}
         </View>
       </View>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
-  container: {
-    paddingVertical: 24,
-    backgroundColor: colors.pageBg.hex,
+  section: {
+    maxWidth: 1280,
+    width: '100%',
+    marginHorizontal: 'auto',
+    paddingHorizontal: 16,
+    paddingVertical: 48,
+  },
+  header: {
+    alignItems: 'center',
+    marginBottom: 48,
   },
   heading: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: colors.textPrimary.hex,
-    marginBottom: 16,
+    color: '#0f172a',
+    fontSize: 42,
+    lineHeight: 46,
+    fontWeight: '700',
     textAlign: 'center',
   },
-  sectionTitle: {
-    marginBottom: 24,
-  },
-  headingRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    marginBottom: 8,
-    justifyContent: 'center',
-  },
   subheading: {
+    marginTop: 12,
+    maxWidth: 760,
+    color: '#475569',
     fontSize: 18,
-    fontWeight: '600',
-    color: colors.textMuted.hex,
-    marginLeft: 8,
+    lineHeight: 29,
+    textAlign: 'center',
   },
-  cardsRow: {
+  group: {
+    marginBottom: 28,
+    width: '100%',
+  },
+  groupTitle: {
+    marginBottom: 18,
+    color: '#0f172a',
+    fontSize: 28,
+    fontWeight: '700',
+    textAlign: 'left',
+    width: '100%',
+  },
+  grid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    gap: 12,
+    gap: 18,
+  },
+  featureCard: {
+    width: 320,
+    minHeight: 190,
+    borderRadius: 22,
+    borderWidth: 1,
+    borderColor: 'rgba(226,232,240,0.9)',
+    backgroundColor: '#ffffff',
+    padding: 24,
+  },
+  proCard: {
+    borderColor: 'rgba(37,99,235,0.2)',
+    backgroundColor: 'rgba(239,246,255,0.95)',
+  },
+  featureHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  featureBadge: {
+    width: 42,
+    height: 42,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  freeBadge: {
+    backgroundColor: 'rgba(22,163,74,0.12)',
+  },
+  proBadge: {
+    backgroundColor: 'rgba(37,99,235,0.12)',
+  },
+  featureBadgeText: {
+    fontSize: 14,
+    fontWeight: '800',
+  },
+  freeBadgeText: {
+    color: '#16a34a',
+  },
+  proBadgeText: {
+    color: '#2563eb',
+  },
+  featureTitle: {
+    flex: 1,
+    color: '#0f172a',
+    fontSize: 20,
+    fontWeight: '700',
+  },
+  proPill: {
+    borderRadius: 999,
+    backgroundColor: '#2563eb',
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+  },
+  proPillText: {
+    color: '#ffffff',
+    fontSize: 11,
+    fontWeight: '800',
+    letterSpacing: 1,
+  },
+  featureDescription: {
+    marginTop: 16,
+    color: '#475569',
+    fontSize: 15,
+    lineHeight: 26,
   },
 });
-
-export default FeaturesSection;

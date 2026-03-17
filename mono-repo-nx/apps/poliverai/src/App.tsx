@@ -3,7 +3,7 @@ import { StatusBar, Platform, View, Text } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AppNavigator } from './navigation';
 import { Splash } from '@poliverai/shared-ui';
-import { AuthProvider } from '@poliverai/intl';
+import { AuthProvider, useAuth } from '@poliverai/intl';
 
 // Minimal PlatformGreeting replacement to avoid importing from shared-ui.
 const PlatformGreeting: React.FC = () => {
@@ -18,30 +18,34 @@ const PlatformGreeting: React.FC = () => {
 };
 
 
-export const App = () => {
-  const [showSplash, setShowSplash] = useState(true);
-
-  // Decide initial behavior based on platform.
-  // For web, we want the web root to show the web landing (handled in MainWeb),
-  // but ensure AppNavigator knows the platform in case it needs to choose initial route.
+function AppContent() {
+  const { isAuthenticated, loading } = useAuth();
+  const [showSplash, setShowSplash] = useState(Platform.OS !== 'web');
   const initialPlatform = Platform.OS === 'web' ? 'web' : 'native';
 
   return (
-    <SafeAreaProvider>
+    <>
       <StatusBar barStyle="dark-content" />
       <PlatformGreeting />
-      {showSplash && (
+      {showSplash ? (
         <Splash
           onFinish={() => {
             setShowSplash(false);
           }}
         />
+      ) : (
+        <AppNavigator initialPlatform={initialPlatform} isAuthenticated={isAuthenticated} isLoading={loading} />
       )}
-      {!showSplash && (
-        <AuthProvider>
-          <AppNavigator initialPlatform={initialPlatform} />
-        </AuthProvider>
-      )}
+    </>
+  );
+}
+
+export const App = () => {
+  return (
+    <SafeAreaProvider>
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
     </SafeAreaProvider>
   );
 };

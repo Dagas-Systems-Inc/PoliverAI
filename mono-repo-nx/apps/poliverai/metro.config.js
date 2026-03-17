@@ -1,8 +1,14 @@
 const { withNxMetro } = require('@nx/react-native');
 const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
+const path = require('path');
 
 const defaultConfig = getDefaultConfig(__dirname);
 const { assetExts, sourceExts } = defaultConfig.resolver;
+const workspaceRoot = path.resolve(__dirname, '..', '..');
+const appNodeModules = path.resolve(__dirname, 'node_modules');
+const rootNodeModules = path.resolve(workspaceRoot, 'node_modules');
+const intlEntry = path.resolve(workspaceRoot, 'libs', 'intl', 'src', 'index.ts');
+const sharedUiEntry = path.resolve(workspaceRoot, 'shared-ui', 'src', 'index.ts');
 
 /**
  * Metro configuration
@@ -21,9 +27,20 @@ const customConfig = {
     sourceExts: [...sourceExts, 'cjs', 'mjs', 'svg'],
     // add macos/windows platforms so metro can resolve platform-specific files like *.windows.js / *.macos.js
     platforms: [...(defaultConfig.resolver?.platforms || []), 'macos', 'windows'],
+    nodeModulesPaths: [appNodeModules, rootNodeModules],
+    extraNodeModules: new Proxy(
+      {},
+      {
+        get: (_, name) => {
+          if (name === '@poliverai/intl') return intlEntry;
+          if (name === '@poliverai/shared-ui') return sharedUiEntry;
+          return path.join(rootNodeModules, name);
+        },
+      }
+    ),
     alias: {
       // Resolve @assets to the app assets folder so imports like @assets/.. work in RN
-      '@assets': require('path').resolve(__dirname, 'assets'),
+      '@assets': path.resolve(__dirname, 'assets'),
     },
   },
 };
@@ -37,8 +54,8 @@ module.exports = withNxMetro(mergeConfig(defaultConfig, customConfig), {
   // Specify folders to watch, in addition to Nx defaults (workspace libraries and node_modules)
   watchFolders: [
     // workspace root so Metro can resolve workspaces/libs
-    require('path').resolve(__dirname, '..', '..'),
+    workspaceRoot,
     // shared-ui source folder (explicit)
-    require('path').resolve(__dirname, '..', '..', 'shared-ui', 'src')
+    path.resolve(workspaceRoot, 'shared-ui', 'src')
   ],
 });

@@ -1,14 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import policyService from '../../services/policyService'
-
-export type ReportMetadata = {
-  filename: string
-  verdict?: string
-  status?: string
-  score?: number
-  file_size?: number
-  document_name?: string
-}
+import type { ReportMetadata } from '../../types/api'
 
 export default function useReports(initialPage = 1, initialLimit = 10) {
   const [reports, setReports] = useState<ReportMetadata[]>([])
@@ -23,7 +15,7 @@ export default function useReports(initialPage = 1, initialLimit = 10) {
     setIsLoading(true)
     setError(null)
     try {
-      const resp = await policyService.getUserReports() as any
+      const resp = await policyService.getUserReports({ page, limit }) as any
       let arr: ReportMetadata[] = []
       if (Array.isArray(resp)) {
         arr = resp as ReportMetadata[]
@@ -44,7 +36,7 @@ export default function useReports(initialPage = 1, initialLimit = 10) {
     } finally {
       setIsLoading(false)
     }
-  }, [])
+  }, [limit, page])
 
   useEffect(() => {
     fetchReports()

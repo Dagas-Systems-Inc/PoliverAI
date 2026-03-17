@@ -1,6 +1,6 @@
 import { Platform } from 'react-native'
 
-const FALLBACK_API_BASE = 'http://localhost:8000'
+const FALLBACK_API_BASE = 'https://poliverai.com'
 export const POLIVERAI_DEEP_LINK_SCHEME = 'poliverai://'
 export const POLIVERAI_PAYMENT_RETURN_PATH = 'payments/return'
 
@@ -14,7 +14,11 @@ export function getApiBaseOrigin(): string {
     void err
   }
 
-  if (typeof window !== 'undefined' && window.location?.origin) {
+  if (
+    typeof window !== 'undefined' &&
+    window.location?.origin &&
+    !/localhost|127\.0\.0\.1/.test(window.location.origin)
+  ) {
     return window.location.origin
   }
 
@@ -30,8 +34,8 @@ export function buildCheckoutUrls() {
 
   if (Platform.OS === 'web') {
     return {
-      success: `${apiBase}/api/v1/checkout/finalize`,
-      cancel: `${apiBase}/credits`,
+      success: `${apiBase}/payments/return?status=completed`,
+      cancel: `${apiBase}/credits?status=failed`,
     }
   }
 

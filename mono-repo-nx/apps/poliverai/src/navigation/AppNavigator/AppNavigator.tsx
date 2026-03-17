@@ -1,8 +1,9 @@
 import React from 'react';
+import { ActivityIndicator, View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { LoginScreen } from '../../screens';
-import { RegisterScreen } from '../../screens/RegisterScreen';
+import { LoginScreen, PolicyAnalysisScreen, ReportsScreen } from '../../screens';
+import RegisterScreen from '../../screens/RegisterScreen/RegisterScreen';
 import DashboardScreen from '../../screens/DashboardScreen';
 import { TabNavigator } from '../TabNavigator/TabNavigator';
 import { LandingScreen } from '../../screens/LandingScreen';
@@ -26,7 +27,12 @@ export const AppNavigator = ({
   const authenticated = isAuthenticated ?? false;
 
   if (loading) {
-    return null; // You could show a loading spinner here
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#f8fafc', gap: 12 }}>
+        <ActivityIndicator size="large" color="#2563eb" />
+        <Text style={{ color: '#475569', fontSize: 16, fontWeight: '600' }}>Loading your dashboard...</Text>
+      </View>
+    );
   }
 
   return (
@@ -49,6 +55,8 @@ export const AppNavigator = ({
               Register: 'register',
               Signup: 'signup',
               Dashboard: 'dashboard',
+              Analyze: 'analyze',
+              Reports: 'reports',
               Credits: 'credits',
               PaymentReturn: 'payments/return',
               Main: {
@@ -66,6 +74,8 @@ export const AppNavigator = ({
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="Signup" component={RegisterScreen} />
         <Stack.Screen name="Dashboard" component={DashboardScreen} />
+        <Stack.Screen name="Analyze" component={PolicyAnalysisScreen} />
+        <Stack.Screen name="Reports" component={ReportsScreen} />
         <Stack.Screen name="Credits" component={CreditsScreen} />
         <Stack.Screen name="PaymentReturn" component={CreditsScreen} />
         {authenticated ? (

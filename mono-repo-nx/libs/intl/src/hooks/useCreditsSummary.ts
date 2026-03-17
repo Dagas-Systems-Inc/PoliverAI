@@ -5,10 +5,10 @@ export type CreditsSummaryValues = {
 }
 
 export default function useCreditsSummary(subscriptionCredits: number, purchasedCredits: number, totalSpentCredits: number): CreditsSummaryValues {
-  // Simple conversion for now: assume 1 credit = $1 for a placeholder.
+  const usdPerCredit = 0.1
   return {
-    subscriptionUsd: subscriptionCredits,
-    purchasedUsd: purchasedCredits,
-    spentUsd: totalSpentCredits,
+    subscriptionUsd: subscriptionCredits * usdPerCredit,
+    purchasedUsd: purchasedCredits * usdPerCredit,
+    spentUsd: totalSpentCredits * usdPerCredit,
   }
 }

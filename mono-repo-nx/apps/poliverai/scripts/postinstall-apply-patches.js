@@ -11,11 +11,6 @@ if (process.env.SKIP_POSTINSTALL_PATCH === '1') {
   process.exit(0);
 }
 
-if (fs.existsSync(marker)) {
-  console.log('postinstall-apply-patches: patches already applied; skipping');
-  process.exit(0);
-}
-
 function run(cmd, args, opts = {}) {
   console.log(`> ${cmd} ${args.join(' ')}`);
   const r = spawnSync(cmd, args, { stdio: 'inherit', shell: true, ...opts });

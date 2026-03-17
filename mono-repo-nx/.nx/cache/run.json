@@ -1,9 +1,21 @@
 {
   "run": {
-    "command": "nx run @poliverai/poliverai:run-android",
-    "startTime": "2026-03-17T04:32:07.301Z",
-    "endTime": "2026-03-17T04:32:12.354Z",
+    "command": "nx run @poliverai/poliverai:build --verbose",
+    "startTime": "2026-03-17T06:24:48.033Z",
+    "endTime": "2026-03-17T06:24:51.369Z",
     "inner": false
   },
-  "tasks": []
+  "tasks": [
+    {
+      "taskId": "@poliverai/poliverai:build",
+      "target": "build",
+      "projectName": "@poliverai/poliverai",
+      "hash": "10015000659763862305",
+      "startTime": "2026-03-17T06:24:48.241Z",
+      "endTime": "2026-03-17T06:24:51.216Z",
+      "params": "",
+      "cacheStatus": "cache-miss",
+      "status": 1
+    }
+  ]
 }

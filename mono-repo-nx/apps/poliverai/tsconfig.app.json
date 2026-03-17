@@ -38,9 +38,6 @@
     "../../libs/intl/src/**/*.tsx",
     "../../libs/intl/src/**/*.json"
     ,
-    "assets/**/*",
-    "../../../frontend/src/**/*.ts",
-    "../../../frontend/src/**/*.tsx",
-    "../../../frontend/src/**/*.d.ts"
+    "assets/**/*"
   ]
 }
