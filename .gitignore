@@ -128,6 +128,10 @@ __pycache__/
 *.egg-info/
 .eggs/
 .build/
+
+# Android generated build output
+mono-repo-nx/apps/poliverai/android/build/
+mono-repo-nx/apps/poliverai/android/app/build/
 .dist/
 
 # Virtual envs
