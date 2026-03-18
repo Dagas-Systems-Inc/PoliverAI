@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { t } from '@poliverai/intl';
-import PoliveraiLogo from '../../assets/brand/poliverai-logo.svg';
+import PoliveraiLogo from '@assets/brand/poliverai-logo.svg';
 
 function copy(path: string, fallback: string) {
   const value = t(path, fallback);

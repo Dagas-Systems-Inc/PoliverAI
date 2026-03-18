@@ -28,7 +28,7 @@ import {
 } from 'lucide-react-native';
 import { EnterInstructionsModal, EnterTitleModal, InsufficientCreditsModal } from '@poliverai/shared-ui';
 import { t, useAuth } from '@poliverai/intl';
-import { brandAssets } from '../../assets/brand';
+import { brandAssets } from '@assets/brand';
 import AppFooter from '../components/AppFooter';
 import AppTopNav from '../components/AppTopNav';
 import policyService, { type ReportDetail, type UploadFile } from '../services/policyService';

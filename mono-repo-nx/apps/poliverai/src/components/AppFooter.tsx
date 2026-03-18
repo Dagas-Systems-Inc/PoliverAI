@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, Platform, StyleSheet, Text, View } from 'react-native';
 import { t } from '@poliverai/intl';
-import { brandAssets } from '../../assets/brand';
+import { brandAssets } from '@assets/brand';
 
 function copy(path: string, fallback: string) {
   const value = t(path, fallback);

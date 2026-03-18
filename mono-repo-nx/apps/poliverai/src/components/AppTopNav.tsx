@@ -3,7 +3,7 @@ import { Image, Modal, Platform, Pressable, StyleSheet, Text, useWindowDimension
 import { useNavigation } from '@react-navigation/native';
 import { PaymentsService, useAuth } from '@poliverai/intl';
 import EnterCreditsModal from '../../../../shared-ui/src/lib/EnterCreditsModal.native';
-import { brandAssets } from '../../assets/brand';
+import { brandAssets } from '@assets/brand';
 import { CreditCard, LayoutDashboard, LogIn, LogOut, Menu, ShieldCheck, Sparkles, UserPlus, X } from 'lucide-react-native';
 
 type AppTopNavProps = {

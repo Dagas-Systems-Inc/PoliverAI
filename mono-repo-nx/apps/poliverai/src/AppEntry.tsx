@@ -2,7 +2,6 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { AuthProvider, useAuth } from '@poliverai/intl';
 import { Navbar } from '@poliverai/shared-ui';
-import brandAssets from '../assets/brand';
 import { AppNavigator } from './navigation/AppNavigator/AppNavigator';
 
 export default function WebAppEntry() {

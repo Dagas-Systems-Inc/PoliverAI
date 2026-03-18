@@ -13,9 +13,9 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { t, useAuth } from '@poliverai/intl';
 import { ArrowRight, LogIn, UserPlus } from 'lucide-react-native';
-import { brandAssets } from '../../../assets/brand';
 import AppFooter from '../../components/AppFooter';
 import AppTopNav from '../../components/AppTopNav';
+import PoliveraiIconTransparent from '@assets/brand/poliverai-icon-transparent.svg';
 
 function copy(path: string, fallback: string) {
   const value = t(path, fallback);
@@ -84,7 +84,7 @@ export default function LoginScreen() {
         <View style={styles.contentWrap}>
           <View style={styles.shell}>
             <View style={styles.hero}>
-              <Image source={brandAssets.poliveraiIcon} style={styles.heroMarkImage} resizeMode="contain" />
+              <PoliveraiIconTransparent width={280} height={200} style={styles.heroMarkImage} />
               <Text style={styles.heroTitle}>{copy('auth_login.welcome_title', 'Welcome back to PoliverAI')}</Text>
               <Text style={styles.heroSubtitle}>
                 {copy('auth_login.welcome_subtitle', 'Sign in to continue your privacy compliance workflow')}
@@ -204,8 +204,6 @@ const styles = StyleSheet.create({
     fontWeight: '800',
   },
   heroMarkImage: {
-    width: 200,
-    height: 200,
     marginBottom: 12,
   },
   heroTitle: {

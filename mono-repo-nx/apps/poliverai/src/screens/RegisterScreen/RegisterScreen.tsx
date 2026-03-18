@@ -13,9 +13,9 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { t, useAuth } from '@poliverai/intl';
 import { ArrowRight, LogIn, UserPlus } from 'lucide-react-native';
-import { brandAssets } from '../../../assets/brand';
 import AppFooter from '../../components/AppFooter';
 import AppTopNav from '../../components/AppTopNav';
+import PoliveraiIconTransparent from '@assets/brand/poliverai-icon-transparent.svg';
 
 function copy(path: string, fallback: string) {
   const value = t(path, fallback);
@@ -101,13 +101,7 @@ export default function RegisterScreen() {
         <View style={styles.contentWrap}>
           <View style={styles.shell}>
             <View style={styles.hero}>
-              {Platform.OS === 'web' ? (
-                <Image source={brandAssets.poliveraiIconTransparent} style={styles.heroMarkImage} resizeMode="contain" />
-              ) : (
-                <View style={styles.heroMark}>
-                  <Text style={styles.heroMarkText}>P</Text>
-                </View>
-              )}
+              <PoliveraiIconTransparent width={280} height={200} style={styles.heroMarkImage} />
               <Text style={styles.heroTitle}>{copy('auth.register.join_title', 'Join PoliverAI')}</Text>
               <Text style={styles.heroSubtitle}>
                 {copy('auth.register.join_subtitle', 'Create your account and start checking privacy policies')}
@@ -256,8 +250,6 @@ const styles = StyleSheet.create({
     fontWeight: '800',
   },
   heroMarkImage: {
-    width: 200,
-    height: 200,
     marginBottom: 12,
   },
   heroTitle: {

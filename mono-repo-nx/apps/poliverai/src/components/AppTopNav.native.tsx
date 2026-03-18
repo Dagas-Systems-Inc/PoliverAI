@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAuth } from '@poliverai/intl';
 import { LayoutDashboard, LogIn, LogOut, UserPlus } from 'lucide-react-native';
-import PoliveraiLogo from '../../assets/brand/poliverai-logo.svg';
+import PoliveraiLogo from '@assets/brand/poliverai-logo.svg';
 
 type AppTopNavProps = {
   currentRoute?: 'landing' | 'login' | 'register' | 'dashboard' | 'analyze' | 'credits' | 'reports';
