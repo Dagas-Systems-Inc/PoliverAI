@@ -1,17 +1,18 @@
 import { Linking, Platform } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { safeDispatch as eventSafeDispatch, safeDispatchMultiple as eventSafeDispatchMultiple } from '../lib/eventHelpers'
 import { buildCheckoutUrls, getApiBaseOrigin } from '../lib/paymentsHelpers'
+import { getPlatformStorage, isWebPlatform } from '../lib/platformStorage'
 
 export const safeDispatch = eventSafeDispatch
 export const safeDispatchMultiple = eventSafeDispatchMultiple
 
 const TOKEN_KEY = '@poliverai/token'
+const storage = getPlatformStorage()
 
 type CheckoutType = 'subscription' | 'credits'
 
 async function getStoredToken(): Promise<string | null> {
-  if (Platform.OS === 'web') {
+  if (isWebPlatform()) {
     try {
       return window.localStorage.getItem('token')
     } catch {
@@ -20,7 +21,7 @@ async function getStoredToken(): Promise<string | null> {
   }
 
   try {
-    return await AsyncStorage.getItem(TOKEN_KEY)
+    return await storage.getItem(TOKEN_KEY)
   } catch {
     return null
   }

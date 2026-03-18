@@ -1,10 +1,10 @@
-import { Platform } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { extractErrorMessage } from '../lib/errorHelpers';
 import { getApiBaseOrigin } from '../lib/paymentsHelpers';
+import { getPlatformStorage, isWebPlatform } from '../lib/platformStorage';
 
 const API_BASE_URL = getApiBaseOrigin() ?? '';
 const TOKEN_KEY = '@poliverai/token';
+const storage = getPlatformStorage();
 
 export interface ApiError {
   message: string;
@@ -14,10 +14,10 @@ export interface ApiError {
 
 async function getStoredToken(): Promise<string | null> {
   try {
-    if (Platform.OS === 'web') {
+    if (isWebPlatform()) {
       return window.localStorage.getItem('token') || window.localStorage.getItem(TOKEN_KEY);
     }
-    return await AsyncStorage.getItem(TOKEN_KEY);
+    return await storage.getItem(TOKEN_KEY);
   } catch {
     return null;
   }

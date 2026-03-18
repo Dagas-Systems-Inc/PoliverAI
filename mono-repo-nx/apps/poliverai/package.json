@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^2.2.0",
     "@react-native/metro-config": "~0.79.3",
     "@testing-library/react-native": "~13.2.0",
     "metro-config": "~0.82.4",

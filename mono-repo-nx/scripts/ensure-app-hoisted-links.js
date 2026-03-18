@@ -6,6 +6,7 @@ const path = require('path');
 const LINKED_PACKAGES = [
   'react',
   'react-native',
+  '@react-native-async-storage/async-storage',
   'react-native-bootsplash',
   'react-native-reanimated',
   'react-native-gesture-handler',

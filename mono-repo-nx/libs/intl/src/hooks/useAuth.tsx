@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useState, ReactNode } from 'react';
 import axios from 'axios';
-import { Platform } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser as setUserAction, clearUser as clearUserAction } from '../slices/authSlice';
 import type { User } from '../types/user';
 import { AuthContext } from '../contexts/auth-context';
 import { getApiBaseOrigin } from '../lib/paymentsHelpers';
+import { getPlatformStorage, isWebPlatform } from '../lib/platformStorage';
 
 axios.defaults.baseURL = getApiBaseOrigin() || 'https://poliverai.com';
 
 const TOKEN_KEY = '@poliverai/token';
+const storage = getPlatformStorage();
 
 function extractTokenFromResponse(payload: unknown): string | null {
   if (!payload || typeof payload !== 'object') return null;
@@ -59,10 +59,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     (async () => {
       try {
         let token: string | null = null;
-        if (Platform.OS === 'web') {
+        if (isWebPlatform()) {
           token = window.localStorage.getItem('token') || window.localStorage.getItem(TOKEN_KEY);
         } else {
-          token = await AsyncStorage.getItem(TOKEN_KEY);
+          token = await storage.getItem(TOKEN_KEY);
         }
 
         if (token) {
@@ -130,21 +130,21 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const clearStoredToken = async () => {
-    if (Platform.OS === 'web') {
+    if (isWebPlatform()) {
       window.localStorage.removeItem('token');
       window.localStorage.removeItem(TOKEN_KEY);
     } else {
-      await AsyncStorage.removeItem(TOKEN_KEY);
+      await storage.removeItem(TOKEN_KEY);
     }
     delete axios.defaults.headers.common['Authorization'];
   };
 
   const saveToken = async (token: string) => {
-    if (Platform.OS === 'web') {
+    if (isWebPlatform()) {
       window.localStorage.setItem('token', token);
       window.localStorage.setItem(TOKEN_KEY, token);
     } else {
-      await AsyncStorage.setItem(TOKEN_KEY, token);
+      await storage.setItem(TOKEN_KEY, token);
     }
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   };
