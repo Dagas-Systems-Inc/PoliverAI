@@ -13,6 +13,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { t, useAuth } from '@poliverai/intl';
 import { ArrowRight, LogIn, UserPlus } from 'lucide-react-native';
+import { brandAssets } from '../../../assets/brand';
 import AppFooter from '../../components/AppFooter';
 import AppTopNav from '../../components/AppTopNav';
 
@@ -81,10 +82,14 @@ export default function RegisterScreen() {
     return (
       <View style={styles.page}>
         <AppTopNav currentRoute="register" />
-        <View style={styles.loadingWrap}>
-          <ActivityIndicator size="large" color="#2563eb" />
-        </View>
-        <AppFooter />
+        <ScrollView contentContainerStyle={styles.loadingScrollContent}>
+          <View style={styles.loadingWrap}>
+            <ActivityIndicator size="large" color="#2563eb" />
+          </View>
+          <View style={styles.footerWrap}>
+            <AppFooter />
+          </View>
+        </ScrollView>
       </View>
     );
   }
@@ -93,108 +98,112 @@ export default function RegisterScreen() {
     <View style={styles.page}>
       <AppTopNav currentRoute="register" />
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <View style={styles.shell}>
-          <View style={styles.hero}>
-            {Platform.OS === 'web' ? (
-              <Image source={{ uri: '/poliverai-icon-transparent.svg' }} style={styles.heroMarkImage} resizeMode="contain" />
-            ) : (
-              <View style={styles.heroMark}>
-                <Text style={styles.heroMarkText}>P</Text>
-              </View>
-            )}
-            <Text style={styles.heroTitle}>{copy('auth.register.join_title', 'Join PoliverAI')}</Text>
-            <Text style={styles.heroSubtitle}>
-              {copy('auth.register.join_subtitle', 'Create your account and start checking privacy policies')}
-            </Text>
-          </View>
-
-          <View style={styles.card}>
-            <Text style={styles.cardTitle}>{copy('auth.register.create_account', 'Create your account')}</Text>
-            <Text style={styles.cardDesc}>{copy('auth.register.create_account_desc', 'Get started with your free PoliverAI account')}</Text>
-
-            {error ? (
-              <View style={styles.errorBox}>
-                <Text style={styles.errorText}>{error}</Text>
-              </View>
-            ) : null}
-
-            <View style={styles.field}>
-              <Text style={styles.label}>{copy('auth.register.name_label', 'Full name')}</Text>
-              <TextInput
-                style={styles.input}
-                placeholder={copy('auth.register.name_placeholder', 'Enter your full name')}
-                placeholderTextColor="#94a3b8"
-                value={name}
-                onChangeText={setName}
-              />
-            </View>
-
-            <View style={styles.field}>
-              <Text style={styles.label}>{copy('auth.register.email_label', 'Email')}</Text>
-              <TextInput
-                style={styles.input}
-                placeholder={copy('auth.register.email_placeholder', 'Enter your email')}
-                placeholderTextColor="#94a3b8"
-                autoCapitalize="none"
-                keyboardType="email-address"
-                value={email}
-                onChangeText={setEmail}
-              />
-            </View>
-
-            <View style={styles.field}>
-              <Text style={styles.label}>{copy('auth.register.password_label', 'Password')}</Text>
-              <TextInput
-                style={styles.input}
-                placeholder={copy('auth.register.password_placeholder', 'Create a password')}
-                placeholderTextColor="#94a3b8"
-                secureTextEntry
-                value={password}
-                onChangeText={setPassword}
-              />
-            </View>
-
-            <View style={styles.field}>
-              <Text style={styles.label}>{copy('auth.register.confirm_password_label', 'Confirm password')}</Text>
-              <TextInput
-                style={styles.input}
-                placeholder={copy('auth.register.confirm_password_placeholder', 'Confirm your password')}
-                placeholderTextColor="#94a3b8"
-                secureTextEntry
-                value={confirmPassword}
-                onChangeText={setConfirmPassword}
-              />
-            </View>
-
-            <Text style={styles.terms}>
-              {copy('auth.register.terms_prefix', 'By creating an account, you agree to our')}{' '}
-              <Text style={styles.linkTextInline}>{copy('auth.register.terms', 'Terms of Service')}</Text> and{' '}
-              <Text style={styles.linkTextInline}>{copy('auth.register.privacy', 'Privacy Policy')}</Text>.
-            </Text>
-
-            <Pressable style={styles.primaryButton} onPress={onSubmit} disabled={isSubmitting}>
-              {isSubmitting ? (
-                <ActivityIndicator size="small" color="#ffffff" />
+        <View style={styles.contentWrap}>
+          <View style={styles.shell}>
+            <View style={styles.hero}>
+              {Platform.OS === 'web' ? (
+                <Image source={brandAssets.poliveraiIconTransparent} style={styles.heroMarkImage} resizeMode="contain" />
               ) : (
-                <View style={styles.primaryButtonInner}>
-                  <UserPlus size={16} color="#ffffff" />
-                  <Text style={styles.primaryButtonText}>{copy('auth.register.create_account_cta', 'Create account')}</Text>
+                <View style={styles.heroMark}>
+                  <Text style={styles.heroMarkText}>P</Text>
                 </View>
               )}
-            </Pressable>
+              <Text style={styles.heroTitle}>{copy('auth.register.join_title', 'Join PoliverAI')}</Text>
+              <Text style={styles.heroSubtitle}>
+                {copy('auth.register.join_subtitle', 'Create your account and start checking privacy policies')}
+              </Text>
+            </View>
 
-            <View style={styles.bottomRow}>
-              <Text style={styles.bottomText}>{copy('auth.register.already_have_account', 'Already have an account?')}</Text>
-              <Pressable onPress={() => goTo('Login', '/login')} style={styles.inlineLinkButton}>
-                <LogIn size={14} color="#2563eb" />
-                <Text style={styles.linkText}>{copy('auth.register.sign_in', 'Sign in')}</Text>
-                <ArrowRight size={14} color="#2563eb" />
+            <View style={styles.card}>
+              <Text style={styles.cardTitle}>{copy('auth.register.create_account', 'Create your account')}</Text>
+              <Text style={styles.cardDesc}>{copy('auth.register.create_account_desc', 'Get started with your free PoliverAI account')}</Text>
+
+              {error ? (
+                <View style={styles.errorBox}>
+                  <Text style={styles.errorText}>{error}</Text>
+                </View>
+              ) : null}
+
+              <View style={styles.field}>
+                <Text style={styles.label}>{copy('auth.register.name_label', 'Full name')}</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder={copy('auth.register.name_placeholder', 'Enter your full name')}
+                  placeholderTextColor="#94a3b8"
+                  value={name}
+                  onChangeText={setName}
+                />
+              </View>
+
+              <View style={styles.field}>
+                <Text style={styles.label}>{copy('auth.register.email_label', 'Email')}</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder={copy('auth.register.email_placeholder', 'Enter your email')}
+                  placeholderTextColor="#94a3b8"
+                  autoCapitalize="none"
+                  keyboardType="email-address"
+                  value={email}
+                  onChangeText={setEmail}
+                />
+              </View>
+
+              <View style={styles.field}>
+                <Text style={styles.label}>{copy('auth.register.password_label', 'Password')}</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder={copy('auth.register.password_placeholder', 'Create a password')}
+                  placeholderTextColor="#94a3b8"
+                  secureTextEntry
+                  value={password}
+                  onChangeText={setPassword}
+                />
+              </View>
+
+              <View style={styles.field}>
+                <Text style={styles.label}>{copy('auth.register.confirm_password_label', 'Confirm password')}</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder={copy('auth.register.confirm_password_placeholder', 'Confirm your password')}
+                  placeholderTextColor="#94a3b8"
+                  secureTextEntry
+                  value={confirmPassword}
+                  onChangeText={setConfirmPassword}
+                />
+              </View>
+
+              <Text style={styles.terms}>
+                {copy('auth.register.terms_prefix', 'By creating an account, you agree to our')}{' '}
+                <Text style={styles.linkTextInline}>{copy('auth.register.terms', 'Terms of Service')}</Text> and{' '}
+                <Text style={styles.linkTextInline}>{copy('auth.register.privacy', 'Privacy Policy')}</Text>.
+              </Text>
+
+              <Pressable style={styles.primaryButton} onPress={onSubmit} disabled={isSubmitting}>
+                {isSubmitting ? (
+                  <ActivityIndicator size="small" color="#ffffff" />
+                ) : (
+                  <View style={styles.primaryButtonInner}>
+                    <UserPlus size={16} color="#ffffff" />
+                    <Text style={styles.primaryButtonText}>{copy('auth.register.create_account_cta', 'Create account')}</Text>
+                  </View>
+                )}
               </Pressable>
+
+              <View style={styles.bottomRow}>
+                <Text style={styles.bottomText}>{copy('auth.register.already_have_account', 'Already have an account?')}</Text>
+                <Pressable onPress={() => goTo('Login', '/login')} style={styles.inlineLinkButton}>
+                  <LogIn size={14} color="#2563eb" />
+                  <Text style={styles.linkText}>{copy('auth.register.sign_in', 'Sign in')}</Text>
+                  <ArrowRight size={14} color="#2563eb" />
+                </Pressable>
+              </View>
             </View>
           </View>
         </View>
+        <View style={styles.footerWrap}>
+          <AppFooter />
+        </View>
       </ScrollView>
-      <AppFooter />
     </View>
   );
 }
@@ -206,14 +215,27 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingHorizontal: 16,
     paddingVertical: 48,
-    justifyContent: 'center',
+    justifyContent: Platform.OS === 'web' ? 'center' : 'flex-start',
+  },
+  loadingScrollContent: {
+    flexGrow: 1,
+    justifyContent: 'space-between',
+    paddingTop: 48,
+  },
+  contentWrap: {
+    width: '100%',
+    paddingHorizontal: 16,
   },
   shell: {
     width: '100%',
     maxWidth: 420,
     alignSelf: 'center',
+  },
+  footerWrap: {
+    width: '100%',
+    marginTop: 32,
+    alignSelf: 'stretch',
   },
   hero: {
     alignItems: 'center',
@@ -358,7 +380,7 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   loadingWrap: {
-    flex: 1,
+    minHeight: 320,
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 48,

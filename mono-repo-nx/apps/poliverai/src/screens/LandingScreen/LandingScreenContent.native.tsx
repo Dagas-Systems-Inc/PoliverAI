@@ -1,14 +1,14 @@
 import React from 'react';
 import { useAuth } from '@poliverai/intl';
-import {
-  HeroSection,
-  FeaturesSection,
-  Footer,
-  AppPlatforms,
-  HowItWorks,
-  PricingSection,
-  CTASection,
-} from '@poliverai/shared-ui';
+import HeroSection from '../../../../../shared-ui/src/lib/HeroSection.native';
+import FeaturesSection from '../../../../../shared-ui/src/lib/FeaturesSection.native';
+import AppPlatforms from '../../../../../shared-ui/src/lib/AppPlatforms.native';
+import HowItWorks from '../../../../../shared-ui/src/lib/HowItWorks.native';
+import PricingSection from '../../../../../shared-ui/src/lib/PricingSection.native';
+import CTASection from '../../../../../shared-ui/src/lib/CTASection.native';
+import TeamCarousel from '../../../../../shared-ui/src/lib/TeamCarousel';
+import TeamWriteup from '../../../../../shared-ui/src/lib/TeamWriteup';
+import AppFooter from '../../components/AppFooter';
 
 type LandingScreenContentProps = {
   showSplash: boolean;
@@ -40,7 +40,14 @@ export default function LandingScreenContent({
       {section('how-it-works', <HowItWorks />)}
       {section('pricing', <PricingSection />)}
       {!isAuthenticated ? <CTASection /> : null}
-      <Footer hasBackground={true} />
+      {section(
+        'team',
+        <>
+          <TeamCarousel />
+          <TeamWriteup />
+        </>
+      )}
+      {section('footer', <AppFooter />)}
     </>
   );
 }

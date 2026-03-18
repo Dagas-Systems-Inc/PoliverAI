@@ -1,25 +1,89 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import { t } from '@poliverai/intl';
 
 interface FooterProps {
-  hasBackground?: boolean
+  hasBackground?: boolean;
+}
+
+const logo = require('../assets/poliverai-logo.png');
+const andelaLogo = require('../assets/andela-logo-transparent.png');
+
+function copy(path: string, fallback: string) {
+  const value = t(path, fallback);
+  return typeof value === 'string' ? value : fallback;
 }
 
 export default function Footer({ hasBackground = false }: FooterProps) {
   return (
     <View style={[styles.footer, hasBackground && styles.footerBackground]}>
-      <Text style={styles.text}>© 2026 PoliverAI. Shared React Native UI across mobile, tablet, and web.</Text>
+      <View style={styles.content}>
+        <Text style={styles.short}>{copy('footer.short', 'Fast, simple GDPR compliance checks')}</Text>
+        <Text style={styles.paragraph}>
+          {copy('footer.paragraph', 'A quick, reliable privacy policy analysis — get results fast and act with confidence.')}
+        </Text>
+        <Text style={styles.meta}>
+          {copy('brand_block.copyright', `© ${new Date().getFullYear()} PoliverAI ™. All rights reserved.`)}
+        </Text>
+        <Text style={styles.meta}>{copy('brand_block.partnership', 'Designed in partnership with Andela')}</Text>
+        <View style={styles.brandPill}>
+          <Image source={logo} style={styles.brandIconImage} resizeMode="contain" />
+          <Image source={andelaLogo} style={styles.andelaIconImage} resizeMode="contain" />
+        </View>
+      </View>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   footer: {
-    paddingHorizontal: 20,
-    paddingVertical: 18,
+    paddingHorizontal: 16,
+    paddingVertical: 48,
   },
   footerBackground: {
-    backgroundColor: '#EFF6FF',
+    backgroundColor: '#2563eb',
+  },
+  content: {
+    maxWidth: 896,
+    width: '100%',
+    marginHorizontal: 'auto',
+    alignItems: 'center',
+  },
+  short: {
+    fontSize: 14,
+    color: 'rgba(219,234,254,0.95)',
+    textAlign: 'center',
+  },
+  paragraph: {
+    marginTop: 16,
+    fontSize: 16,
+    lineHeight: 27,
+    color: 'rgba(255,255,255,0.92)',
+    textAlign: 'center',
+  },
+  meta: {
+    marginTop: 6,
+    fontSize: 14,
+    color: 'rgba(219,234,254,0.95)',
+    textAlign: 'center',
+  },
+  brandPill: {
+    marginTop: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderRadius: 12,
+    backgroundColor: '#ffffff',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  brandIconImage: {
+    width: 100,
+    height: 50,
+  },
+  andelaIconImage: {
+    width: 130,
+    height: 50,
   },
   text: {
     textAlign: 'center',
@@ -27,4 +91,4 @@ const styles = StyleSheet.create({
     fontSize: 13,
     lineHeight: 20,
   },
-})
+});

@@ -13,7 +13,57 @@
 
 
 namespace facebook::react {
+class RNSBottomTabsEventEmitter : public ViewEventEmitter {
+ public:
+  using ViewEventEmitter::ViewEventEmitter;
+
+  struct OnNativeFocusChange {
+      std::string tabKey;
+    };
+  void onNativeFocusChange(OnNativeFocusChange value) const;
+};
+class RNSBottomTabsScreenEventEmitter : public ViewEventEmitter {
+ public:
+  using ViewEventEmitter::ViewEventEmitter;
+
+  struct OnLifecycleStateChange {
+      int previousState;
+    int newState;
+    };
+
+  struct OnWillAppear {
+      
+    };
+
+  struct OnDidAppear {
+      
+    };
+
+  struct OnWillDisappear {
+      
+    };
+
+  struct OnDidDisappear {
+      
+    };
+  void onLifecycleStateChange(OnLifecycleStateChange value) const;
+
+  void onWillAppear(OnWillAppear value) const;
+
+  void onDidAppear(OnDidAppear value) const;
+
+  void onWillDisappear(OnWillDisappear value) const;
+
+  void onDidDisappear(OnDidDisappear value) const;
+};
 class RNSFullWindowOverlayEventEmitter : public ViewEventEmitter {
+ public:
+  using ViewEventEmitter::ViewEventEmitter;
+
+  
+  
+};
+class RNSScreenStackHostEventEmitter : public ViewEventEmitter {
  public:
   using ViewEventEmitter::ViewEventEmitter;
 
@@ -75,13 +125,6 @@ class RNSSplitViewScreenEventEmitter : public ViewEventEmitter {
 
   void onDidDisappear(OnDidDisappear value) const;
 };
-class RNSStackHostEventEmitter : public ViewEventEmitter {
- public:
-  using ViewEventEmitter::ViewEventEmitter;
-
-  
-  
-};
 class RNSStackScreenEventEmitter : public ViewEventEmitter {
  public:
   using ViewEventEmitter::ViewEventEmitter;
@@ -101,14 +144,6 @@ class RNSStackScreenEventEmitter : public ViewEventEmitter {
   struct OnDidDisappear {
       
     };
-
-  struct OnDismiss {
-      bool isNativeDismiss;
-    };
-
-  struct OnNativeDismissPrevented {
-      
-    };
   void onWillAppear(OnWillAppear value) const;
 
   void onDidAppear(OnDidAppear value) const;
@@ -116,10 +151,6 @@ class RNSStackScreenEventEmitter : public ViewEventEmitter {
   void onWillDisappear(OnWillDisappear value) const;
 
   void onDidDisappear(OnDidDisappear value) const;
-
-  void onDismiss(OnDismiss value) const;
-
-  void onNativeDismissPrevented(OnNativeDismissPrevented value) const;
 };
 class RNSModalScreenEventEmitter : public ViewEventEmitter {
  public:
@@ -192,13 +223,6 @@ class RNSModalScreenEventEmitter : public ViewEventEmitter {
   void onHeaderBackButtonClicked(OnHeaderBackButtonClicked value) const;
 
   void onSheetDetentChanged(OnSheetDetentChanged value) const;
-};
-class RNSSafeAreaViewEventEmitter : public ViewEventEmitter {
- public:
-  using ViewEventEmitter::ViewEventEmitter;
-
-  
-  
 };
 class RNSScreenContainerEventEmitter : public ViewEventEmitter {
  public:
@@ -311,21 +335,9 @@ class RNSScreenStackHeaderConfigEventEmitter : public ViewEventEmitter {
   struct OnDetached {
       
     };
-
-  struct OnPressHeaderBarButtonItem {
-      std::string buttonId;
-    };
-
-  struct OnPressHeaderBarButtonMenuItem {
-      std::string menuId;
-    };
   void onAttached(OnAttached value) const;
 
   void onDetached(OnDetached value) const;
-
-  void onPressHeaderBarButtonItem(OnPressHeaderBarButtonItem value) const;
-
-  void onPressHeaderBarButtonMenuItem(OnPressHeaderBarButtonMenuItem value) const;
 };
 class RNSScreenStackHeaderSubviewEventEmitter : public ViewEventEmitter {
  public:
@@ -387,77 +399,5 @@ class RNSSearchBarEventEmitter : public ViewEventEmitter {
   void onClose(OnClose value) const;
 
   void onOpen(OnOpen value) const;
-};
-class RNSTabsBottomAccessoryContentEventEmitter : public ViewEventEmitter {
- public:
-  using ViewEventEmitter::ViewEventEmitter;
-
-  
-  
-};
-class RNSTabsBottomAccessoryEventEmitter : public ViewEventEmitter {
- public:
-  using ViewEventEmitter::ViewEventEmitter;
-
-  enum class OnEnvironmentChangeEnvironment {
-    Regular,
-    Inline
-  };
-
-  static char const *toString(const OnEnvironmentChangeEnvironment value) {
-    switch (value) {
-      case OnEnvironmentChangeEnvironment::Regular: return "regular";
-      case OnEnvironmentChangeEnvironment::Inline: return "inline";
-    }
-  }
-
-  struct OnEnvironmentChange {
-      OnEnvironmentChangeEnvironment environment;
-    };
-  void onEnvironmentChange(OnEnvironmentChange value) const;
-};
-class RNSTabsHostEventEmitter : public ViewEventEmitter {
- public:
-  using ViewEventEmitter::ViewEventEmitter;
-
-  struct OnNativeFocusChange {
-      std::string tabKey;
-    bool repeatedSelectionHandledBySpecialEffect;
-    };
-  void onNativeFocusChange(OnNativeFocusChange value) const;
-};
-class RNSTabsScreenEventEmitter : public ViewEventEmitter {
- public:
-  using ViewEventEmitter::ViewEventEmitter;
-
-  struct OnLifecycleStateChange {
-      int previousState;
-    int newState;
-    };
-
-  struct OnWillAppear {
-      
-    };
-
-  struct OnDidAppear {
-      
-    };
-
-  struct OnWillDisappear {
-      
-    };
-
-  struct OnDidDisappear {
-      
-    };
-  void onLifecycleStateChange(OnLifecycleStateChange value) const;
-
-  void onWillAppear(OnWillAppear value) const;
-
-  void onDidAppear(OnDidAppear value) const;
-
-  void onWillDisappear(OnWillDisappear value) const;
-
-  void onDidDisappear(OnDidDisappear value) const;
 };
 } // namespace facebook::react

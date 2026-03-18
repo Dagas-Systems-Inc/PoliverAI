@@ -1,136 +1,184 @@
-import React, { useState } from 'react'
-import { StyleSheet, Text, View, useWindowDimensions } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
-import { useAuth, PaymentsService } from '@poliverai/intl'
-import { Button } from './Button/Button'
+import React, { useState } from 'react';
+import { Pressable, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { PaymentsService, t, useAuth } from '@poliverai/intl';
+import { CheckCircle2, Clock3, CreditCard } from 'lucide-react-native';
+
+function copy(path: string, fallback: string) {
+  const value = t(path, fallback);
+  return typeof value === 'string' ? value : fallback;
+}
+
+const freePlan = [
+  'Basic policy verification',
+  'Rule-based compliance checks',
+  'Fast analysis mode',
+  'Basic recommendations',
+];
+
+const proPlan = [
+  'Everything in Free',
+  'AI-powered deep analysis',
+  'Comprehensive reporting',
+  'Policy generation & revision',
+  'Priority support',
+];
 
 export default function PricingSection() {
-  const navigation = useNavigation<any>()
-  const { width } = useWindowDimensions()
-  const { isAuthenticated } = useAuth()
-  const [loading, setLoading] = useState(false)
-  const isWide = width >= 900
+  const navigation = useNavigation<any>();
+  const { width } = useWindowDimensions();
+  const { isAuthenticated } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const isWide = width >= 900;
 
   const startUpgrade = async () => {
     if (!isAuthenticated) {
-      navigation.navigate('Login')
-      return
+      navigation.navigate('Login');
+      return;
     }
 
-    setLoading(true)
+    setLoading(true);
     try {
-      await PaymentsService.purchaseUpgrade(29)
+      await PaymentsService.purchaseUpgrade(29);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <View style={styles.section}>
-      <Text style={styles.eyebrow}>Pricing</Text>
-      <Text style={styles.title}>Use the same purchase flow in web and native</Text>
-      <Text style={styles.lead}>
-        Native opens hosted checkout externally, then the backend finalizes and returns to PoliverAI through a
-        deep link the app can handle directly.
-      </Text>
+      <View style={styles.header}>
+        <Text style={styles.title}>{copy('landing.pricing.title', 'Choose Your Plan')}</Text>
+        <Text style={styles.lead}>
+          {copy('landing.pricing.subtitle', 'Start with our free tier or upgrade for advanced AI features')}
+        </Text>
+      </View>
 
       <View style={[styles.cards, isWide && styles.cardsWide]}>
         <View style={[styles.card, isWide && styles.cardWide]}>
-          <Text style={styles.planTitle}>Free tier</Text>
-          <Text style={styles.price}>$0</Text>
-          <Text style={styles.planLead}>Great for baseline GDPR checks.</Text>
-          {['Basic verification', 'Fast analysis mode', 'Core recommendations'].map((item) => (
-            <Text key={item} style={styles.featureItem}>• {item}</Text>
-          ))}
-          <Button
-            title={isAuthenticated ? 'Go to dashboard' : 'Get started free'}
-            variant="outline"
+          <View style={styles.planHeader}>
+            <Text style={styles.planTitle}>{copy('landing.pricing.free_title', 'Free Tier')}</Text>
+            <Text style={[styles.price, styles.freePrice]}>{copy('landing.pricing.free_price', '$0')}</Text>
+            <Text style={styles.planLead}>{copy('landing.pricing.free_desc', 'Perfect for getting started')}</Text>
+          </View>
+          <View style={styles.featuresList}>
+            {freePlan.map((item) => (
+              <View key={item} style={styles.featureRow}>
+                <CheckCircle2 size={16} color="#16a34a" />
+                <Text style={styles.featureItem}>{item}</Text>
+              </View>
+            ))}
+          </View>
+          <Pressable
             onPress={() => navigation.navigate(isAuthenticated ? 'Dashboard' : 'Signup')}
-            style={styles.cta}
-          />
+            style={[styles.ctaButton, styles.secondaryCtaButton]}
+          >
+            <View style={styles.ctaInner}>
+              <Clock3 size={16} color="#0f172a" />
+              <Text style={styles.secondaryCtaText}>{copy('pricing.get_started_free', 'Get Started Free')}</Text>
+            </View>
+          </Pressable>
         </View>
 
         <View style={[styles.card, styles.cardPrimary, isWide && styles.cardWide]}>
-          <Text style={styles.popular}>Popular</Text>
-          <Text style={styles.planTitle}>Pro tier</Text>
-          <Text style={[styles.price, styles.pricePrimary]}>$29/mo</Text>
-          <Text style={styles.planLead}>For deep AI analysis and reporting.</Text>
-          {['Everything in Free', 'AI-powered deep analysis', 'Comprehensive reporting', 'Policy revision workflows'].map((item) => (
-            <Text key={item} style={styles.featureItem}>• {item}</Text>
-          ))}
-          <Button
-            title={isAuthenticated ? 'Upgrade with Stripe' : 'Sign in to upgrade'}
-            onPress={startUpgrade}
-            loading={loading}
-            style={{ ...styles.cta, ...styles.ctaPrimary }}
-          />
+          <View style={styles.popularPill}>
+            <Text style={styles.popularText}>{copy('landing.pricing.popular', 'POPULAR')}</Text>
+          </View>
+          <View style={styles.planHeader}>
+            <Text style={styles.planTitle}>{copy('landing.pricing.pro_title', 'Pro Tier')}</Text>
+            <Text style={[styles.price, styles.pricePrimary]}>{copy('landing.pricing.pro_price', '$29')}</Text>
+            <Text style={styles.planLead}>{copy('landing.pricing.pro_period', 'per month')}</Text>
+          </View>
+          <View style={styles.featuresList}>
+            {proPlan.map((item) => (
+              <View key={item} style={styles.featureRow}>
+                <CheckCircle2 size={16} color="#2563eb" />
+                <Text style={styles.featureItem}>{item}</Text>
+              </View>
+            ))}
+          </View>
+          <Pressable
+            onPress={loading ? undefined : startUpgrade}
+            style={[styles.ctaButton, styles.primaryCtaButton]}
+          >
+            <View style={styles.ctaInner}>
+              <CreditCard size={16} color="#ffffff" />
+              <Text style={styles.primaryCtaText}>
+                {loading
+                  ? 'Loading...'
+                  : copy('pricing.upgrade', isAuthenticated ? 'Upgrade to Pro' : 'Sign in to upgrade')}
+              </Text>
+            </View>
+          </Pressable>
         </View>
       </View>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   section: {
-    paddingHorizontal: 20,
-    paddingVertical: 24,
+    maxWidth: 1280,
+    width: '100%',
+    marginHorizontal: 'auto',
+    paddingHorizontal: 16,
+    paddingVertical: 48,
   },
-  eyebrow: {
-    textAlign: 'center',
-    color: '#1D4ED8',
-    fontSize: 12,
-    fontWeight: '700',
-    textTransform: 'uppercase',
-    letterSpacing: 0.8,
+  header: {
+    alignItems: 'center',
   },
   title: {
-    marginTop: 8,
     textAlign: 'center',
-    color: '#0F172A',
-    fontSize: 28,
-    lineHeight: 36,
+    color: '#0f172a',
+    fontSize: 42,
+    lineHeight: 46,
     fontWeight: '700',
   },
   lead: {
-    marginTop: 10,
+    marginTop: 12,
     textAlign: 'center',
     color: '#475569',
-    fontSize: 16,
-    lineHeight: 25,
-    maxWidth: 760,
-    alignSelf: 'center',
+    fontSize: 18,
+    lineHeight: 29,
+    maxWidth: 720,
   },
   cards: {
-    marginTop: 24,
-    gap: 16,
+    marginTop: 32,
+    gap: 22,
   },
   cardsWide: {
     flexDirection: 'row',
   },
   card: {
-    borderRadius: 22,
+    borderRadius: 24,
     borderWidth: 1,
-    borderColor: '#E2E8F0',
+    borderColor: 'rgba(226,232,240,0.95)',
     backgroundColor: '#FFFFFF',
-    padding: 20,
+    padding: 28,
   },
   cardWide: {
     flex: 1,
   },
   cardPrimary: {
     backgroundColor: '#EFF6FF',
-    borderColor: '#60A5FA',
+    borderColor: 'rgba(37,99,235,0.18)',
   },
-  popular: {
+  popularPill: {
     alignSelf: 'flex-start',
     backgroundColor: '#2563EB',
-    color: '#FFFFFF',
     paddingHorizontal: 10,
-    paddingVertical: 5,
+    paddingVertical: 6,
     borderRadius: 999,
+  },
+  popularText: {
+    color: '#FFFFFF',
     fontSize: 12,
-    fontWeight: '700',
+    fontWeight: '800',
     textTransform: 'uppercase',
+    letterSpacing: 0.8,
+  },
+  planHeader: {
+    alignItems: 'center',
   },
   planTitle: {
     marginTop: 12,
@@ -141,8 +189,11 @@ const styles = StyleSheet.create({
   price: {
     marginTop: 12,
     color: '#0F172A',
-    fontSize: 34,
+    fontSize: 44,
     fontWeight: '800',
+  },
+  freePrice: {
+    color: '#16a34a',
   },
   pricePrimary: {
     color: '#2563EB',
@@ -152,22 +203,51 @@ const styles = StyleSheet.create({
     color: '#475569',
     fontSize: 15,
     lineHeight: 22,
+    textAlign: 'center',
+  },
+  featuresList: {
+    marginTop: 22,
+    gap: 12,
+  },
+  featureRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
   },
   featureItem: {
-    marginTop: 10,
     color: '#0F172A',
     fontSize: 15,
     lineHeight: 22,
   },
-  cta: {
-    marginTop: 18,
-    alignSelf: 'stretch',
+  ctaButton: {
+    marginTop: 24,
+    minHeight: 52,
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 18,
+  },
+  secondaryCtaButton: {
     borderWidth: 1,
-    borderColor: '#93C5FD',
+    borderColor: 'rgba(148,163,184,0.35)',
     backgroundColor: '#FFFFFF',
   },
-  ctaPrimary: {
-    borderWidth: 0,
+  primaryCtaButton: {
     backgroundColor: '#2563EB',
   },
-})
+  ctaInner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  secondaryCtaText: {
+    color: '#0f172a',
+    fontSize: 16,
+    fontWeight: '700',
+  },
+  primaryCtaText: {
+    color: '#ffffff',
+    fontSize: 16,
+    fontWeight: '700',
+  },
+});

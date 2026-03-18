@@ -1,96 +1,122 @@
-import React from 'react'
-import { StyleSheet, Text, View, useWindowDimensions } from 'react-native'
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { t } from '@poliverai/intl';
 
-const STEPS = [
-  ['1', 'Upload your policy', 'Accept the same document workflow across native and web.'],
-  ['2', 'Analyze with AI', 'Run the same product logic without forking the UI architecture.'],
-  ['3', 'Return with results', 'Payment and report flows come back through app-aware navigation.'],
-]
+const steps = [
+  {
+    id: 1,
+    title: 'Upload Your Policy',
+    desc: 'Upload privacy policies in multiple formats (PDF, DOCX, TXT, HTML)',
+  },
+  {
+    id: 2,
+    title: 'AI Analysis',
+    desc: 'Our AI analyzes your policy against GDPR requirements with multiple analysis modes',
+  },
+  {
+    id: 3,
+    title: 'Get Results',
+    desc: 'Receive detailed reports with compliance scores, violations, and actionable recommendations',
+  },
+];
+
+function copy(path: string, fallback: string) {
+  const value = t(path, fallback);
+  return typeof value === 'string' ? value : fallback;
+}
 
 export default function HowItWorks() {
-  const { width } = useWindowDimensions()
-  const isWide = width >= 960
-
   return (
     <View style={styles.section}>
-      <Text style={styles.eyebrow}>How it works</Text>
-      <Text style={styles.title}>A native flow that still feels like the web product</Text>
-      <View style={[styles.row, isWide && styles.rowWide]}>
-        {STEPS.map(([n, title, description]) => (
-          <View key={n} style={[styles.stepCard, isWide && styles.stepCardWide]}>
-            <View style={styles.stepBadge}>
-              <Text style={styles.stepBadgeText}>{n}</Text>
+      <View style={styles.inner}>
+        <View style={styles.header}>
+          <Text style={styles.heading}>{copy('how.title', 'How PoliverAI Works')}</Text>
+          <Text style={styles.subheading}>
+            {copy('how.subtitle', 'Simple, powerful, and intelligent GDPR compliance analysis')}
+          </Text>
+        </View>
+        <View style={styles.grid}>
+          {steps.map((step) => (
+            <View key={step.id} style={styles.stepCard}>
+              <View style={styles.stepCircle}>
+                <Text style={styles.stepCircleText}>{step.id}</Text>
+              </View>
+              <Text style={styles.stepTitle}>{copy(`landing.how.step${step.id}_title`, step.title)}</Text>
+              <Text style={styles.stepDesc}>{copy(`landing.how.step${step.id}_desc`, step.desc)}</Text>
             </View>
-            <Text style={styles.stepTitle}>{title}</Text>
-            <Text style={styles.stepDescription}>{description}</Text>
-          </View>
-        ))}
+          ))}
+        </View>
       </View>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   section: {
-    paddingHorizontal: 20,
-    paddingVertical: 24,
+    backgroundColor: '#f8fafc',
+    paddingHorizontal: 16,
+    paddingVertical: 64,
   },
-  eyebrow: {
-    textAlign: 'center',
-    color: '#1D4ED8',
-    fontSize: 12,
+  inner: {
+    maxWidth: 1280,
+    width: '100%',
+    marginHorizontal: 'auto',
+  },
+  header: {
+    alignItems: 'center',
+    marginBottom: 48,
+  },
+  heading: {
+    color: '#0f172a',
+    fontSize: 42,
+    lineHeight: 46,
     fontWeight: '700',
-    textTransform: 'uppercase',
-    letterSpacing: 0.8,
-  },
-  title: {
-    marginTop: 8,
     textAlign: 'center',
-    color: '#0F172A',
-    fontSize: 28,
-    lineHeight: 36,
-    fontWeight: '700',
   },
-  row: {
-    marginTop: 22,
-    gap: 16,
+  subheading: {
+    marginTop: 12,
+    maxWidth: 720,
+    color: '#475569',
+    fontSize: 18,
+    lineHeight: 29,
+    textAlign: 'center',
   },
-  rowWide: {
+  grid: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: 24,
   },
   stepCard: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: '#E2E8F0',
-    padding: 18,
+    width: 280,
+    alignItems: 'center',
+    paddingHorizontal: 8,
   },
-  stepCardWide: {
-    flex: 1,
-  },
-  stepBadge: {
-    width: 42,
-    height: 42,
-    borderRadius: 21,
-    backgroundColor: '#DBEAFE',
+  stepCircle: {
+    width: 56,
+    height: 56,
+    borderRadius: 999,
+    backgroundColor: '#2563eb',
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: 18,
   },
-  stepBadgeText: {
-    color: '#1D4ED8',
-    fontSize: 18,
+  stepCircleText: {
+    color: '#ffffff',
+    fontSize: 22,
     fontWeight: '800',
   },
   stepTitle: {
-    marginTop: 16,
-    color: '#0F172A',
-    fontSize: 18,
+    color: '#0f172a',
+    fontSize: 24,
     fontWeight: '700',
+    textAlign: 'center',
   },
-  stepDescription: {
-    marginTop: 6,
+  stepDesc: {
+    marginTop: 12,
     color: '#475569',
-    fontSize: 14,
-    lineHeight: 22,
+    fontSize: 16,
+    lineHeight: 27,
+    textAlign: 'center',
   },
-})
+});

@@ -4,7 +4,7 @@ import AppTopNav from '../../components/AppTopNav';
 import LandingScreenContent from './LandingScreenContent';
 
 export default function LandingScreen() {
-  console.error('[startup] LandingScreen.native render');
+  console.log('[startup] LandingScreen.native render');
 
   return (
     <SafeAreaView style={styles.page}>
@@ -36,9 +36,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8fbff',
   },
   content: {
+    flexGrow: 1,
     paddingBottom: 32,
   },
-  inner: {
-    flex: 1,
-  },
+  inner: {},
 });

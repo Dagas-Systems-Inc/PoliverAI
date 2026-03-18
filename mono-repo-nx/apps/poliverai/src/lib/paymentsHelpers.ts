@@ -1,14 +1,29 @@
 const FALLBACK_API_BASE = 'https://poliverai.com'
 
-export function getApiBaseOrigin(): string {
-  try {
-    const meta = import.meta as unknown as { env?: Record<string, unknown> }
-    const viteEnv = meta?.env ?? {}
-    const apiUrl = (viteEnv.VITE_API_BASE_URL ?? viteEnv.VITE_API_URL ?? process.env.VITE_API_URL ?? process.env.API_BASE) as string | undefined
-    if (apiUrl && apiUrl.trim() !== '') return apiUrl.replace(/\/$/, '')
-  } catch {
-    // Fall through to runtime-based detection.
+function readEnv(name: string): string | undefined {
+  const processValue =
+    typeof process !== 'undefined' && process.env
+      ? process.env[name]
+      : undefined;
+
+  if (typeof processValue === 'string' && processValue.trim() !== '') {
+    return processValue;
   }
+
+  const globalEnv =
+    typeof globalThis !== 'undefined'
+      ? (globalThis as { __POLIVERAI_ENV__?: Record<string, unknown> }).__POLIVERAI_ENV__
+      : undefined;
+  const globalValue = globalEnv?.[name];
+
+  return typeof globalValue === 'string' && globalValue.trim() !== ''
+    ? globalValue
+    : undefined;
+}
+
+export function getApiBaseOrigin(): string {
+  const apiUrl = readEnv('VITE_API_BASE_URL') ?? readEnv('VITE_API_URL') ?? readEnv('API_BASE');
+  if (apiUrl) return apiUrl.replace(/\/$/, '')
 
   if (
     typeof window !== 'undefined' &&

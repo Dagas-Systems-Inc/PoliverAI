@@ -2,7 +2,8 @@ import React from 'react';
 import { Image, Modal, Platform, Pressable, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { PaymentsService, useAuth } from '@poliverai/intl';
-import { EnterCreditsModal } from '@poliverai/shared-ui';
+import EnterCreditsModal from '../../../../shared-ui/src/lib/EnterCreditsModal.native';
+import { brandAssets } from '../../assets/brand';
 import { CreditCard, LayoutDashboard, LogIn, LogOut, Menu, ShieldCheck, Sparkles, UserPlus, X } from 'lucide-react-native';
 
 type AppTopNavProps = {
@@ -211,7 +212,7 @@ export default function AppTopNav({ currentRoute = 'landing' }: AppTopNavProps) 
       <View style={styles.inner}>
         <Pressable onPress={() => safeNavigate('WebLanding', '/')} style={styles.brandButton}>
           {Platform.OS === 'web' ? (
-            <Image source={{ uri: '/poliverai-icon-transparent.svg' }} style={styles.brandIconImage} resizeMode="contain" />
+            <Image source={brandAssets.poliveraiIconTransparent} style={styles.brandIconImage} resizeMode="contain" />
           ) : (
             <View style={styles.brandIcon}>
               <Text style={styles.brandIconText}>P</Text>

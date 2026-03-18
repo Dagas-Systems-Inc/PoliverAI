@@ -1,6 +1,7 @@
 import React from 'react';
 import { Image, Platform, StyleSheet, Text, View } from 'react-native';
 import { t } from '@poliverai/intl';
+import { brandAssets } from '../../assets/brand';
 
 function copy(path: string, fallback: string) {
   const value = t(path, fallback);
@@ -20,16 +21,8 @@ export default function AppFooter() {
         </Text>
         <Text style={styles.meta}>{copy('brand_block.partnership', 'Designed in partnership with Andela')}</Text>
         <View style={styles.brandPill}>
-          <Image
-            source={{ uri: '/poliverai-logo.png' }}
-            style={styles.brandIconImage}
-            resizeMode="contain"
-          />
-          <Image
-            source={{ uri: '/andela-logo-transparent.png' }}
-            style={styles.andelaIconImage}
-            resizeMode="contain"
-          />
+          <Image source={brandAssets.poliveraiLogo} style={styles.brandIconImage} resizeMode="contain" />
+          <Image source={brandAssets.andelaLogo} style={styles.andelaIconImage} resizeMode="contain" />
         </View>
       </View>
     </View>

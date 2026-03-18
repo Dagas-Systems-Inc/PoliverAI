@@ -4,7 +4,7 @@ import { AppRegistry, Platform } from 'react-native';
 import App from './App';
 import { ReduxProvider } from '@poliverai/intl';
 
-console.error('[startup] Main.tsx loaded', { platform: Platform.OS });
+console.log('[startup] Main.tsx loaded', { platform: Platform.OS });
 
 const globalErrorUtils = (globalThis as typeof globalThis & {
 	ErrorUtils?: {
@@ -16,14 +16,14 @@ const globalErrorUtils = (globalThis as typeof globalThis & {
 if (globalErrorUtils?.setGlobalHandler) {
 	const previousHandler = globalErrorUtils.getGlobalHandler?.();
 	globalErrorUtils.setGlobalHandler((error, isFatal) => {
-		console.error('[startup] GlobalErrorUtils caught', { isFatal, error });
+		console.log('[startup] GlobalErrorUtils caught', { isFatal, error });
 		previousHandler?.(error, isFatal);
 	});
 }
 
 const WrappedApp = () => (
-	console.error('[startup] WrappedApp render', { platform: Platform.OS }),
-	Platform.OS === 'web' && ReduxProvider ? (
+	console.log('[startup] WrappedApp render', { platform: Platform.OS }),
+	ReduxProvider ? (
 		<ReduxProvider>
 			<App />
 		</ReduxProvider>

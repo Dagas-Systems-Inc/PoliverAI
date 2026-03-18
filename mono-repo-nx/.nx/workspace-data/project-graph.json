@@ -18850,6 +18850,11 @@
       },
       {
         "source": "@poliverai/poliverai",
+        "target": "@poliverai/shared-ui",
+        "type": "static"
+      },
+      {
+        "source": "@poliverai/poliverai",
         "target": "npm:@nx/eslint-plugin",
         "type": "static"
       },
@@ -18920,6 +18925,11 @@
       },
       {
         "source": "@poliverai/poliverai",
+        "target": "npm:@react-native-async-storage/async-storage",
+        "type": "static"
+      },
+      {
+        "source": "@poliverai/poliverai",
         "target": "npm:@testing-library/react-native",
         "type": "static"
       },
@@ -18970,16 +18980,6 @@
       },
       {
         "source": "@poliverai/poliverai",
-        "target": "@poliverai/shared-ui",
-        "type": "static"
-      },
-      {
-        "source": "@poliverai/poliverai",
-        "target": "@poliverai/intl",
-        "type": "dynamic"
-      },
-      {
-        "source": "@poliverai/poliverai",
         "target": "@poliverai/intl",
         "type": "static"
       },
@@ -19015,11 +19015,6 @@
       },
       {
         "source": "@poliverai/poliverai",
-        "target": "npm:@react-native-async-storage/async-storage",
-        "type": "static"
-      },
-      {
-        "source": "@poliverai/poliverai",
         "target": "npm:@nx/vite",
         "type": "static"
       },
@@ -19043,16 +19038,6 @@
       },
       {
         "source": "@poliverai/intl",
-        "target": "npm:react-native",
-        "type": "static"
-      },
-      {
-        "source": "@poliverai/intl",
-        "target": "npm:@react-native-async-storage/async-storage",
-        "type": "static"
-      },
-      {
-        "source": "@poliverai/intl",
         "target": "npm:react-redux",
         "type": "static"
       },
@@ -19060,6 +19045,16 @@
         "source": "@poliverai/intl",
         "target": "@poliverai/shared-ui",
         "type": "static"
+      },
+      {
+        "source": "@poliverai/intl",
+        "target": "npm:react-native",
+        "type": "static"
+      },
+      {
+        "source": "@poliverai/intl",
+        "target": "npm:@react-native-async-storage/async-storage",
+        "type": "dynamic"
       },
       {
         "source": "@poliverai/intl",
@@ -43430,5 +43425,5 @@
   },
   "version": "6.0",
   "errors": [],
-  "computedAt": 1773809241099
+  "computedAt": 1773846918657
 }

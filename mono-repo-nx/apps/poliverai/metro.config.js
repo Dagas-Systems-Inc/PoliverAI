@@ -16,6 +16,7 @@ function resolveWorkspaceAlias(moduleName) {
   if (moduleName === '@poliverai/intl') return intlEntry;
   if (moduleName === '@poliverai/shared-ui') return sharedUiEntry;
   if (moduleName === '@assets') return path.resolve(assetsEntry, 'index.ts');
+  if (moduleName === '@assets/brand') return path.resolve(assetsEntry, 'brand', 'index.ts');
   if (moduleName.startsWith('@assets/')) {
     return path.resolve(assetsEntry, moduleName.slice('@assets/'.length));
   }

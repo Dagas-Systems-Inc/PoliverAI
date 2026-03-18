@@ -281,8 +281,8 @@ export const DashboardFullScreen: React.FC = () => {
       <AvailableFeatures hasCredits={hasCredits} />
 
       <GettingStarted />
-      </ScrollView>
       <AppFooter />
+      </ScrollView>
     </View>
   )
 }

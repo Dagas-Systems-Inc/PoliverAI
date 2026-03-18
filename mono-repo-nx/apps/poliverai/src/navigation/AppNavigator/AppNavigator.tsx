@@ -2,7 +2,9 @@ import React from 'react';
 import { ActivityIndicator, View, Text, Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { LoginScreen, PolicyAnalysisScreen, ReportsScreen } from '../../screens';
+import LoginScreen from '../../screens/LoginScreen/LoginScreen';
+import PolicyAnalysisScreen from '../../screens/PolicyAnalysisScreen';
+import ReportsScreen from '../../screens/ReportsScreen';
 import RegisterScreen from '../../screens/RegisterScreen/RegisterScreen';
 import DashboardScreen from '../../screens/DashboardScreen';
 import { TabNavigator } from '../TabNavigator/TabNavigator';
@@ -37,6 +39,28 @@ export const AppNavigator = ({
   // Prefer passing real auth state from the app root to this navigator to preserve behavior.
   const loading = isLoading ?? false;
   const authenticated = isAuthenticated ?? false;
+  const isWeb = Platform.OS === 'web' && typeof window !== 'undefined';
+  const linking = isWeb
+    ? {
+        prefixes: [window.location.origin, 'poliverai://'],
+        config: {
+          screens: {
+            WebLanding: '',
+            Login: 'login',
+            Register: 'register',
+            Signup: 'signup',
+            Dashboard: 'dashboard',
+            Analyze: 'analyze',
+            Reports: 'reports',
+            Credits: 'credits',
+            PaymentReturn: 'payments/return',
+            Main: {
+              path: 'app',
+            },
+          },
+        },
+      }
+    : undefined;
 
   const handleReady = React.useCallback(() => {
     if (Platform.OS === 'web') {
@@ -69,35 +93,7 @@ export const AppNavigator = ({
     <NavigationContainer
       onReady={handleReady}
       theme={navigationTheme}
-      linking={
-        // Basic web linking configuration so paths map to the intended screens
-        // - '/': LandingScreen
-        // - '/login': LoginScreen
-        // - '/register' and '/signup': RegisterScreen
-        // - '/dashboard': HomeScreen (dashboard)
-        {
-          prefixes: [
-            typeof window !== 'undefined' ? window.location.origin : 'app://',
-            'poliverai://',
-          ],
-          config: {
-            screens: {
-              WebLanding: '',
-              Login: 'login',
-              Register: 'register',
-              Signup: 'signup',
-              Dashboard: 'dashboard',
-              Analyze: 'analyze',
-              Reports: 'reports',
-              Credits: 'credits',
-              PaymentReturn: 'payments/return',
-              Main: {
-                path: 'app',
-              },
-            },
-          },
-        }
-      }
+      linking={linking}
     >
       <Stack.Navigator
         screenOptions={{

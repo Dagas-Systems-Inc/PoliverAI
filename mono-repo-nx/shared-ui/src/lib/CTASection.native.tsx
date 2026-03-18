@@ -1,55 +1,85 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
-import { useAuth } from '@poliverai/intl'
-import { Button } from './Button/Button'
+import React from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { t } from '@poliverai/intl';
+import { ArrowRight, Search } from 'lucide-react-native';
+
+function copy(path: string, fallback: string) {
+  const value = t(path, fallback);
+  return typeof value === 'string' ? value : fallback;
+}
 
 export default function CTASection() {
-  const navigation = useNavigation<any>()
-  const { isAuthenticated } = useAuth()
+  const navigation = useNavigation<any>();
 
   return (
     <View style={styles.section}>
-      <Text style={styles.title}>Ready to bring the native app back in line?</Text>
-      <Text style={styles.lead}>
-        Keep the same structure, responsive logic, and payment completion result across every surface.
-      </Text>
-      <Button
-        title={isAuthenticated ? 'Open dashboard' : 'Create account'}
-        size="lg"
-        onPress={() => navigation.navigate(isAuthenticated ? 'Dashboard' : 'Signup')}
-        style={styles.button}
-      />
+      <View style={styles.inner}>
+        <Text style={styles.heading}>{copy('landing.cta.heading', 'Ready to Ensure GDPR Compliance?')}</Text>
+        <Text style={styles.paragraph}>
+          {copy(
+            'landing.cta.paragraph',
+            'Join thousands of organizations using PoliverAI to maintain privacy compliance'
+          )}
+        </Text>
+        <Pressable onPress={() => navigation.navigate('Signup')} style={styles.button}>
+          <View style={styles.buttonInner}>
+            <Search size={18} color="#0f172a" />
+            <Text style={styles.buttonText}>
+              {copy('landing.buttons.start_free_cta', 'Start Your Free Analysis Today')}
+            </Text>
+            <ArrowRight size={18} color="#0f172a" />
+          </View>
+        </Pressable>
+      </View>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   section: {
-    marginHorizontal: 20,
-    marginVertical: 24,
-    padding: 24,
-    borderRadius: 24,
-    backgroundColor: '#0F172A',
+    backgroundColor: '#2563eb',
+    paddingHorizontal: 16,
+    paddingVertical: 64,
   },
-  title: {
-    color: '#FFFFFF',
-    fontSize: 28,
-    lineHeight: 36,
+  inner: {
+    maxWidth: 920,
+    width: '100%',
+    marginHorizontal: 'auto',
+    alignItems: 'center',
+  },
+  heading: {
+    color: '#ffffff',
+    fontSize: 44,
+    lineHeight: 50,
     fontWeight: '700',
     textAlign: 'center',
   },
-  lead: {
-    marginTop: 10,
-    color: '#CBD5E1',
-    fontSize: 16,
-    lineHeight: 24,
+  paragraph: {
+    marginTop: 16,
+    maxWidth: 740,
+    color: 'rgba(255,255,255,0.84)',
+    fontSize: 18,
+    lineHeight: 31,
     textAlign: 'center',
   },
   button: {
-    marginTop: 18,
-    alignSelf: 'center',
-    backgroundColor: '#2563EB',
-    minWidth: 220,
+    marginTop: 26,
+    minHeight: 52,
+    paddingHorizontal: 22,
+    borderRadius: 999,
+    backgroundColor: '#ffffff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-})
+  buttonInner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  buttonText: {
+    color: '#0f172a',
+    fontSize: 16,
+    fontWeight: '700',
+  },
+});

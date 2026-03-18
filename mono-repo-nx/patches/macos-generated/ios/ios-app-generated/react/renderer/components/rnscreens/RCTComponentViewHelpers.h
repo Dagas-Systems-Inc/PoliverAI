@@ -13,49 +13,27 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol RCTRNSBottomTabsViewProtocol <NSObject>
+
+@end
+
+@protocol RCTRNSBottomTabsScreenViewProtocol <NSObject>
+
+@end
+
 @protocol RCTRNSFullWindowOverlayViewProtocol <NSObject>
 
 @end
 
-@protocol RCTRNSSplitViewHostViewProtocol <NSObject>
-- (void)showColumn:(NSString *)column;
+@protocol RCTRNSScreenStackHostViewProtocol <NSObject>
+
 @end
 
-RCT_EXTERN inline void RCTRNSSplitViewHostHandleCommand(
-  id<RCTRNSSplitViewHostViewProtocol> componentView,
-  NSString const *commandName,
-  NSArray const *args)
-{
-  if ([commandName isEqualToString:@"showColumn"]) {
-#if RCT_DEBUG
-  if ([args count] != 1) {
-    RCTLogError(@"%@ command %@ received %d arguments, expected %d.", @"RNSSplitViewHost", commandName, (int)[args count], 1);
-    return;
-  }
-#endif
+@protocol RCTRNSSplitViewHostViewProtocol <NSObject>
 
-  NSObject *arg0 = args[0];
-#if RCT_DEBUG
-  if (!RCTValidateTypeOfViewCommandArgument(arg0, [NSString class], @"string", @"RNSSplitViewHost", commandName, @"1st")) {
-    return;
-  }
-#endif
-  NSString * column = (NSString *)arg0;
-
-  [componentView showColumn:column];
-  return;
-}
-
-#if RCT_DEBUG
-  RCTLogError(@"%@ received command %@, which is not a supported command.", @"RNSSplitViewHost", commandName);
-#endif
-}
+@end
 
 @protocol RCTRNSSplitViewScreenViewProtocol <NSObject>
-
-@end
-
-@protocol RCTRNSStackHostViewProtocol <NSObject>
 
 @end
 
@@ -64,10 +42,6 @@ RCT_EXTERN inline void RCTRNSSplitViewHostHandleCommand(
 @end
 
 @protocol RCTRNSModalScreenViewProtocol <NSObject>
-
-@end
-
-@protocol RCTRNSSafeAreaViewViewProtocol <NSObject>
 
 @end
 
@@ -217,21 +191,5 @@ if ([commandName isEqualToString:@"cancelSearch"]) {
   RCTLogError(@"%@ received command %@, which is not a supported command.", @"RNSSearchBar", commandName);
 #endif
 }
-
-@protocol RCTRNSTabsBottomAccessoryContentViewProtocol <NSObject>
-
-@end
-
-@protocol RCTRNSTabsBottomAccessoryViewProtocol <NSObject>
-
-@end
-
-@protocol RCTRNSTabsHostViewProtocol <NSObject>
-
-@end
-
-@protocol RCTRNSTabsScreenViewProtocol <NSObject>
-
-@end
 
 NS_ASSUME_NONNULL_END

@@ -13,6 +13,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { t, useAuth } from '@poliverai/intl';
 import { ArrowRight, LogIn, UserPlus } from 'lucide-react-native';
+import { brandAssets } from '../../../assets/brand';
 import AppFooter from '../../components/AppFooter';
 import AppTopNav from '../../components/AppTopNav';
 
@@ -64,10 +65,14 @@ export default function LoginScreen() {
     return (
       <View style={styles.page}>
         <AppTopNav currentRoute="login" />
-        <View style={styles.loadingWrap}>
-          <ActivityIndicator size="large" color="#2563eb" />
-        </View>
-        <AppFooter />
+        <ScrollView contentContainerStyle={styles.loadingScrollContent}>
+          <View style={styles.loadingWrap}>
+            <ActivityIndicator size="large" color="#2563eb" />
+          </View>
+          <View style={styles.footerWrap}>
+            <AppFooter />
+          </View>
+        </ScrollView>
       </View>
     );
   }
@@ -76,79 +81,83 @@ export default function LoginScreen() {
     <View style={styles.page}>
       <AppTopNav currentRoute="login" />
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <View style={styles.shell}>
-          <View style={styles.hero}>
-            {Platform.OS === 'web' ? (
-              <Image source={{ uri: '/poliverai-icon-transparent.svg' }} style={styles.heroMarkImage} resizeMode="contain" />
-            ) : (
-              <View style={styles.heroMark}>
-                <Text style={styles.heroMarkText}>P</Text>
-              </View>
-            )}
-            <Text style={styles.heroTitle}>{copy('auth_login.welcome_title', 'Welcome back to PoliverAI')}</Text>
-            <Text style={styles.heroSubtitle}>
-              {copy('auth_login.welcome_subtitle', 'Sign in to continue your privacy compliance workflow')}
-            </Text>
-          </View>
-
-          <View style={styles.card}>
-            <Text style={styles.cardTitle}>{copy('auth_login.sign_in_title', 'Sign in to your account')}</Text>
-            <Text style={styles.cardDesc}>{copy('auth_login.sign_in_desc', 'Enter your credentials to access your account')}</Text>
-
-            {error ? (
-              <View style={styles.errorBox}>
-                <Text style={styles.errorText}>{error}</Text>
-              </View>
-            ) : null}
-
-            <View style={styles.field}>
-              <Text style={styles.label}>{copy('auth.register.email_label', 'Email')}</Text>
-              <TextInput
-                style={styles.input}
-                placeholder={copy('auth.register.email_placeholder', 'Enter your email')}
-                placeholderTextColor="#94a3b8"
-                autoCapitalize="none"
-                keyboardType="email-address"
-                value={email}
-                onChangeText={setEmail}
-              />
-            </View>
-
-            <View style={styles.field}>
-              <Text style={styles.label}>{copy('auth.register.password_label', 'Password')}</Text>
-              <TextInput
-                style={styles.input}
-                placeholder={copy('auth.register.password_placeholder', 'Enter your password')}
-                placeholderTextColor="#94a3b8"
-                secureTextEntry
-                value={password}
-                onChangeText={setPassword}
-              />
-            </View>
-
-            <Pressable style={styles.primaryButton} onPress={onSubmit} disabled={isSubmitting}>
-              {isSubmitting ? (
-                <ActivityIndicator size="small" color="#ffffff" />
+        <View style={styles.contentWrap}>
+          <View style={styles.shell}>
+            <View style={styles.hero}>
+              {Platform.OS === 'web' ? (
+                <Image source={brandAssets.poliveraiIconTransparent} style={styles.heroMarkImage} resizeMode="contain" />
               ) : (
-                <View style={styles.primaryButtonInner}>
-                  <LogIn size={16} color="#ffffff" />
-                  <Text style={styles.primaryButtonText}>{copy('auth_login.sign_in_cta', 'Sign in')}</Text>
+                <View style={styles.heroMark}>
+                  <Text style={styles.heroMarkText}>P</Text>
                 </View>
               )}
-            </Pressable>
+              <Text style={styles.heroTitle}>{copy('auth_login.welcome_title', 'Welcome back to PoliverAI')}</Text>
+              <Text style={styles.heroSubtitle}>
+                {copy('auth_login.welcome_subtitle', 'Sign in to continue your privacy compliance workflow')}
+              </Text>
+            </View>
 
-            <View style={styles.bottomRow}>
-              <Text style={styles.bottomText}>{copy('auth_login.no_account_prefix', "Don't have an account?")}</Text>
-              <Pressable onPress={() => goTo('Register', '/register')} style={styles.inlineLinkButton}>
-                <UserPlus size={14} color="#2563eb" />
-                <Text style={styles.linkText}>{copy('auth_login.sign_up_cta', 'Sign up')}</Text>
-                <ArrowRight size={14} color="#2563eb" />
+            <View style={styles.card}>
+              <Text style={styles.cardTitle}>{copy('auth_login.sign_in_title', 'Sign in to your account')}</Text>
+              <Text style={styles.cardDesc}>{copy('auth_login.sign_in_desc', 'Enter your credentials to access your account')}</Text>
+
+              {error ? (
+                <View style={styles.errorBox}>
+                  <Text style={styles.errorText}>{error}</Text>
+                </View>
+              ) : null}
+
+              <View style={styles.field}>
+                <Text style={styles.label}>{copy('auth.register.email_label', 'Email')}</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder={copy('auth.register.email_placeholder', 'Enter your email')}
+                  placeholderTextColor="#94a3b8"
+                  autoCapitalize="none"
+                  keyboardType="email-address"
+                  value={email}
+                  onChangeText={setEmail}
+                />
+              </View>
+
+              <View style={styles.field}>
+                <Text style={styles.label}>{copy('auth.register.password_label', 'Password')}</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder={copy('auth.register.password_placeholder', 'Enter your password')}
+                  placeholderTextColor="#94a3b8"
+                  secureTextEntry
+                  value={password}
+                  onChangeText={setPassword}
+                />
+              </View>
+
+              <Pressable style={styles.primaryButton} onPress={onSubmit} disabled={isSubmitting}>
+                {isSubmitting ? (
+                  <ActivityIndicator size="small" color="#ffffff" />
+                ) : (
+                  <View style={styles.primaryButtonInner}>
+                    <LogIn size={16} color="#ffffff" />
+                    <Text style={styles.primaryButtonText}>{copy('auth_login.sign_in_cta', 'Sign in')}</Text>
+                  </View>
+                )}
               </Pressable>
+
+              <View style={styles.bottomRow}>
+                <Text style={styles.bottomText}>{copy('auth_login.no_account_prefix', "Don't have an account?")}</Text>
+                <Pressable onPress={() => goTo('Register', '/register')} style={styles.inlineLinkButton}>
+                  <UserPlus size={14} color="#2563eb" />
+                  <Text style={styles.linkText}>{copy('auth_login.sign_up_cta', 'Sign up')}</Text>
+                  <ArrowRight size={14} color="#2563eb" />
+                </Pressable>
+              </View>
             </View>
           </View>
         </View>
+        <View style={styles.footerWrap}>
+          <AppFooter />
+        </View>
       </ScrollView>
-      <AppFooter />
     </View>
   );
 }
@@ -160,14 +169,27 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingHorizontal: 16,
     paddingVertical: 48,
-    justifyContent: 'center',
+    justifyContent: Platform.OS === 'web' ? 'center' : 'flex-start',
+  },
+  loadingScrollContent: {
+    flexGrow: 1,
+    justifyContent: 'space-between',
+    paddingTop: 48,
+  },
+  contentWrap: {
+    width: '100%',
+    paddingHorizontal: 16,
   },
   shell: {
     width: '100%',
     maxWidth: 420,
     alignSelf: 'center',
+  },
+  footerWrap: {
+    width: '100%',
+    marginTop: 32,
+    alignSelf: 'stretch',
   },
   hero: {
     alignItems: 'center',
@@ -302,7 +324,7 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   loadingWrap: {
-    flex: 1,
+    minHeight: 320,
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 48,
