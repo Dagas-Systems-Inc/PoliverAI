@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import AppTopNav from '../../components/AppTopNav';
 import LandingScreenContent from './LandingScreenContent';
 
@@ -7,7 +7,7 @@ export default function LandingScreen() {
   console.log('[startup] LandingScreen.native render');
 
   return (
-    <SafeAreaView style={styles.page}>
+    <View style={styles.page}>
       <AppTopNav currentRoute="landing" />
       <ScrollView
         style={styles.scrollView}
@@ -22,7 +22,7 @@ export default function LandingScreen() {
           />
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 

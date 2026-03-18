@@ -1,13 +1,11 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { t } from '@poliverai/intl';
+import PoliveraiLogo from '../assets/poliverai-logo.svg';
 
 interface FooterProps {
   hasBackground?: boolean;
 }
-
-const logo = require('../assets/poliverai-logo.png');
-const andelaLogo = require('../assets/andela-logo-transparent.png');
 
 function copy(path: string, fallback: string) {
   const value = t(path, fallback);
@@ -27,8 +25,8 @@ export default function Footer({ hasBackground = false }: FooterProps) {
         </Text>
         <Text style={styles.meta}>{copy('brand_block.partnership', 'Designed in partnership with Andela')}</Text>
         <View style={styles.brandPill}>
-          <Image source={logo} style={styles.brandIconImage} resizeMode="contain" />
-          <Image source={andelaLogo} style={styles.andelaIconImage} resizeMode="contain" />
+          <PoliveraiLogo width={100} height={40} />
+          <Text style={styles.andelaText}>Andela</Text>
         </View>
       </View>
     </View>
@@ -77,13 +75,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 12,
   },
-  brandIconImage: {
-    width: 100,
-    height: 50,
-  },
-  andelaIconImage: {
-    width: 130,
-    height: 50,
+  andelaText: {
+    color: '#0f172a',
+    fontSize: 22,
+    fontWeight: '700',
   },
   text: {
     textAlign: 'center',

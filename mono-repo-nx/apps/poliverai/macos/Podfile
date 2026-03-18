@@ -39,6 +39,20 @@ require Pod::Executable.execute_command('node', ['-p', 'require.resolve("react-n
 
 prepare_react_native_project!
 
+def run_macos_codegen_fix_helper
+  begin
+    helper = File.expand_path('../../../scripts/fix-macos-codegen-paths.sh', __dir__)
+    if File.executable?(helper)
+      system(helper)
+    else
+      File.chmod(0755, helper) if File.exist?(helper)
+      system(helper) if File.executable?(helper)
+    end
+  rescue StandardError => e
+    puts "[podfile] warning: failed to run fix-macos-codegen-paths.sh: #{e.message}"
+  end
+end
+
   # NOTE: React Native codegen must run during `pod install` so that
   # generated headers and podspecs required by other pods (for example
   # react-native-safe-area-context) are created. We avoid disabling
@@ -88,22 +102,10 @@ target 'poliverai-macOS' do
     # Call the standard RN post-install first.
     react_native_post_install(installer, mac_react_native_path)
 
-    # Ensure deterministic fallback symlink path for generated codegen scripts
-    # so that any scripts referencing overly-long relative paths can still
-    # resolve react-native-macos during xcodebuild. This is a best-effort
-    # helper and will be a no-op if the script cannot create the symlink.
-    begin
-      helper = File.expand_path('../../../scripts/fix-macos-codegen-paths.sh', __dir__)
-      if File.executable?(helper)
-        system(helper)
-      else
-        # Try to make it executable and run
-        File.chmod(0755, helper) if File.exist?(helper)
-        system(helper) if File.executable?(helper)
-      end
-    rescue StandardError => e
-      puts "[podfile] warning: failed to run fix-macos-codegen-paths.sh: #{e.message}"
-    end
+    # Patch generated codegen paths before integration. The same helper is
+    # also rerun in post_integrate because CocoaPods may rewrite Pods.xcodeproj
+    # after post_install.
+    run_macos_codegen_fix_helper
 
     # Inject the macOS-only codegen-skip flags into each pod target so that
     # generated build settings are consistent during Xcode builds. This loop is
@@ -133,4 +135,8 @@ target 'poliverai-macOS' do
       end
     end
   end
+end
+
+post_integrate do |_installer|
+  run_macos_codegen_fix_helper
 end

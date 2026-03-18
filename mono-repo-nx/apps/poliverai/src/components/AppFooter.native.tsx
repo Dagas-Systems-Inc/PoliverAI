@@ -1,7 +1,7 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { t } from '@poliverai/intl';
-import { brandAssets } from '../../assets/brand';
+import PoliveraiLogo from '../../assets/brand/poliverai-logo.svg';
 
 function copy(path: string, fallback: string) {
   const value = t(path, fallback);
@@ -23,10 +23,10 @@ export default function AppFooter() {
 
         <View style={styles.brandRow}>
           <View style={styles.logoWrap}>
-            <Image source={brandAssets.poliveraiLogo} style={styles.poliveraiLogo} resizeMode="contain" />
+            <PoliveraiLogo width={100} height={36} />
           </View>
-          <View style={styles.logoWrap}>
-            <Image source={brandAssets.andelaLogo} style={styles.andelaLogo} resizeMode="contain" />
+          <View style={[styles.logoWrap, styles.textLogoWrap]}>
+            <Text style={styles.textLogo}>Andela</Text>
           </View>
         </View>
       </View>
@@ -80,12 +80,13 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: '#ffffff',
   },
-  poliveraiLogo: {
-    width: 100,
-    height: 36,
+  textLogoWrap: {
+    minWidth: 110,
+    alignItems: 'center',
   },
-  andelaLogo: {
-    width: 130,
-    height: 36,
+  textLogo: {
+    color: '#0f172a',
+    fontSize: 22,
+    fontWeight: '700',
   },
 });

@@ -84,13 +84,7 @@ export default function LoginScreen() {
         <View style={styles.contentWrap}>
           <View style={styles.shell}>
             <View style={styles.hero}>
-              {Platform.OS === 'web' ? (
-                <Image source={brandAssets.poliveraiIconTransparent} style={styles.heroMarkImage} resizeMode="contain" />
-              ) : (
-                <View style={styles.heroMark}>
-                  <Text style={styles.heroMarkText}>P</Text>
-                </View>
-              )}
+              <Image source={brandAssets.poliveraiIcon} style={styles.heroMarkImage} resizeMode="contain" />
               <Text style={styles.heroTitle}>{copy('auth_login.welcome_title', 'Welcome back to PoliverAI')}</Text>
               <Text style={styles.heroSubtitle}>
                 {copy('auth_login.welcome_subtitle', 'Sign in to continue your privacy compliance workflow')}

@@ -3,11 +3,11 @@ import type { ImageSourcePropType } from 'react-native';
 export type BrandImageSource = ImageSourcePropType;
 
 export const brandAssets = {
-  poliveraiLogo: require('../../../../shared-ui/src/assets/poliverai-logo.png') as ImageSourcePropType,
-  poliveraiLogoSvg: require('../../../../shared-ui/src/assets/poliverai-logo.png') as ImageSourcePropType,
-  poliveraiIcon: require('../../../../shared-ui/src/assets/poliverai-logo.png') as ImageSourcePropType,
-  poliveraiIconTransparent: require('../../../../shared-ui/src/assets/poliverai-logo.png') as ImageSourcePropType,
-  andelaLogo: require('../../../../shared-ui/src/assets/andela-logo-transparent.png') as ImageSourcePropType,
+  poliveraiLogo: require('./poliverai-logo.png') as ImageSourcePropType,
+  poliveraiLogoSvg: require('./poliverai-logo.svg') as ImageSourcePropType,
+  poliveraiIcon: require('./poliverai-icon.svg') as ImageSourcePropType,
+  poliveraiIconTransparent: require('./poliverai-icon-transparent.svg') as ImageSourcePropType,
+  andelaLogo: require('./andela-logo-transparent.png') as ImageSourcePropType,
 };
 
 export default brandAssets;

@@ -10,14 +10,6 @@ function getCopy(path: string, fallback: string) {
 }
 
 function WebLogo() {
-  if (Platform.OS !== 'web') {
-    return (
-      <View style={styles.logoFallback}>
-        <Text style={styles.logoFallbackText}>PoliverAI</Text>
-      </View>
-    );
-  }
-
   return (
     <Image
       source={{ uri: '/poliverai-logo.png' }}

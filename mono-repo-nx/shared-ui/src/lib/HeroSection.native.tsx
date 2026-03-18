@@ -1,11 +1,9 @@
 import React from 'react';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { t, useAuth } from '@poliverai/intl';
 import { ArrowRight, LayoutDashboard, Search, Sparkles } from 'lucide-react-native';
-
-const logo = require('../assets/poliverai-logo.png');
-const andelaLogo = require('../assets/andela-logo-transparent.png');
+import PoliveraiLogo from '../assets/poliverai-logo.svg';
 
 function getCopy(path: string, fallback: string) {
   const value = t(path, fallback);
@@ -19,12 +17,7 @@ export default function HeroSection() {
   return (
     <View style={styles.wrap}>
       <View style={styles.heroCard}>
-        <Image
-          source={logo}
-          accessibilityLabel={getCopy('brand.alt', 'PoliverAI')}
-          style={styles.logoImage}
-          resizeMode="contain"
-        />
+        <PoliveraiLogo width={280} height={120} />
         <Text style={styles.title}>
           {getCopy('landing.hero.prefix', 'Your')}{' '}
           <Text style={styles.titleHighlight}>{getCopy('landing.hero.highlight', 'AI-Powered')}</Text>{' '}
@@ -72,7 +65,9 @@ export default function HeroSection() {
 
         <View style={styles.partnerRow}>
           <Text style={styles.partnerText}>{getCopy('landing.partner.prefix', 'An')}</Text>
-          <Image source={andelaLogo} style={styles.andelaLogo} resizeMode="contain" />
+          <View style={styles.partnerBadge}>
+            <Text style={styles.partnerBadgeText}>Andela</Text>
+          </View>
           <Text style={styles.partnerText}>
             {getCopy('landing.partner.suffix', 'initiative — designed in partnership with Andela')}
           </Text>
@@ -90,10 +85,6 @@ const styles = StyleSheet.create({
   },
   heroCard: {
     alignItems: 'center',
-  },
-  logoImage: {
-    width: 280,
-    height: 120,
   },
   title: {
     marginTop: 16,
@@ -163,8 +154,15 @@ const styles = StyleSheet.create({
     color: '#4b5563',
     fontSize: 16,
   },
-  andelaLogo: {
-    width: 96,
-    height: 36,
+  partnerBadge: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 999,
+    backgroundColor: '#e2e8f0',
+  },
+  partnerBadgeText: {
+    color: '#0f172a',
+    fontSize: 16,
+    fontWeight: '700',
   },
 });

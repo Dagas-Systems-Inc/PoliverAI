@@ -18850,11 +18850,6 @@
       },
       {
         "source": "@poliverai/poliverai",
-        "target": "@poliverai/shared-ui",
-        "type": "static"
-      },
-      {
-        "source": "@poliverai/poliverai",
         "target": "npm:@nx/eslint-plugin",
         "type": "static"
       },
@@ -18981,6 +18976,11 @@
       {
         "source": "@poliverai/poliverai",
         "target": "@poliverai/intl",
+        "type": "static"
+      },
+      {
+        "source": "@poliverai/poliverai",
+        "target": "@poliverai/shared-ui",
         "type": "static"
       },
       {
@@ -43425,5 +43425,5 @@
   },
   "version": "6.0",
   "errors": [],
-  "computedAt": 1773846918657
+  "computedAt": 1773853855981
 }

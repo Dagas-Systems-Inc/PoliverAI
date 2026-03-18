@@ -1,6 +1,6 @@
 import React from 'react';
 import { ActivityIndicator, View, Text, Platform } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from '../../screens/LoginScreen/LoginScreen';
 import PolicyAnalysisScreen from '../../screens/PolicyAnalysisScreen';
@@ -14,8 +14,9 @@ import CreditsScreen from '../../screens/CreditsScreen';
 const Stack = createStackNavigator();
 
 const navigationTheme = {
-  dark: false,
+  ...DefaultTheme,
   colors: {
+    ...DefaultTheme.colors,
     primary: '#2563eb',
     background: '#ffffff',
     card: '#ffffff',
