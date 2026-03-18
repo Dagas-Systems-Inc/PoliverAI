@@ -3,7 +3,7 @@
 // used by both web (Vite) and React Native. Do not import Expo or app assets
 // from here. A calling app should pass a `source` prop for the animation.
 import React, { useEffect, useRef } from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 interface SplashProps {
@@ -46,12 +46,12 @@ export const Splash: React.FC<SplashProps> = ({ onFinish, source, duration = 400
   }, [duration, onFinish]);
 
   // If Lottie is available (native), render it. Otherwise render a simple web fallback.
-  if (LottieView) {
+  if (LottieView && source) {
     return (
       <View style={[styles.container, styles.pointerEventsNone]}>
         <LottieView
           ref={animRef}
-          source={(source as any) || undefined}
+          source={source as any}
           autoPlay
           loop={false}
           speed={0.95}
@@ -79,7 +79,7 @@ export const Splash: React.FC<SplashProps> = ({ onFinish, source, duration = 400
   // Web / fallback rendering
   return (
     <View style={[styles.container, styles.pointerEventsNone]}>
-      <Image source={{ uri: '/poliverai-logo.svg' }} style={styles.logo} resizeMode="contain" />
+      <Text style={styles.mark}>P</Text>
       <Text style={styles.brand}>PoliverAI</Text>
     </View>
   );
@@ -100,10 +100,20 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  logo: {
-    width: 160,
+  mark: {
+    width: 72,
     height: 72,
-    marginBottom: 12,
+    borderRadius: 20,
+    marginBottom: 16,
+    backgroundColor: '#2563eb',
+    color: '#ffffff',
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    fontSize: 34,
+    fontWeight: '800',
+    overflow: 'hidden',
+    includeFontPadding: false,
+    lineHeight: 72,
   },
   brand: {
     fontSize: 24,

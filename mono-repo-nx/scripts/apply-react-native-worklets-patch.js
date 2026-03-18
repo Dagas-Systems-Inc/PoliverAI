@@ -23,10 +23,58 @@ const startDir = path.resolve(process.cwd());
 const targetPkgDir = findPkgDir(startDir, 'react-native-worklets') || findPkgDir(repoRoot, 'react-native-worklets');
 const gestureHandlerPkgDir =
   findPkgDir(startDir, 'react-native-gesture-handler') || findPkgDir(repoRoot, 'react-native-gesture-handler');
+const screensPkgDir =
+  findPkgDir(startDir, 'react-native-screens') || findPkgDir(repoRoot, 'react-native-screens');
 
 function log(...args) { console.log('[apply-react-native-worklets-patch]', ...args); }
 
-function patchGestureHandlerForMacOS(pkgDir) {
+function patchScreensEdgeToEdgeForAndroid(pkgDir) {
+  if (!pkgDir) {
+    return;
+  }
+
+  const detectorPath = path.join(
+    pkgDir,
+    'android',
+    'src',
+    'versioned',
+    'edge-to-edge',
+    'latest',
+    'com',
+    'swmansion',
+    'rnscreens',
+    'utils',
+    'EdgeToEdgeDetector.kt'
+  );
+  if (!fs.existsSync(detectorPath)) {
+    return;
+  }
+
+  const source = fs.readFileSync(detectorPath, 'utf8');
+  const next = source
+    .replace("import com.facebook.react.views.view.isEdgeToEdgeFeatureFlagOn\n\n", '')
+    .replace(
+      `    // For RN >= 0.81, we use both isEdgeToEdgeFeatureFlagOn (from react-native) and the presence of
+    // react-native-edge-to-edge package to determine if app is in edge-to-edge.
+    val ENABLED: Boolean =
+        isEdgeToEdgeFeatureFlagOn ||
+            try {`,
+      `    // RN 0.79 does not expose isEdgeToEdgeFeatureFlagOn, so fall back to checking
+    // whether react-native-is-edge-to-edge is present.
+    val ENABLED: Boolean =
+        try {`
+    );
+
+  if (next === source) {
+    log('react-native-screens Android edge-to-edge patch already applied');
+    return;
+  }
+
+  fs.writeFileSync(detectorPath, next, 'utf8');
+  log('Patched react-native-screens Android edge-to-edge detector in', detectorPath);
+}
+
+function patchGestureHandlerForApple(pkgDir) {
   if (!pkgDir) {
     return;
   }
@@ -54,28 +102,50 @@ function patchGestureHandlerForMacOS(pkgDir) {
         bool isViewFlatteningDisabled = shadowNode->getTraits().check(ShadowNodeTraits::FormsStackingContext);
 
         return jsi::Value(isViewFlatteningDisabled);`;
-  const after = `auto shadowNode = shadowNodeFromValue(runtime, arguments[0]);
+  const transitional = `auto shadowNode = shadowNodeFromValue(runtime, arguments[0]);
 
         bool isViewFlatteningDisabled = shadowNode->getTraits().check(ShadowNodeTraits::FormsStackingContext);
         const char *componentName = shadowNode->getComponentName();
         bool isTextComponent = strcmp(componentName, "Paragraph") == 0 || strcmp(componentName, "Text") == 0;
 
         return jsi::Value(isViewFlatteningDisabled || isTextComponent);`;
+  const after = `#if REACT_NATIVE_MINOR_VERSION >= 81
+        auto shadowNode = Bridging<std::shared_ptr<const ShadowNode>>::fromJs(runtime, arguments[0]);
+#else
+        auto shadowNode = facebook::react::shadowNodeFromValue(runtime, arguments[0]);
+#endif
 
-  if (!source.includes(before)) {
-    if (source.includes(after)) {
-      log('react-native-gesture-handler macOS ShadowNode patch already applied');
-    }
+        bool isViewFlatteningDisabled = shadowNode->getTraits().check(ShadowNodeTraits::FormsStackingContext);
+        const char *componentName = shadowNode->getComponentName();
+        bool isTextComponent = strcmp(componentName, "Paragraph") == 0 || strcmp(componentName, "Text") == 0;
+
+        return jsi::Value(isViewFlatteningDisabled || isTextComponent);`;
+  const bridgingInclude = '#import <react/bridging/Bridging.h>\n';
+  const runtimeInclude = '#import <react/renderer/uimanager/primitives.h>\n';
+
+  let next = source;
+  if (!next.includes(bridgingInclude)) {
+    next = next.replace(runtimeInclude, bridgingInclude + runtimeInclude);
+  }
+
+  if (next.includes(before)) {
+    next = next.replace(before, after);
+  } else if (next.includes(transitional)) {
+    next = next.replace(transitional, after);
+  }
+
+  if (next === source) {
+    log('react-native-gesture-handler Apple ShadowNode patch already applied');
     return;
   }
 
-  fs.writeFileSync(modulePath, source.replace(before, after), 'utf8');
-  log('Patched react-native-gesture-handler macOS ShadowNode conversion in', modulePath);
+  fs.writeFileSync(modulePath, next, 'utf8');
+  log('Patched react-native-gesture-handler Apple ShadowNode conversion in', modulePath);
 }
 
 if (!targetPkgDir) {
   log('react-native-worklets not found in node_modules; skipping patch');
-  patchGestureHandlerForMacOS(gestureHandlerPkgDir);
+  patchGestureHandlerForApple(gestureHandlerPkgDir);
   process.exit(0);
 }
 
@@ -197,16 +267,35 @@ if (fs.existsSync(pkgJson)) {
     console.warn('[apply-react-native-worklets-patch] macos stub step failed:', err && err.message);
   }
 
-  // If we have macOS/iOS generated snapshots (from snapshot-macos-generated.js),
-  // copy relevant generated headers into the app's Pods headers so Xcode can
-  // resolve includes like <react/renderer/components/safeareacontext/Props.h>.
+  // If we have generated snapshots, copy relevant generated headers into the
+  // app's iOS/macOS Pods headers so Xcode can resolve includes like
+  // <react/renderer/components/safeareacontext/Props.h>.
   try {
-    const macosGenerated = path.join(repoRoot, 'patches', 'macos-generated', 'ios');
-    const appPodsHeaders = path.join(repoRoot, 'apps', 'poliverai', 'macos', 'Pods', 'Headers', 'Private');
-    if (fs.existsSync(macosGenerated) && fs.existsSync(path.join(repoRoot, 'apps', 'poliverai', 'macos'))) {
+    const generatedSourceCandidates = [
+      path.join(repoRoot, 'apps', 'poliverai', 'ios', 'build', 'generated', 'ios'),
+      path.join(repoRoot, 'patches', 'macos-generated', 'ios', 'ios-generated'),
+    ];
+    const generatedRoot = generatedSourceCandidates.find((candidate) => fs.existsSync(candidate));
+
+    const platformConfigs = ['macos', 'ios']
+      .map((platformName) => {
+        const appPlatformRoot = path.join(repoRoot, 'apps', 'poliverai', platformName);
+        const podsRoot = path.join(appPlatformRoot, 'Pods');
+        if (!fs.existsSync(podsRoot)) {
+          return null;
+        }
+        return {
+          platformName,
+          appPlatformRoot,
+          podsRoot,
+          privateHeaders: path.join(podsRoot, 'Headers', 'Private'),
+          publicHeaders: path.join(podsRoot, 'Headers', 'Public'),
+        };
+      })
+      .filter(Boolean);
+
+    if (generatedRoot && platformConfigs.length > 0) {
       // Copy ReactCodegen headers (they live under ReactCodegen/* or react/renderer/...)
-      const srcReactCodegen = path.join(macosGenerated, 'Pods', 'Headers', 'Private', 'ReactCodegen');
-      const dstReactCodegen = path.join(appPodsHeaders, 'ReactCodegen');
       function copyRecursive(src, dst) {
         if (!fs.existsSync(src)) return;
         const st = fs.statSync(src);
@@ -219,28 +308,6 @@ if (fs.existsSync(pkgJson)) {
           fs.copyFileSync(src, dst);
         }
       }
-
-      if (fs.existsSync(srcReactCodegen)) {
-        copyRecursive(srcReactCodegen, dstReactCodegen);
-        log('Copied ReactCodegen generated headers from patches into', dstReactCodegen);
-      } else {
-        // Fallback: some snapshots put generated headers under ios/.../react
-        const alt = path.join(macosGenerated, 'react');
-        if (fs.existsSync(alt)) {
-          const dstAlt = path.join(appPodsHeaders, 'ReactCodegen', 'react');
-          copyRecursive(alt, dstAlt);
-          log('Copied generated react/* headers from patches into', dstAlt);
-        }
-      }
-  // Also try to copy any public ReactCodegen headers from ios/Pods (if present
-  // on the machine) into the app's Pods/Headers/Public/ReactCodegen so that
-  // includes like <rngesturehandler_codegen/rngesturehandler_codegen.h>
-  // (which are rooted under the ReactCodegen include directory) resolve.
-      // Prepare paths for possible public ReactCodegen headers. Declare them
-      // in this outer scope so subsequent mirroring code can reference them
-      // even if the copy step below doesn't actually copy anything.
-      const iosPublicRc = path.join(repoRoot, 'ios', 'Pods', 'Headers', 'Public', 'ReactCodegen');
-      const appPublicRc = path.join(repoRoot, 'apps', 'poliverai', 'macos', 'Pods', 'Headers', 'Public', 'ReactCodegen');
       function copyIfExists(src, dst) {
         if (!fs.existsSync(src)) return false;
         const st = fs.statSync(src);
@@ -261,22 +328,27 @@ if (fs.existsSync(pkgJson)) {
         }
         return true;
       }
-      try {
-        if (copyIfExists(iosPublicRc, appPublicRc)) {
-          log('Copied Public ReactCodegen headers from ios/Pods into', appPublicRc);
+
+      for (const platform of platformConfigs) {
+        const srcReactCodegen = path.join(platform.privateHeaders, 'ReactCodegen');
+        const dstReactCodegen = path.join(platform.privateHeaders, 'ReactCodegen');
+        const appPublicRc = path.join(platform.publicHeaders, 'ReactCodegen');
+
+        const altReactTree = path.join(generatedRoot, 'react');
+        if (fs.existsSync(altReactTree)) {
+          const dstAlt = path.join(dstReactCodegen, 'react');
+          copyRecursive(altReactTree, dstAlt);
+          log(`Copied generated react/* headers into ${platform.platformName} Pods`, dstAlt);
         }
-      } catch (err) {
-        console.warn('[apply-react-native-worklets-patch] copying public ReactCodegen headers failed:', err && err.message);
-      }
-      // Many includes in the RN new-arch use a top-level <react/...> include
-      // root. Ensure the 'react' folder from generated ReactCodegen headers is
-      // mirrored into both the Public and Private Pods/Headers/react paths so
-      // that #import <react/renderer/...> resolves during compile.
-      try {
-        const srcReactFolder1 = path.join(dstReactCodegen, 'react');
-  const srcReactFolder2 = path.join(iosPublicRc, 'react');
-        const dstPublicReact = path.join(repoRoot, 'apps', 'poliverai', 'macos', 'Pods', 'Headers', 'Public', 'react');
-        const dstPrivateReact = path.join(repoRoot, 'apps', 'poliverai', 'macos', 'Pods', 'Headers', 'Private', 'react');
+
+        try {
+          if (copyIfExists(path.join(platform.publicHeaders, 'ReactCodegen'), appPublicRc)) {
+            log(`Refreshed Public ReactCodegen headers for ${platform.platformName}`, appPublicRc);
+          }
+        } catch (err) {
+          console.warn('[apply-react-native-worklets-patch] copying public ReactCodegen headers failed:', err && err.message);
+        }
+
         function copyFolderIfExists(src, dst) {
           if (!fs.existsSync(src)) return;
           const stat = fs.statSync(src);
@@ -294,19 +366,13 @@ if (fs.existsSync(pkgJson)) {
             }
           }
         }
-        copyFolderIfExists(srcReactFolder1, dstPublicReact);
-        copyFolderIfExists(srcReactFolder1, dstPrivateReact);
-        copyFolderIfExists(srcReactFolder2, dstPublicReact);
-        log('Mirrored top-level react/ include tree into Pods Public and Private header trees');
-      } catch (err) {
-        console.warn('[apply-react-native-worklets-patch] mirroring top-level react tree failed:', err && err.message);
-      }
-      // Also copy generated safeareacontext headers (these are referenced as
-      // <safeareacontext/safeareacontext.h> from the safe-area package). Put
-      // them into the Pods/Headers/Public/safeareacontext so the imports resolve.
-      try {
-        const srcSafeArea = path.join(macosGenerated, 'ios-generated', 'safeareacontext');
-        const dstSafeArea = path.join(repoRoot, 'apps', 'poliverai', 'macos', 'Pods', 'Headers', 'Public', 'safeareacontext');
+
+        const dstPublicReact = path.join(platform.publicHeaders, 'react');
+        const dstPrivateReact = path.join(platform.privateHeaders, 'react');
+        copyFolderIfExists(path.join(dstReactCodegen, 'react'), dstPublicReact);
+        copyFolderIfExists(path.join(dstReactCodegen, 'react'), dstPrivateReact);
+        log(`Mirrored top-level react/ include tree for ${platform.platformName}`);
+
         function copySafeArea(src, dst) {
           if (!fs.existsSync(src)) return;
           const st = fs.statSync(src);
@@ -319,47 +385,30 @@ if (fs.existsSync(pkgJson)) {
             fs.copyFileSync(src, dst);
           }
         }
+
+        const srcSafeArea = path.join(generatedRoot, 'safeareacontext');
+        const dstSafeArea = path.join(platform.publicHeaders, 'safeareacontext');
         if (fs.existsSync(srcSafeArea)) {
           copySafeArea(srcSafeArea, dstSafeArea);
-          log('Copied safeareacontext generated headers into', dstSafeArea);
+          log(`Copied safeareacontext generated headers into ${platform.platformName} Pods`, dstSafeArea);
         }
-      } catch (err) {
-        console.warn('[apply-react-native-worklets-patch] copying safeareacontext headers failed:', err && err.message);
-      }
-      // The safe-area Fabric sources include headers via the top-level
-      // <react/renderer/components/safeareacontext/...> root. Mirror the
-      // generated safeareacontext component headers into both Public and
-      // Private Pods header trees so macOS builds resolve those includes.
-      try {
+
         const srcSafeAreaReact = path.join(
-          macosGenerated,
-          'ios-generated',
+          generatedRoot,
           'react',
           'renderer',
           'components',
           'safeareacontext'
         );
         const dstPublicSafeAreaReact = path.join(
-          repoRoot,
-          'apps',
-          'poliverai',
-          'macos',
-          'Pods',
-          'Headers',
-          'Public',
+          platform.publicHeaders,
           'react',
           'renderer',
           'components',
           'safeareacontext'
         );
         const dstPrivateSafeAreaReact = path.join(
-          repoRoot,
-          'apps',
-          'poliverai',
-          'macos',
-          'Pods',
-          'Headers',
-          'Private',
+          platform.privateHeaders,
           'react',
           'renderer',
           'components',
@@ -380,46 +429,25 @@ if (fs.existsSync(pkgJson)) {
         if (fs.existsSync(srcSafeAreaReact)) {
           copySafeAreaReactTree(srcSafeAreaReact, dstPublicSafeAreaReact);
           copySafeAreaReactTree(srcSafeAreaReact, dstPrivateSafeAreaReact);
-          log('Mirrored safeareacontext react component headers into Pods Public and Private header trees');
+          log(`Mirrored safeareacontext react headers for ${platform.platformName}`);
         }
-      } catch (err) {
-        console.warn('[apply-react-native-worklets-patch] mirroring safeareacontext react headers failed:', err && err.message);
-      }
-      // react-native-svg's new-arch sources need both:
-      //   <react/renderer/components/rnsvg/...>
-      // and
-      //   <rnsvg/rnsvg.h>
-      // Mirror both generated trees into the macOS Pods headers.
-      try {
+
         const srcRnsvgReact = path.join(
-          macosGenerated,
-          'ios-generated',
+          generatedRoot,
           'react',
           'renderer',
           'components',
           'rnsvg'
         );
         const dstPublicRnsvgReact = path.join(
-          repoRoot,
-          'apps',
-          'poliverai',
-          'macos',
-          'Pods',
-          'Headers',
-          'Public',
+          platform.publicHeaders,
           'react',
           'renderer',
           'components',
           'rnsvg'
         );
         const dstPrivateRnsvgReact = path.join(
-          repoRoot,
-          'apps',
-          'poliverai',
-          'macos',
-          'Pods',
-          'Headers',
-          'Private',
+          platform.privateHeaders,
           'react',
           'renderer',
           'components',
@@ -440,53 +468,14 @@ if (fs.existsSync(pkgJson)) {
         if (fs.existsSync(srcRnsvgReact)) {
           copyRnsvgReactTree(srcRnsvgReact, dstPublicRnsvgReact);
           copyRnsvgReactTree(srcRnsvgReact, dstPrivateRnsvgReact);
-          log('Mirrored rnsvg react component headers into Pods Public and Private header trees');
+          log(`Mirrored rnsvg react headers for ${platform.platformName}`);
         }
-      } catch (err) {
-        console.warn('[apply-react-native-worklets-patch] mirroring rnsvg react headers failed:', err && err.message);
-      }
-      try {
-        const srcRnsvg = path.join(macosGenerated, 'ios-generated', 'rnsvg');
-        const dstPublicRnsvg = path.join(
-          repoRoot,
-          'apps',
-          'poliverai',
-          'macos',
-          'Pods',
-          'Headers',
-          'Public',
-          'rnsvg'
-        );
-        const dstPrivateRnsvg = path.join(
-          repoRoot,
-          'apps',
-          'poliverai',
-          'macos',
-          'Pods',
-          'Headers',
-          'Private',
-          'rnsvg'
-        );
-        const dstPublicRNSVG = path.join(
-          repoRoot,
-          'apps',
-          'poliverai',
-          'macos',
-          'Pods',
-          'Headers',
-          'Public',
-          'RNSVG'
-        );
-        const dstPrivateRNSVG = path.join(
-          repoRoot,
-          'apps',
-          'poliverai',
-          'macos',
-          'Pods',
-          'Headers',
-          'Private',
-          'RNSVG'
-        );
+
+        const srcRnsvg = path.join(generatedRoot, 'rnsvg');
+        const dstPublicRnsvg = path.join(platform.publicHeaders, 'rnsvg');
+        const dstPrivateRnsvg = path.join(platform.privateHeaders, 'rnsvg');
+        const dstPublicRNSVG = path.join(platform.publicHeaders, 'RNSVG');
+        const dstPrivateRNSVG = path.join(platform.privateHeaders, 'RNSVG');
         function copyRnsvgHeaders(src, dst) {
           if (!fs.existsSync(src)) return;
           const st = fs.statSync(src);
@@ -504,45 +493,25 @@ if (fs.existsSync(pkgJson)) {
           copyRnsvgHeaders(srcRnsvg, dstPrivateRnsvg);
           copyRnsvgHeaders(srcRnsvg, dstPublicRNSVG);
           copyRnsvgHeaders(srcRnsvg, dstPrivateRNSVG);
-          log('Mirrored rnsvg generated headers into Pods Public and Private header trees');
+          log(`Mirrored rnsvg generated headers for ${platform.platformName}`);
         }
-      } catch (err) {
-        console.warn('[apply-react-native-worklets-patch] mirroring rnsvg headers failed:', err && err.message);
-      }
-      // react-native-gesture-handler's new-arch sources need both:
-      //   <react/renderer/components/rngesturehandler_codegen/...>
-      // and
-      //   <rngesturehandler_codegen/rngesturehandler_codegen.h>
-      try {
+
         const srcRnghReact = path.join(
-          macosGenerated,
-          'ios-generated',
+          generatedRoot,
           'react',
           'renderer',
           'components',
           'rngesturehandler_codegen'
         );
         const dstPublicRnghReact = path.join(
-          repoRoot,
-          'apps',
-          'poliverai',
-          'macos',
-          'Pods',
-          'Headers',
-          'Public',
+          platform.publicHeaders,
           'react',
           'renderer',
           'components',
           'rngesturehandler_codegen'
         );
         const dstPrivateRnghReact = path.join(
-          repoRoot,
-          'apps',
-          'poliverai',
-          'macos',
-          'Pods',
-          'Headers',
-          'Private',
+          platform.privateHeaders,
           'react',
           'renderer',
           'components',
@@ -563,33 +532,12 @@ if (fs.existsSync(pkgJson)) {
         if (fs.existsSync(srcRnghReact)) {
           copyRnghReactTree(srcRnghReact, dstPublicRnghReact);
           copyRnghReactTree(srcRnghReact, dstPrivateRnghReact);
-          log('Mirrored rngesturehandler_codegen react headers into Pods Public and Private header trees');
+          log(`Mirrored rngesturehandler_codegen react headers for ${platform.platformName}`);
         }
-      } catch (err) {
-        console.warn('[apply-react-native-worklets-patch] mirroring rngesturehandler_codegen react headers failed:', err && err.message);
-      }
-      try {
-        const srcRngh = path.join(macosGenerated, 'ios-generated', 'rngesturehandler_codegen');
-        const dstPublicRngh = path.join(
-          repoRoot,
-          'apps',
-          'poliverai',
-          'macos',
-          'Pods',
-          'Headers',
-          'Public',
-          'rngesturehandler_codegen'
-        );
-        const dstPrivateRngh = path.join(
-          repoRoot,
-          'apps',
-          'poliverai',
-          'macos',
-          'Pods',
-          'Headers',
-          'Private',
-          'rngesturehandler_codegen'
-        );
+
+        const srcRngh = path.join(generatedRoot, 'rngesturehandler_codegen');
+        const dstPublicRngh = path.join(platform.publicHeaders, 'rngesturehandler_codegen');
+        const dstPrivateRngh = path.join(platform.privateHeaders, 'rngesturehandler_codegen');
         function copyRnghHeaders(src, dst) {
           if (!fs.existsSync(src)) return;
           const st = fs.statSync(src);
@@ -605,17 +553,10 @@ if (fs.existsSync(pkgJson)) {
         if (fs.existsSync(srcRngh)) {
           copyRnghHeaders(srcRngh, dstPublicRngh);
           copyRnghHeaders(srcRngh, dstPrivateRngh);
-          log('Mirrored rngesturehandler_codegen generated headers into Pods Public and Private header trees');
+          log(`Mirrored rngesturehandler_codegen generated headers for ${platform.platformName}`);
         }
-      } catch (err) {
-        console.warn('[apply-react-native-worklets-patch] mirroring rngesturehandler_codegen headers failed:', err && err.message);
-      }
-      // Mirror react/renderer component headers into the Public ReactCodegen tree
-      // too: some targets include headers via the ReactCodegen public include
-      // root (e.g. #import <react/renderer/components/...>) while others expect
-      // them under Pods/Headers/Private. Copy into both places if available.
-      try {
-        const publicReact = path.join(repoRoot, 'apps', 'poliverai', 'macos', 'Pods', 'Headers', 'Public', 'ReactCodegen', 'react', 'renderer', 'components');
+
+        const publicReact = path.join(platform.publicHeaders, 'ReactCodegen', 'react', 'renderer', 'components');
         function copyTreeIfExists(srcRoot, dstRoot) {
           if (!fs.existsSync(srcRoot)) return;
           fs.mkdirSync(dstRoot, { recursive: true });
@@ -631,10 +572,8 @@ if (fs.existsSync(pkgJson)) {
             }
           }
         }
-        copyTreeIfExists(path.join(appPodsHeaders, 'ReactCodegen', 'react', 'renderer', 'components'), publicReact);
-        log('Mirrored react/renderer component headers into Public ReactCodegen include tree', publicReact);
-      } catch (err) {
-        console.warn('[apply-react-native-worklets-patch] mirroring react renderer components failed:', err && err.message);
+        copyTreeIfExists(path.join(platform.privateHeaders, 'ReactCodegen', 'react', 'renderer', 'components'), publicReact);
+        log(`Mirrored react/renderer component headers into Public ReactCodegen include tree for ${platform.platformName}`, publicReact);
       }
     }
   } catch (err) {
@@ -651,4 +590,5 @@ if (fs.existsSync(pkgJson)) {
 }
 
 log('Patch applied successfully');
-patchGestureHandlerForMacOS(gestureHandlerPkgDir);
+patchGestureHandlerForApple(gestureHandlerPkgDir);
+patchScreensEdgeToEdgeForAndroid(screensPkgDir);

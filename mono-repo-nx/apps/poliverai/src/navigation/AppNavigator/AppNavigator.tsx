@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, View, Text } from 'react-native';
+import { ActivityIndicator, View, Text, Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { LoginScreen, PolicyAnalysisScreen, ReportsScreen } from '../../screens';
@@ -10,6 +10,18 @@ import { LandingScreen } from '../../screens/LandingScreen';
 import CreditsScreen from '../../screens/CreditsScreen';
 
 const Stack = createStackNavigator();
+
+const navigationTheme = {
+  dark: false,
+  colors: {
+    primary: '#2563eb',
+    background: '#ffffff',
+    card: '#ffffff',
+    text: '#0f172a',
+    border: '#e2e8f0',
+    notification: '#2563eb',
+  },
+};
 
 export const AppNavigator = ({
   initialPlatform,
@@ -26,6 +38,24 @@ export const AppNavigator = ({
   const loading = isLoading ?? false;
   const authenticated = isAuthenticated ?? false;
 
+  const handleReady = React.useCallback(() => {
+    if (Platform.OS === 'web') {
+      return;
+    }
+
+    try {
+      // Hide the native launch screen only after navigation is mounted so
+      // Android does not flash a blank intermediate frame.
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const BootSplash = require('react-native-bootsplash').default;
+      setTimeout(() => {
+        BootSplash.hide({ fade: true }).catch(() => undefined);
+      }, 50);
+    } catch (_) {
+      // Ignore when the native module is unavailable in test/web contexts.
+    }
+  }, []);
+
   if (loading) {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#f8fafc', gap: 12 }}>
@@ -37,6 +67,8 @@ export const AppNavigator = ({
 
   return (
     <NavigationContainer
+      onReady={handleReady}
+      theme={navigationTheme}
       linking={
         // Basic web linking configuration so paths map to the intended screens
         // - '/': LandingScreen
@@ -67,7 +99,13 @@ export const AppNavigator = ({
         }
       }
     >
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+          cardStyle: { backgroundColor: '#ffffff' },
+        }}
+        initialRouteName={authenticated ? 'Main' : 'WebLanding'}
+      >
         {/* Always include the key web routes as screens so the linking config can navigate to them */}
         <Stack.Screen name="WebLanding" component={LandingScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />

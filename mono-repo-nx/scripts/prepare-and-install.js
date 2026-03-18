@@ -118,21 +118,46 @@ function normalizeGeneratedReactCodegenPodspecs() {
   }
 }
 
+function ensureReactNativeGradlePluginArtifacts() {
+  const pluginRoot = path.join(repoRoot, 'node_modules', '@react-native', 'gradle-plugin');
+  const sharedJar = path.join(pluginRoot, 'shared', 'build', 'libs', 'shared.jar');
+  const pluginJar = path.join(
+    pluginRoot,
+    'react-native-gradle-plugin',
+    'build',
+    'libs',
+    'react-native-gradle-plugin.jar'
+  );
+
+  if (fs.existsSync(sharedJar) && fs.existsSync(pluginJar)) {
+    return;
+  }
+
+  const gradlew = path.join(pluginRoot, 'gradlew');
+  if (!fs.existsSync(gradlew)) {
+    console.warn('react-native gradle plugin sources not found; skipping plugin artifact build');
+    return;
+  }
+
+  try {
+    fs.chmodSync(gradlew, 0o755);
+  } catch (err) {
+    console.warn(`failed to chmod ${gradlew}: ${err.message}`);
+  }
+
+  run('./gradlew', ['--no-daemon', ':shared:jar', ':react-native-gradle-plugin:jar'], {
+    cwd: pluginRoot,
+  });
+}
+
 // Run yarn at repo root
 if (fs.existsSync(path.join(repoRoot, 'package.json'))) {
   run('yarn', ['--ignore-engines'], { cwd: repoRoot });
 }
 
-// Run yarn in the app workspace but skip lifecycle scripts; we'll run the
-// important postinstall steps at the right time below to avoid recursion
-/// double-applying patches that are also triggered via postinstall.
-if (fs.existsSync(path.join(appRoot, 'package.json'))) {
-  if (hasCommand('yarn')) {
-    run('yarn', ['install', '--ignore-scripts', '--ignore-engines'], { cwd: appRoot });
-  } else {
-    console.warn('yarn not found in PATH; skipping app install');
-  }
-}
+// Do not run a second install inside the app workspace.
+// This repo is already managed from the workspace root, and re-running
+// `yarn install` in apps/poliverai causes duplicate .bin symlink conflicts.
 
 ensureAppHoistedLinks({
   repoRoot,
@@ -236,6 +261,8 @@ if (arg === 'macos') {
     run('node', [applyPatch], { cwd: repoRoot });
   }
   normalizeGeneratedReactCodegenPodspecs();
+} else if (arg === 'android') {
+  ensureReactNativeGradlePluginArtifacts();
 }
 
 ensureAppHoistedLinks({
