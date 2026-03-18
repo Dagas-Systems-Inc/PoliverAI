@@ -16,7 +16,22 @@
             },
             "cache": true,
             "inputs": [
-              "production",
+              "{projectRoot}/package.json",
+              "{workspaceRoot}/tsconfig.base.json",
+              "{projectRoot}/tsconfig.json",
+              "{projectRoot}/**/*.ts",
+              "{projectRoot}/**/*.js",
+              "{projectRoot}/playwright.config.ts",
+              "{projectRoot}/src/**/*.spec.ts",
+              "{projectRoot}/src/**/*.spec.js",
+              "{projectRoot}/src/**/*.test.ts",
+              "{projectRoot}/src/**/*.test.js",
+              "{projectRoot}/src/**/*.d.ts",
+              "!{projectRoot}/out-tsc",
+              "!{projectRoot}/test-output",
+              "!{projectRoot}/eslint.config.js",
+              "!{projectRoot}/eslint.config.mjs",
+              "!{projectRoot}/eslint.config.cjs",
               "^production",
               {
                 "externalDependencies": [
@@ -26,6 +41,7 @@
             ],
             "outputs": [
               "{projectRoot}/out-tsc/playwright/**/*.d.ts",
+              "{projectRoot}/out-tsc/playwright/**/*.d.ts.map",
               "{projectRoot}/out-tsc/playwright/tsconfig.tsbuildinfo"
             ],
             "syncGenerators": [
@@ -267,22 +283,11 @@
               }
             ],
             "outputs": [
-              "{projectRoot}/**/*.js",
-              "{projectRoot}/**/*.cjs",
-              "{projectRoot}/**/*.mjs",
-              "{projectRoot}/**/*.jsx",
-              "{projectRoot}/**/*.js.map",
-              "{projectRoot}/**/*.jsx.map",
-              "{projectRoot}/**/*.d.ts",
-              "{projectRoot}/**/*.d.cts",
-              "{projectRoot}/**/*.d.mts",
-              "{projectRoot}/**/*.d.ts.map",
-              "{projectRoot}/**/*.d.cts.map",
-              "{projectRoot}/**/*.d.mts.map",
-              "{projectRoot}/tsconfig.tsbuildinfo",
               "{projectRoot}/dist/**/*.d.ts",
+              "{projectRoot}/dist/**/*.d.ts.map",
               "{projectRoot}/dist/tsconfig.app.tsbuildinfo",
               "{projectRoot}/out-tsc/jest/**/*.d.ts",
+              "{projectRoot}/out-tsc/jest/**/*.d.ts.map",
               "{projectRoot}/out-tsc/jest/tsconfig.tsbuildinfo"
             ],
             "syncGenerators": [
@@ -842,7 +847,26 @@
             },
             "cache": true,
             "inputs": [
-              "production",
+              "{projectRoot}/package.json",
+              "{workspaceRoot}/tsconfig.base.json",
+              "{projectRoot}/tsconfig.json",
+              "{projectRoot}/tsconfig.lib.json",
+              "{projectRoot}/src/**/*.js",
+              "{projectRoot}/src/**/*.jsx",
+              "{projectRoot}/src/**/*.ts",
+              "{projectRoot}/src/**/*.tsx",
+              "{workspaceRoot}/types/**/*.d.ts",
+              "!{projectRoot}/out-tsc",
+              "!{projectRoot}/dist",
+              "!{projectRoot}/src/**/*.test.ts",
+              "!{projectRoot}/src/**/*.spec.ts",
+              "!{projectRoot}/src/**/*.test.tsx",
+              "!{projectRoot}/src/**/*.spec.tsx",
+              "!{projectRoot}/src/**/*.test.js",
+              "!{projectRoot}/src/**/*.spec.js",
+              "!{projectRoot}/src/**/*.test.jsx",
+              "!{projectRoot}/src/**/*.spec.jsx",
+              "!{projectRoot}/src/TestSetup.ts",
               "^production",
               {
                 "externalDependencies": [
@@ -851,20 +875,8 @@
               }
             ],
             "outputs": [
-              "{projectRoot}/**/*.js",
-              "{projectRoot}/**/*.cjs",
-              "{projectRoot}/**/*.mjs",
-              "{projectRoot}/**/*.jsx",
-              "{projectRoot}/**/*.js.map",
-              "{projectRoot}/**/*.jsx.map",
-              "{projectRoot}/**/*.d.ts",
-              "{projectRoot}/**/*.d.cts",
-              "{projectRoot}/**/*.d.mts",
-              "{projectRoot}/**/*.d.ts.map",
-              "{projectRoot}/**/*.d.cts.map",
-              "{projectRoot}/**/*.d.mts.map",
-              "{projectRoot}/tsconfig.tsbuildinfo",
               "{projectRoot}/dist/**/*.d.ts",
+              "{projectRoot}/dist/**/*.d.ts.map",
               "{projectRoot}/dist/tsconfig.lib.tsbuildinfo"
             ],
             "syncGenerators": [
@@ -19106,11 +19118,6 @@
       {
         "source": "@poliverai/shared-ui",
         "target": "npm:@react-navigation/native",
-        "type": "static"
-      },
-      {
-        "source": "@poliverai/shared-ui",
-        "target": "npm:lucide-react",
         "type": "static"
       },
       {
@@ -43425,5 +43432,5 @@
   },
   "version": "6.0",
   "errors": [],
-  "computedAt": 1773853855981
+  "computedAt": 1773857943728
 }

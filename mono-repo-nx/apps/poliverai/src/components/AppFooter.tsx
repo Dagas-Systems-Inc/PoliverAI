@@ -1,7 +1,8 @@
 import React from 'react';
-import { Image, Platform, StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import { t } from '@poliverai/intl';
-import { brandAssets } from '@assets/brand';
+import { appAlphaColors, appColors } from '@poliverai/shared-ui';
+import { AndelaLogo, FullBrandLogo } from './BrandLogo';
 
 function copy(path: string, fallback: string) {
   const value = t(path, fallback);
@@ -9,6 +10,33 @@ function copy(path: string, fallback: string) {
 }
 
 export default function AppFooter() {
+  if (Platform.OS !== 'web') {
+    return (
+      <View style={styles.nativeFooter}>
+        <View style={styles.nativeContent}>
+          <Text style={styles.short}>{copy('footer.short', 'Fast, simple GDPR compliance checks')}</Text>
+          <Text style={styles.nativeParagraph}>
+            {copy('footer.paragraph', 'A quick, reliable privacy policy analysis - get results fast and act with confidence.')}
+          </Text>
+          <Text style={styles.nativeMeta}>
+            {copy('brand_block.copyright', `© ${new Date().getFullYear()} PoliverAI ™. All rights reserved.`)}
+          </Text>
+          <Text style={styles.nativeMeta}>{copy('brand_block.partnership', 'Designed in partnership with Andela')}</Text>
+          <View style={styles.nativeBrandPill}>
+            <FullBrandLogo width={100} height={36} />
+            <AndelaLogo
+              width={100}
+              height={36}
+              imageStyle={styles.nativeAndelaImage}
+              fallbackStyle={styles.nativeAndelaFallback}
+              textStyle={styles.nativeTextLogo}
+            />
+          </View>
+        </View>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.footer}>
       <View style={styles.content}>
@@ -21,8 +49,8 @@ export default function AppFooter() {
         </Text>
         <Text style={styles.meta}>{copy('brand_block.partnership', 'Designed in partnership with Andela')}</Text>
         <View style={styles.brandPill}>
-          <Image source={brandAssets.poliveraiLogo} style={styles.brandIconImage} resizeMode="contain" />
-          <Image source={brandAssets.andelaLogo} style={styles.andelaIconImage} resizeMode="contain" />
+          <FullBrandLogo width={100} height={50} />
+          <AndelaLogo width={130} height={50} imageStyle={styles.andelaImage} textStyle={styles.nativeTextLogo} />
         </View>
       </View>
     </View>
@@ -30,8 +58,20 @@ export default function AppFooter() {
 }
 
 const styles = StyleSheet.create({
+  nativeFooter: {
+    width: '100%',
+    backgroundColor: appColors.blue600,
+    paddingHorizontal: 16,
+    paddingVertical: 32,
+  },
+  nativeContent: {
+    width: '100%',
+    maxWidth: 896,
+    alignSelf: 'center',
+    alignItems: 'center',
+  },
   footer: {
-    backgroundColor: '#2563eb',
+    backgroundColor: appColors.blue600,
     paddingHorizontal: 16,
     paddingVertical: 48,
   },
@@ -43,20 +83,33 @@ const styles = StyleSheet.create({
   },
   short: {
     fontSize: 14,
-    color: 'rgba(219,234,254,0.95)',
+    color: appAlphaColors.blueText95,
     textAlign: 'center',
   },
   paragraph: {
     marginTop: 16,
     fontSize: 16,
     lineHeight: 27,
-    color: 'rgba(255,255,255,0.92)',
+    color: appAlphaColors.white92,
+    textAlign: 'center',
+  },
+  nativeParagraph: {
+    marginTop: 16,
+    fontSize: 16,
+    lineHeight: 24,
+    color: appAlphaColors.white92,
     textAlign: 'center',
   },
   meta: {
     marginTop: 6,
     fontSize: 14,
-    color: 'rgba(219,234,254,0.95)',
+    color: appAlphaColors.blueText95,
+    textAlign: 'center',
+  },
+  nativeMeta: {
+    marginTop: 8,
+    fontSize: 14,
+    color: appAlphaColors.blueText95,
     textAlign: 'center',
   },
   brandPill: {
@@ -64,39 +117,59 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderRadius: 12,
-    backgroundColor: '#ffffff',
+    backgroundColor: appColors.white,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 12,
+  },
+  nativeBrandPill: {
+    marginTop: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+    borderRadius: 12,
+    backgroundColor: appColors.white,
+    gap: 12,
+  },
+  nativeAndelaFallback: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  nativeAndelaImage: {
+    width: 100,
+    height: 36,
+  },
+  andelaImage: {
+    width: 130,
+    height: 50,
+  },
+  nativeTextLogo: {
+    color: appColors.ink900,
+    fontSize: 22,
+    fontWeight: '700',
   },
   brandIcon: {
     width: 36,
     height: 36,
     borderRadius: 10,
-    backgroundColor: '#2563eb',
+    backgroundColor: appColors.blue600,
     alignItems: 'center',
     justifyContent: 'center',
   },
   brandIconText: {
-    color: '#ffffff',
+    color: appColors.white,
     fontSize: 18,
     fontWeight: '800',
   },
-  brandIconImage: {
-    width: 100,
-    height: 50,
-  },
-  andelaIconImage: {
-    width: 130,
-    height: 50,
-  },
   brandText: {
-    color: '#0f172a',
+    color: appColors.ink900,
     fontSize: 18,
     fontWeight: '700',
   },
   partnerText: {
-    color: '#475569',
+    color: appColors.slate600,
     fontSize: 16,
     fontWeight: '600',
   },

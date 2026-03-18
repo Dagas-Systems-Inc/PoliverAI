@@ -2,13 +2,14 @@ import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { getApiBaseOrigin, t } from '@poliverai/intl';
 import { Apple, ArrowDownToLine, Monitor, MonitorCog, Smartphone, TerminalSquare } from 'lucide-react-native';
+import { appAlphaColors, appColors } from './colorTokens';
 
 type PlatformKey = 'android' | 'ios' | 'windows' | 'macos' | 'linux';
 
 const platformOrder: PlatformKey[] = ['android', 'ios', 'windows', 'macos', 'linux'];
 
 function platformIcon(platform: PlatformKey, active: boolean) {
-  const color = active ? '#ffffff' : '#334155';
+  const color = active ? appColors.white : appColors.slate700;
   switch (platform) {
     case 'android':
       return <Smartphone size={16} color={color} />;
@@ -131,7 +132,7 @@ export default function AppPlatforms() {
         <View style={styles.downloadRow}>
           <Pressable onPress={handleDownload} style={styles.downloadButton}>
             <View style={styles.downloadButtonInner}>
-              <ArrowDownToLine size={18} color="#ffffff" />
+              <ArrowDownToLine size={18} color={appColors.white} />
               <Text style={styles.downloadButtonText}>{copy('app_platforms.download_app', 'Download App')}</Text>
             </View>
           </Pressable>
@@ -177,14 +178,14 @@ const styles = StyleSheet.create({
   },
   card: {
     borderRadius: 28,
-    backgroundColor: 'rgba(255,255,255,0.92)',
+    backgroundColor: appAlphaColors.white92,
     borderWidth: 1,
-    borderColor: 'rgba(148,163,184,0.18)',
+    borderColor: appAlphaColors.borderSlateFaint,
     padding: 36,
     alignItems: 'center',
   },
   heading: {
-    color: '#0f172a',
+    color: appColors.ink900,
     fontSize: 42,
     lineHeight: 46,
     fontWeight: '700',
@@ -193,7 +194,7 @@ const styles = StyleSheet.create({
   subheading: {
     marginTop: 12,
     maxWidth: 720,
-    color: '#475569',
+    color: appColors.slate600,
     fontSize: 18,
     lineHeight: 29,
     textAlign: 'center',
@@ -209,9 +210,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 10,
     borderRadius: 999,
-    backgroundColor: '#ffffff',
+    backgroundColor: appColors.white,
     borderWidth: 1,
-    borderColor: 'rgba(148,163,184,0.35)',
+    borderColor: appAlphaColors.borderSlateSoft,
   },
   platformPillInner: {
     flexDirection: 'row',
@@ -219,16 +220,16 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   platformPillActive: {
-    backgroundColor: '#2563eb',
-    borderColor: '#2563eb',
+    backgroundColor: appColors.blue600,
+    borderColor: appColors.blue600,
   },
   platformPillText: {
-    color: '#334155',
+    color: appColors.slate700,
     fontSize: 15,
     fontWeight: '600',
   },
   platformPillTextActive: {
-    color: '#ffffff',
+    color: appColors.white,
   },
   downloadRow: {
     marginTop: 28,
@@ -242,7 +243,7 @@ const styles = StyleSheet.create({
     minHeight: 52,
     paddingHorizontal: 22,
     borderRadius: 999,
-    backgroundColor: '#16a34a',
+    backgroundColor: appColors.green600,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -252,7 +253,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   downloadButtonText: {
-    color: '#ffffff',
+    color: appColors.white,
     fontSize: 16,
     fontWeight: '700',
   },
@@ -262,24 +263,24 @@ const styles = StyleSheet.create({
     gap: 14,
   },
   downloadsValue: {
-    color: '#0f172a',
+    color: appColors.ink900,
     fontSize: 42,
     lineHeight: 46,
     fontWeight: '800',
   },
   downloadsLabel: {
-    color: '#64748b',
+    color: appColors.slate500,
     fontSize: 18,
     fontWeight: '600',
   },
   downloadsMeta: {
-    color: '#64748b',
+    color: appColors.slate500,
     fontSize: 13,
   },
   description: {
     maxWidth: 860,
     marginTop: 26,
-    color: '#475569',
+    color: appColors.slate600,
     fontSize: 17,
     lineHeight: 30,
     textAlign: 'center',
@@ -307,27 +308,27 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   statLabel: {
-    color: '#0f172a',
+    color: appColors.ink900,
     fontSize: 18,
     fontWeight: '700',
     textAlign: 'center',
   },
   statValue: {
     marginTop: 10,
-    color: '#0f172a',
+    color: appColors.ink900,
     fontSize: 34,
     lineHeight: 38,
     fontWeight: '800',
     textAlign: 'center',
   },
   statUnit: {
-    color: '#94a3b8',
+    color: appColors.slate400,
     fontSize: 14,
     fontWeight: '500',
   },
   statFooter: {
     marginTop: 6,
-    color: '#94a3b8',
+    color: appColors.slate400,
     fontSize: 14,
   },
 });

@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { t } from '@poliverai/intl';
+import { appAlphaColors, appColors } from './colorTokens';
 
 const freeFeatures = [
   {
@@ -116,7 +117,7 @@ const styles = StyleSheet.create({
     marginBottom: 48,
   },
   heading: {
-    color: '#0f172a',
+    color: appColors.ink900,
     fontSize: 42,
     lineHeight: 46,
     fontWeight: '700',
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
   subheading: {
     marginTop: 12,
     maxWidth: 760,
-    color: '#475569',
+    color: appColors.slate600,
     fontSize: 18,
     lineHeight: 29,
     textAlign: 'center',
@@ -136,7 +137,7 @@ const styles = StyleSheet.create({
   },
   groupTitle: {
     marginBottom: 18,
-    color: '#0f172a',
+    color: appColors.ink900,
     fontSize: 28,
     fontWeight: '700',
     textAlign: 'left',
@@ -153,13 +154,13 @@ const styles = StyleSheet.create({
     minHeight: 190,
     borderRadius: 22,
     borderWidth: 1,
-    borderColor: 'rgba(226,232,240,0.9)',
-    backgroundColor: '#ffffff',
+    borderColor: appAlphaColors.borderSoft,
+    backgroundColor: appColors.white,
     padding: 24,
   },
   proCard: {
-    borderColor: 'rgba(37,99,235,0.2)',
-    backgroundColor: 'rgba(239,246,255,0.95)',
+    borderColor: appAlphaColors.borderBlueLight,
+    backgroundColor: appAlphaColors.blueTint95,
   },
   featureHeader: {
     flexDirection: 'row',
@@ -174,42 +175,42 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   freeBadge: {
-    backgroundColor: 'rgba(22,163,74,0.12)',
+    backgroundColor: appAlphaColors.greenTint12,
   },
   proBadge: {
-    backgroundColor: 'rgba(37,99,235,0.12)',
+    backgroundColor: appAlphaColors.blueTint12,
   },
   featureBadgeText: {
     fontSize: 14,
     fontWeight: '800',
   },
   freeBadgeText: {
-    color: '#16a34a',
+    color: appColors.green600,
   },
   proBadgeText: {
-    color: '#2563eb',
+    color: appColors.blue600,
   },
   featureTitle: {
     flex: 1,
-    color: '#0f172a',
+    color: appColors.ink900,
     fontSize: 20,
     fontWeight: '700',
   },
   proPill: {
     borderRadius: 999,
-    backgroundColor: '#2563eb',
+    backgroundColor: appColors.blue600,
     paddingHorizontal: 10,
     paddingVertical: 6,
   },
   proPillText: {
-    color: '#ffffff',
+    color: appColors.white,
     fontSize: 11,
     fontWeight: '800',
     letterSpacing: 1,
   },
   featureDescription: {
     marginTop: 16,
-    color: '#475569',
+    color: appColors.slate600,
     fontSize: 15,
     lineHeight: 26,
   },

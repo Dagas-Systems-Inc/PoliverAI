@@ -1,6 +1,8 @@
 import React from 'react';
-import { Image, Platform, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import { t } from '@poliverai/intl';
+import { appAlphaColors, appColors } from './colorTokens';
+import { landingBrandAssets } from './landingAssets';
 
 interface FooterProps {
   hasBackground?: boolean;
@@ -27,14 +29,14 @@ export default function Footer({ hasBackground = true }: FooterProps) {
         <Text style={[styles.meta, hasBackground ? styles.metaOnBlue : styles.metaOnWhite]}>
           {copy('brand_block.partnership', 'Designed in partnership with Andela')}
         </Text>
-        <View style={[styles.brandPill, Platform.OS === 'web' ? ({ boxShadow: '0 2px 10px rgba(15, 23, 42, 0.12)' } as any) : null]}>
+        <View style={[styles.brandPill, { boxShadow: '0 2px 10px rgba(15, 23, 42, 0.12)' } as any]}>
           <Image
-            source={{ uri: '/poliverai-logo.png' }}
+            source={landingBrandAssets.poliveraiLogo}
             style={styles.brandIconImage}
             resizeMode="contain"
           />
           <Image
-            source={{ uri: '/andela-logo-transparent.png' }}
+            source={landingBrandAssets.andelaLogo}
             style={styles.andelaIconImage}
             resizeMode="contain"
           />
@@ -50,7 +52,7 @@ const styles = StyleSheet.create({
     paddingVertical: 64,
   },
   footerBg: {
-    backgroundColor: '#2563eb',
+    backgroundColor: appColors.blue600,
   },
   footerTransparent: {
     backgroundColor: 'transparent',
@@ -70,7 +72,7 @@ const styles = StyleSheet.create({
     color: 'rgba(219, 234, 254, 0.95)',
   },
   shortOnWhite: {
-    color: '#64748b',
+    color: appColors.slate500,
   },
   paragraph: {
     maxWidth: 640,
@@ -80,10 +82,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   paragraphOnBlue: {
-    color: 'rgba(255,255,255,0.92)',
+    color: appAlphaColors.white92,
   },
   paragraphOnWhite: {
-    color: '#475569',
+    color: appColors.slate600,
   },
   meta: {
     marginTop: 6,
@@ -94,7 +96,7 @@ const styles = StyleSheet.create({
     color: 'rgba(219, 234, 254, 0.95)',
   },
   metaOnWhite: {
-    color: '#64748b',
+    color: appColors.slate500,
   },
   brandPill: {
     marginTop: 12,
@@ -104,18 +106,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderRadius: 12,
-    backgroundColor: '#ffffff',
+    backgroundColor: appColors.white,
   },
   brandIcon: {
     width: 40,
     height: 40,
     borderRadius: 10,
-    backgroundColor: '#2563eb',
+    backgroundColor: appColors.blue600,
     alignItems: 'center',
     justifyContent: 'center',
   },
   brandIconText: {
-    color: '#ffffff',
+    color: appColors.white,
     fontSize: 20,
     fontWeight: '800',
   },
@@ -128,12 +130,12 @@ const styles = StyleSheet.create({
     height: 50,
   },
   brandText: {
-    color: '#0f172a',
+    color: appColors.ink900,
     fontSize: 18,
     fontWeight: '700',
   },
   partnerText: {
-    color: '#475569',
+    color: appColors.slate600,
     fontSize: 16,
     fontWeight: '600',
   },

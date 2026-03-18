@@ -2,6 +2,7 @@ import React from 'react';
 import { ActivityIndicator, View, Text, Platform } from 'react-native';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { appColors } from '@poliverai/shared-ui';
 import LoginScreen from '../../screens/LoginScreen/LoginScreen';
 import PolicyAnalysisScreen from '../../screens/PolicyAnalysisScreen';
 import ReportsScreen from '../../screens/ReportsScreen';
@@ -17,12 +18,12 @@ const navigationTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#2563eb',
-    background: '#ffffff',
-    card: '#ffffff',
-    text: '#0f172a',
-    border: '#e2e8f0',
-    notification: '#2563eb',
+    primary: appColors.blue600,
+    background: appColors.white,
+    card: appColors.white,
+    text: appColors.ink900,
+    border: appColors.slate200,
+    notification: appColors.blue600,
   },
 };
 
@@ -83,9 +84,9 @@ export const AppNavigator = ({
 
   if (loading) {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#f8fafc', gap: 12 }}>
-        <ActivityIndicator size="large" color="#2563eb" />
-        <Text style={{ color: '#475569', fontSize: 16, fontWeight: '600' }}>Loading your dashboard...</Text>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: appColors.sky50, gap: 12 }}>
+        <ActivityIndicator size="large" color={appColors.blue600} />
+        <Text style={{ color: appColors.slate600, fontSize: 16, fontWeight: '600' }}>Loading your dashboard...</Text>
       </View>
     );
   }
@@ -99,7 +100,7 @@ export const AppNavigator = ({
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
-          cardStyle: { backgroundColor: '#ffffff' },
+          cardStyle: { backgroundColor: appColors.white },
         }}
         initialRouteName={authenticated ? 'Main' : 'WebLanding'}
       >

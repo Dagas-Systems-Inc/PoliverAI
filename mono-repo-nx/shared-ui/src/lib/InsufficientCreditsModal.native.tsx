@@ -1,7 +1,8 @@
 import React from 'react'
 import { Modal, Platform, Pressable, StyleSheet, Text, View } from 'react-native'
 import { PaymentsService } from '@poliverai/intl'
-import EnterCreditsModal from './EnterCreditsModal.native'
+import EnterCreditsModal from './EnterCreditsModal'
+import { appAlphaColors, appColors } from './colorTokens'
 
 type Props = { open: boolean, onClose: () => void }
 
@@ -42,7 +43,7 @@ const cardShadow = Platform.select({
     boxShadow: '0 24px 56px rgba(15, 23, 42, 0.24)',
   },
   default: {
-    shadowColor: '#0f172a',
+    shadowColor: appColors.ink900,
     shadowOpacity: 0.18,
     shadowRadius: 24,
     shadowOffset: { width: 0, height: 16 },
@@ -51,13 +52,13 @@ const cardShadow = Platform.select({
 })
 
 const styles = StyleSheet.create({
-  center: { flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.3)' },
-  box: { backgroundColor: 'white', padding: 24, borderRadius: 20, width: '90%', maxWidth: 440, gap: 12, ...cardShadow },
-  title: { fontSize: 22, fontWeight: '800', color: '#0f172a' },
-  description: { fontSize: 14, lineHeight: 20, color: '#475569' },
+  center: { flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: appAlphaColors.black30 },
+  box: { backgroundColor: appColors.white, padding: 24, borderRadius: 20, width: '90%', maxWidth: 440, gap: 12, ...cardShadow },
+  title: { fontSize: 22, fontWeight: '800', color: appColors.ink900 },
+  description: { fontSize: 14, lineHeight: 20, color: appColors.slate600 },
   row: { flexDirection: 'row', justifyContent: 'flex-end' },
-  primaryButton: { minHeight: 42, paddingHorizontal: 16, borderRadius: 12, alignItems: 'center', justifyContent: 'center', backgroundColor: '#2563eb' },
-  primaryButtonText: { color: '#ffffff', fontSize: 14, fontWeight: '800' },
-  secondaryButton: { minHeight: 42, paddingHorizontal: 16, borderRadius: 12, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#cbd5e1' },
-  secondaryButtonText: { color: '#475569', fontSize: 14, fontWeight: '700' },
+  primaryButton: { minHeight: 42, paddingHorizontal: 16, borderRadius: 12, alignItems: 'center', justifyContent: 'center', backgroundColor: appColors.blue600 },
+  primaryButtonText: { color: appColors.white, fontSize: 14, fontWeight: '800' },
+  secondaryButton: { minHeight: 42, paddingHorizontal: 16, borderRadius: 12, alignItems: 'center', justifyContent: 'center', backgroundColor: appColors.white, borderWidth: 1, borderColor: appColors.slate300 },
+  secondaryButtonText: { color: appColors.slate600, fontSize: 14, fontWeight: '700' },
 })

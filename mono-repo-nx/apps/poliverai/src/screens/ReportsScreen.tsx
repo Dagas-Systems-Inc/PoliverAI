@@ -34,7 +34,7 @@ import { t } from '@poliverai/intl';
 import type { ReportMetadata } from '../types/api';
 import AppFooter from '../components/AppFooter';
 import AppTopNav from '../components/AppTopNav';
-import { ReportViewerModal } from '@poliverai/shared-ui';
+import { ReportViewerModal, appAlphaColors, appColors } from '@poliverai/shared-ui';
 import useReports from '../components/reports-ui/useReports';
 import useSelection from '../components/reports-ui/useSelection';
 import policyService from '../services/policyService';
@@ -45,10 +45,10 @@ const PER_PAGE_OPTIONS = [10, 20, 30, 50];
 
 const cardSurfaceShadow = Platform.select({
   web: {
-    boxShadow: '0 10px 18px rgba(15, 23, 42, 0.06)',
+    boxShadow: `0 10px 18px ${appAlphaColors.shadowCardSoft}`,
   },
   default: {
-    shadowColor: '#0f172a',
+    shadowColor: appColors.ink900,
     shadowOpacity: 0.06,
     shadowRadius: 18,
     shadowOffset: { width: 0, height: 10 },
@@ -58,10 +58,10 @@ const cardSurfaceShadow = Platform.select({
 
 const rowSurfaceShadow = Platform.select({
   web: {
-    boxShadow: '0 6px 12px rgba(15, 23, 42, 0.03)',
+    boxShadow: `0 6px 12px ${appAlphaColors.shadowSofter}`,
   },
   default: {
-    shadowColor: '#0f172a',
+    shadowColor: appColors.ink900,
     shadowOpacity: 0.03,
     shadowRadius: 12,
     shadowOffset: { width: 0, height: 6 },
@@ -499,7 +499,7 @@ export default function ReportsScreen() {
                 onPress={() => {
                   if (getSelected().length > 0) setDeleteDialogOpen(true);
                 }}
-                icon={<Trash2 size={15} color={getSelected().length > 0 ? '#b91c1c' : '#94a3b8'} />}
+                icon={<Trash2 size={15} color={getSelected().length > 0 ? '#b91c1c' : appColors.slate400} />}
                 variant="danger"
               />
             </View>
@@ -632,7 +632,7 @@ export default function ReportsScreen() {
                           onPress={() => setPage((current) => Math.max(1, current - 1))}
                           style={[styles.pageButton, page <= 1 ? styles.pageButtonDisabled : null]}
                         >
-                          <ChevronLeft size={15} color={page <= 1 ? '#94a3b8' : '#475569'} />
+                          <ChevronLeft size={15} color={page <= 1 ? '#94a3b8' : appColors.slate600} />
                           <Text style={[styles.pageButtonText, page <= 1 ? styles.pageButtonTextDisabled : null]}>{copy('toolbar.prev', 'Prev')}</Text>
                         </Pressable>
                         <View style={styles.pageCounter}>
@@ -643,7 +643,7 @@ export default function ReportsScreen() {
                           style={[styles.pageButton, page >= totalPages ? styles.pageButtonDisabled : null]}
                         >
                           <Text style={[styles.pageButtonText, page >= totalPages ? styles.pageButtonTextDisabled : null]}>{copy('toolbar.next', 'Next')}</Text>
-                          <ChevronRight size={15} color={page >= totalPages ? '#94a3b8' : '#475569'} />
+                          <ChevronRight size={15} color={page >= totalPages ? '#94a3b8' : appColors.slate600} />
                         </Pressable>
                       </View>
                     </View>
@@ -768,7 +768,7 @@ export default function ReportsScreen() {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: '#f8fafc',
+    backgroundColor: appColors.sky50,
   },
   content: {
     flexGrow: 1,
@@ -797,7 +797,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
     lineHeight: 34,
     fontWeight: '800',
-    color: '#0f172a',
+    color: appColors.ink900,
   },
   mainGrid: {
     gap: 18,
@@ -808,7 +808,7 @@ const styles = StyleSheet.create({
     gap: 24,
   },
   filtersCard: {
-    backgroundColor: '#ffffff',
+    backgroundColor: appColors.white,
     borderWidth: 1,
     borderColor: '#dbe7f5',
     borderRadius: 22,
@@ -834,20 +834,20 @@ const styles = StyleSheet.create({
   filtersTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#0f172a',
+    color: appColors.ink900,
   },
   filtersHeaderIcon: {
     width: 30,
     height: 30,
     borderRadius: 10,
-    backgroundColor: '#f1f5f9',
+    backgroundColor: appColors.slate100,
     alignItems: 'center',
     justifyContent: 'center',
   },
   reportsCard: {
     flex: 1,
     minWidth: 0,
-    backgroundColor: '#ffffff',
+    backgroundColor: appColors.white,
     borderWidth: 1,
     borderColor: '#dbe7f5',
     borderRadius: 24,
@@ -863,14 +863,14 @@ const styles = StyleSheet.create({
   filterLabel: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#334155',
+    color: appColors.slate700,
   },
   inputWrap: {
     height: 46,
     borderRadius: 14,
     borderWidth: 1,
-    borderColor: '#cbd5e1',
-    backgroundColor: '#ffffff',
+    borderColor: appColors.slate300,
+    backgroundColor: appColors.white,
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -882,7 +882,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: '100%',
     fontSize: 14,
-    color: '#0f172a',
+    color: appColors.ink900,
     paddingRight: 14,
   },
   filterChipsWrap: {
@@ -895,20 +895,20 @@ const styles = StyleSheet.create({
     paddingVertical: 9,
     borderRadius: 999,
     borderWidth: 1,
-    borderColor: '#cbd5e1',
-    backgroundColor: '#f8fafc',
+    borderColor: appColors.slate300,
+    backgroundColor: appColors.sky50,
   },
   filterChipSelected: {
-    backgroundColor: '#dbeafe',
+    backgroundColor: appColors.blue100,
     borderColor: '#60a5fa',
   },
   filterChipText: {
     fontSize: 13,
     fontWeight: '600',
-    color: '#475569',
+    color: appColors.slate600,
   },
   filterChipTextSelected: {
-    color: '#1d4ed8',
+    color: appColors.blue700,
   },
   dateRow: {
     flexDirection: 'row',
@@ -924,16 +924,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   actionButtonPrimary: {
-    backgroundColor: '#2563eb',
+    backgroundColor: appColors.blue600,
   },
   actionButtonSecondary: {
-    backgroundColor: '#e2e8f0',
+    backgroundColor: appColors.slate200,
   },
   actionButtonGhost: {
     backgroundColor: 'transparent',
   },
   actionButtonDanger: {
-    backgroundColor: '#fee2e2',
+    backgroundColor: appColors.red100,
   },
   actionButtonInner: {
     flexDirection: 'row',
@@ -950,22 +950,22 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   actionButtonTextPrimary: {
-    color: '#ffffff',
+    color: appColors.white,
   },
   actionButtonTextSecondary: {
-    color: '#1e293b',
+    color: appColors.ink800,
   },
   actionButtonTextGhost: {
-    color: '#475569',
+    color: appColors.slate600,
   },
   actionButtonTextDanger: {
-    color: '#b91c1c',
+    color: appColors.red700,
   },
   toolbarRow: {
     gap: 14,
     paddingBottom: 14,
     borderBottomWidth: 1,
-    borderBottomColor: '#e2e8f0',
+    borderBottomColor: appColors.slate200,
   },
   selectAllRow: {
     flexDirection: 'row',
@@ -980,7 +980,7 @@ const styles = StyleSheet.create({
   selectAllText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#0f172a',
+    color: appColors.ink900,
   },
   toolbarMetaRow: {
     gap: 12,
@@ -994,7 +994,7 @@ const styles = StyleSheet.create({
   },
   resultsText: {
     fontSize: 14,
-    color: '#64748b',
+    color: appColors.slate500,
   },
   listToolbarControls: {
     gap: 14,
@@ -1018,7 +1018,7 @@ const styles = StyleSheet.create({
   controlLabel: {
     fontSize: 13,
     fontWeight: '600',
-    color: '#64748b',
+    color: appColors.slate500,
   },
   miniSelect: {
     flexDirection: 'row',
@@ -1026,8 +1026,8 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#cbd5e1',
-    backgroundColor: '#ffffff',
+    borderColor: appColors.slate300,
+    backgroundColor: appColors.white,
   },
   miniSelectOption: {
     minWidth: 42,
@@ -1036,21 +1036,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRightWidth: 1,
-    borderRightColor: '#cbd5e1',
+    borderRightColor: appColors.slate300,
   },
   miniSelectOptionLast: {
     borderRightWidth: 0,
   },
   miniSelectOptionActive: {
-    backgroundColor: '#dbeafe',
+    backgroundColor: appColors.blue100,
   },
   miniSelectOptionText: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#475569',
+    color: appColors.slate600,
   },
   miniSelectOptionTextActive: {
-    color: '#1d4ed8',
+    color: appColors.blue700,
   },
   pageControls: {
     flexDirection: 'row',
@@ -1066,23 +1066,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#cbd5e1',
-    backgroundColor: '#ffffff',
+    borderColor: appColors.slate300,
+    backgroundColor: appColors.white,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
   },
   pageButtonDisabled: {
-    backgroundColor: '#f8fafc',
-    borderColor: '#e2e8f0',
+    backgroundColor: appColors.sky50,
+    borderColor: appColors.slate200,
   },
   pageButtonText: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#475569',
+    color: appColors.slate600,
   },
   pageButtonTextDisabled: {
-    color: '#94a3b8',
+    color: appColors.slate400,
   },
   pageCounter: {
     minHeight: 38,
@@ -1095,7 +1095,7 @@ const styles = StyleSheet.create({
   pageCounterText: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#1d4ed8',
+    color: appColors.blue700,
   },
   rowsWrap: {
     paddingTop: 16,
@@ -1105,7 +1105,7 @@ const styles = StyleSheet.create({
     borderRadius: 22,
     borderWidth: 1,
     borderColor: '#dbe7f5',
-    backgroundColor: '#ffffff',
+    backgroundColor: appColors.white,
     padding: 16,
     gap: 14,
     ...rowSurfaceShadow,
@@ -1143,35 +1143,35 @@ const styles = StyleSheet.create({
   reportTypeText: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#2563eb',
+    color: appColors.blue600,
   },
   reportKindBadge: {
     paddingHorizontal: 11,
     paddingVertical: 7,
     borderRadius: 999,
-    backgroundColor: '#f1f5f9',
+    backgroundColor: appColors.slate100,
   },
   reportKindText: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#475569',
+    color: appColors.slate600,
   },
   reportTitle: {
     fontSize: 18,
     lineHeight: 24,
     fontWeight: '800',
-    color: '#0f172a',
+    color: appColors.ink900,
   },
   reportDate: {
     fontSize: 13,
-    color: '#64748b',
+    color: appColors.slate500,
   },
   reportMetaGroup: {
     gap: 4,
   },
   reportMeta: {
     fontSize: 13,
-    color: '#475569',
+    color: appColors.slate600,
   },
   reportActionsRow: {
     flexDirection: 'row',
@@ -1199,7 +1199,7 @@ const styles = StyleSheet.create({
   reportActionText: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#2563eb',
+    color: appColors.blue600,
   },
   stateWrap: {
     minHeight: 300,
@@ -1211,13 +1211,13 @@ const styles = StyleSheet.create({
   stateTitle: {
     fontSize: 18,
     fontWeight: '800',
-    color: '#0f172a',
+    color: appColors.ink900,
     textAlign: 'center',
   },
   stateText: {
     fontSize: 14,
     lineHeight: 22,
-    color: '#64748b',
+    color: appColors.slate500,
     textAlign: 'center',
     maxWidth: 420,
   },
@@ -1231,7 +1231,7 @@ const styles = StyleSheet.create({
   modalCard: {
     width: '100%',
     maxWidth: 460,
-    backgroundColor: '#ffffff',
+    backgroundColor: appColors.white,
     borderRadius: 24,
     padding: 24,
     gap: 14,
@@ -1240,12 +1240,12 @@ const styles = StyleSheet.create({
   modalTitle: {
     fontSize: 22,
     fontWeight: '800',
-    color: '#0f172a',
+    color: appColors.ink900,
   },
   modalBody: {
     fontSize: 14,
     lineHeight: 22,
-    color: '#475569',
+    color: appColors.slate600,
   },
   modalActions: {
     flexDirection: 'row',

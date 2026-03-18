@@ -3,6 +3,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { t } from '@poliverai/intl';
 import { ArrowRight, Search } from 'lucide-react-native';
+import { appAlphaColors, appColors } from './colorTokens';
 
 function copy(path: string, fallback: string) {
   const value = t(path, fallback);
@@ -38,7 +39,7 @@ export default function CTASection() {
 
 const styles = StyleSheet.create({
   section: {
-    backgroundColor: '#2563eb',
+    backgroundColor: appColors.blue600,
     paddingHorizontal: 16,
     paddingVertical: 64,
   },
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   heading: {
-    color: '#ffffff',
+    color: appColors.white,
     fontSize: 44,
     lineHeight: 50,
     fontWeight: '700',
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
   paragraph: {
     marginTop: 16,
     maxWidth: 740,
-    color: 'rgba(255,255,255,0.84)',
+    color: appAlphaColors.white84,
     fontSize: 18,
     lineHeight: 31,
     textAlign: 'center',
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
     minHeight: 52,
     paddingHorizontal: 22,
     borderRadius: 999,
-    backgroundColor: '#ffffff',
+    backgroundColor: appColors.white,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   buttonText: {
-    color: '#0f172a',
+    color: appColors.ink900,
     fontSize: 16,
     fontWeight: '700',
   },

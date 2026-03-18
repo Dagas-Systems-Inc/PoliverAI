@@ -28,6 +28,7 @@ import {
 } from 'lucide-react-native';
 import { PaymentsService, t, transactionsService, useAuth, useCreditsSummary } from '@poliverai/intl';
 import type { Transaction } from '@poliverai/intl';
+import { appAlphaColors, appColors } from '@poliverai/shared-ui';
 import AppFooter from '../components/AppFooter';
 import AppTopNav from '../components/AppTopNav';
 import useRampedCounters from '../hooks/useRampedCounters';
@@ -44,10 +45,10 @@ const STATUS_KEYS: TransactionStatus[] = ['pending', 'success', 'failed', 'proce
 const PER_PAGE_OPTIONS = [10, 20, 30, 50];
 const cardSurfaceShadow = Platform.select({
   web: {
-    boxShadow: '0 10px 18px rgba(15, 23, 42, 0.05)',
+    boxShadow: `0 10px 18px ${appAlphaColors.shadowSoft}`,
   },
   default: {
-    shadowColor: '#0f172a',
+    shadowColor: appColors.ink900,
     shadowOpacity: 0.05,
     shadowRadius: 18,
     shadowOffset: { width: 0, height: 10 },
@@ -133,19 +134,19 @@ function getTxStatus(tx: Transaction): TransactionStatus {
 function getStatusTone(status: TransactionStatus) {
   switch (status) {
     case 'success':
-      return { bg: '#dcfce7', text: '#166534', label: 'Success' };
+      return { bg: appColors.green100, text: appColors.green700, label: 'Success' };
     case 'pending':
-      return { bg: '#fef3c7', text: '#92400e', label: 'Pending' };
+      return { bg: appColors.yellow100, text: '#92400e', label: 'Pending' };
     case 'processing':
-      return { bg: '#dbeafe', text: '#1d4ed8', label: 'Processing' };
+      return { bg: appColors.blue100, text: appColors.blue700, label: 'Processing' };
     case 'insufficient_funds':
-      return { bg: '#fef3c7', text: '#b45309', label: 'Insufficient funds' };
+      return { bg: appColors.yellow100, text: appColors.amber700, label: 'Insufficient funds' };
     case 'failed':
-      return { bg: '#fee2e2', text: '#b91c1c', label: 'Failed' };
+      return { bg: appColors.red100, text: appColors.red700, label: 'Failed' };
     case 'task':
-      return { bg: '#e2e8f0', text: '#475569', label: 'Task' };
+      return { bg: appColors.slate200, text: appColors.slate600, label: 'Task' };
     default:
-      return { bg: '#e2e8f0', text: '#475569', label: 'Unknown' };
+      return { bg: appColors.slate200, text: appColors.slate600, label: 'Unknown' };
   }
 }
 
@@ -761,7 +762,7 @@ const CreditsScreen: React.FC = () => {
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    backgroundColor: '#f8fafc',
+    backgroundColor: appColors.sky50,
   },
   scrollContent: {
     flexGrow: 1,
@@ -790,7 +791,7 @@ const styles = StyleSheet.create({
     fontSize: 34,
     lineHeight: 40,
     fontWeight: '800',
-    color: '#0f172a',
+    color: appColors.ink900,
   },
   summaryGrid: {
     gap: 16,
@@ -801,7 +802,7 @@ const styles = StyleSheet.create({
   summaryCard: {
     flex: 1,
     minWidth: 220,
-    backgroundColor: '#ffffff',
+    backgroundColor: appColors.white,
     borderWidth: 1,
     borderRadius: 20,
     padding: 20,
@@ -827,7 +828,7 @@ const styles = StyleSheet.create({
   summaryTitle: {
     fontSize: 13,
     fontWeight: '600',
-    color: '#64748b',
+    color: appColors.slate500,
     textTransform: 'uppercase',
     letterSpacing: 0.4,
   },
@@ -835,18 +836,18 @@ const styles = StyleSheet.create({
     fontSize: 28,
     lineHeight: 32,
     fontWeight: '800',
-    color: '#0f172a',
+    color: appColors.ink900,
   },
   summarySubtitle: {
     fontSize: 14,
-    color: '#475569',
+    color: appColors.slate600,
   },
   totalAvailable: {
     marginTop: 16,
     marginBottom: 24,
     fontSize: 15,
     fontWeight: '600',
-    color: '#334155',
+    color: appColors.slate700,
   },
   contentRow: {
     gap: 20,
@@ -856,10 +857,10 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   filtersCard: {
-    backgroundColor: '#ffffff',
+    backgroundColor: appColors.white,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: appColors.slate200,
     padding: 18,
     gap: 12,
   },
@@ -875,13 +876,13 @@ const styles = StyleSheet.create({
   filtersTitle: {
     fontSize: 18,
     fontWeight: '800',
-    color: '#0f172a',
+    color: appColors.ink900,
   },
   filtersHeaderIcon: {
     width: 30,
     height: 30,
     borderRadius: 999,
-    backgroundColor: '#f1f5f9',
+    backgroundColor: appColors.slate100,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -891,15 +892,15 @@ const styles = StyleSheet.create({
   filterLabel: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#334155',
+    color: appColors.slate700,
   },
   inputWrap: {
     flexDirection: 'row',
     alignItems: 'center',
     height: 46,
     borderWidth: 1,
-    borderColor: '#cbd5e1',
-    backgroundColor: '#f8fafc',
+    borderColor: appColors.slate300,
+    backgroundColor: appColors.sky50,
     borderRadius: 12,
     paddingHorizontal: 12,
     gap: 10,
@@ -911,7 +912,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     height: '100%',
-    color: '#0f172a',
+    color: appColors.ink900,
     fontSize: 14,
     paddingHorizontal: 0,
     borderWidth: 0,
@@ -928,20 +929,20 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 999,
     borderWidth: 1,
-    borderColor: '#cbd5e1',
-    backgroundColor: '#ffffff',
+    borderColor: appColors.slate300,
+    backgroundColor: appColors.white,
   },
   filterChipSelected: {
-    borderColor: '#1d4ed8',
-    backgroundColor: '#dbeafe',
+    borderColor: appColors.blue700,
+    backgroundColor: appColors.blue100,
   },
   filterChipText: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#475569',
+    color: appColors.slate600,
   },
   filterChipTextSelected: {
-    color: '#1d4ed8',
+    color: appColors.blue700,
   },
   filterActions: {
     flexDirection: 'row',
@@ -952,17 +953,17 @@ const styles = StyleSheet.create({
   filterHint: {
     marginTop: 4,
     fontSize: 12,
-    color: '#94a3b8',
+    color: appColors.slate400,
   },
   listArea: {
     flex: 1,
     gap: 16,
   },
   listToolbar: {
-    backgroundColor: '#ffffff',
+    backgroundColor: appColors.white,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: appColors.slate200,
     padding: 18,
     gap: 14,
   },
@@ -976,7 +977,7 @@ const styles = StyleSheet.create({
   },
   listToolbarText: {
     fontSize: 14,
-    color: '#475569',
+    color: appColors.slate600,
     fontWeight: '600',
   },
   listToolbarControls: {
@@ -996,7 +997,7 @@ const styles = StyleSheet.create({
   controlLabel: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#64748b',
+    color: appColors.slate500,
     textTransform: 'uppercase',
     letterSpacing: 0.4,
   },
@@ -1012,9 +1013,9 @@ const styles = StyleSheet.create({
   miniSelect: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f8fafc',
+    backgroundColor: appColors.sky50,
     borderWidth: 1,
-    borderColor: '#cbd5e1',
+    borderColor: appColors.slate300,
     borderRadius: 10,
     overflow: 'hidden',
   },
@@ -1025,10 +1026,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRightWidth: 1,
-    borderRightColor: '#e2e8f0',
+    borderRightColor: appColors.slate200,
   },
   miniSelectOptionActive: {
-    backgroundColor: '#e2e8f0',
+    backgroundColor: appColors.slate200,
   },
   miniSelectOptionLast: {
     borderRightWidth: 0,
@@ -1036,10 +1037,10 @@ const styles = StyleSheet.create({
   miniSelectOptionText: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#475569',
+    color: appColors.slate600,
   },
   miniSelectOptionTextActive: {
-    color: '#0f172a',
+    color: appColors.ink900,
   },
   paginationRow: {
     flexDirection: 'row',
@@ -1053,15 +1054,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#cbd5e1',
-    backgroundColor: '#ffffff',
+    borderColor: appColors.slate300,
+    backgroundColor: appColors.white,
     alignItems: 'center',
     justifyContent: 'center',
   },
   pageCount: {
     fontSize: 14,
     fontWeight: '700',
-    color: '#0f172a',
+    color: appColors.ink900,
   },
   buyRow: {
     alignItems: 'flex-start',
@@ -1085,36 +1086,36 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   actionButtonPrimary: {
-    backgroundColor: '#2563eb',
-    borderColor: '#2563eb',
+    backgroundColor: appColors.blue600,
+    borderColor: appColors.blue600,
   },
   actionButtonSecondary: {
-    backgroundColor: '#ffffff',
-    borderColor: '#cbd5e1',
+    backgroundColor: appColors.white,
+    borderColor: appColors.slate300,
   },
   actionButtonGhost: {
-    backgroundColor: '#f8fafc',
-    borderColor: '#e2e8f0',
+    backgroundColor: appColors.sky50,
+    borderColor: appColors.slate200,
   },
   actionButtonText: {
     fontSize: 13,
     fontWeight: '700',
   },
   actionButtonTextPrimary: {
-    color: '#ffffff',
+    color: appColors.white,
   },
   actionButtonTextSecondary: {
-    color: '#334155',
+    color: appColors.slate700,
   },
   actionButtonTextGhost: {
-    color: '#475569',
+    color: appColors.slate600,
   },
   loadingPanel: {
     minHeight: 260,
-    backgroundColor: '#ffffff',
+    backgroundColor: appColors.white,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: appColors.slate200,
     alignItems: 'center',
     justifyContent: 'center',
     gap: 12,
@@ -1122,15 +1123,15 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     fontSize: 14,
-    color: '#475569',
+    color: appColors.slate600,
     fontWeight: '600',
   },
   emptyState: {
     minHeight: 220,
-    backgroundColor: '#ffffff',
+    backgroundColor: appColors.white,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: appColors.slate200,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 24,
@@ -1139,21 +1140,21 @@ const styles = StyleSheet.create({
   emptyTitle: {
     fontSize: 20,
     fontWeight: '800',
-    color: '#0f172a',
+    color: appColors.ink900,
   },
   emptyText: {
     fontSize: 14,
-    color: '#64748b',
+    color: appColors.slate500,
     textAlign: 'center',
   },
   transactionList: {
     gap: 14,
   },
   transactionCard: {
-    backgroundColor: '#ffffff',
+    backgroundColor: appColors.white,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: appColors.slate200,
     padding: 18,
     gap: 14,
   },
@@ -1187,7 +1188,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 22,
     fontWeight: '700',
-    color: '#0f172a',
+    color: appColors.ink900,
   },
   transactionMetaWrap: {
     gap: 4,
@@ -1195,11 +1196,11 @@ const styles = StyleSheet.create({
   },
   transactionMeta: {
     fontSize: 13,
-    color: '#64748b',
+    color: appColors.slate500,
   },
   transactionError: {
     fontSize: 13,
-    color: '#b91c1c',
+    color: appColors.red700,
   },
   transactionAside: {
     gap: 8,
@@ -1221,8 +1222,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: '#cbd5e1',
-    backgroundColor: '#f8fafc',
+    borderColor: appColors.slate300,
+    backgroundColor: appColors.sky50,
   },
   identityPillLeft: {
     borderTopLeftRadius: 9,
@@ -1239,7 +1240,7 @@ const styles = StyleSheet.create({
   identityPillText: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#475569',
+    color: appColors.slate600,
   },
   statusBadge: {
     paddingHorizontal: 10,
@@ -1253,17 +1254,17 @@ const styles = StyleSheet.create({
   transactionCredits: {
     fontSize: 18,
     fontWeight: '800',
-    color: '#0f172a',
+    color: appColors.ink900,
   },
   transactionUsd: {
     fontSize: 15,
     fontWeight: '700',
   },
   amountPositive: {
-    color: '#15803d',
+    color: appColors.green800,
   },
   amountNegative: {
-    color: '#b91c1c',
+    color: appColors.red700,
   },
   centered: {
     flex: 1,
@@ -1275,20 +1276,20 @@ const styles = StyleSheet.create({
   errorText: {
     fontSize: 14,
     lineHeight: 20,
-    color: '#b91c1c',
+    color: appColors.red700,
   },
   dialogBackdrop: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(15,23,42,0.45)',
+    backgroundColor: appAlphaColors.overlayDark45,
     padding: 20,
   },
   dialogCard: {
     width: '100%',
     maxWidth: 460,
     borderRadius: 24,
-    backgroundColor: '#ffffff',
+    backgroundColor: appColors.white,
     padding: 24,
     gap: 14,
     ...cardSurfaceShadow,
@@ -1296,12 +1297,12 @@ const styles = StyleSheet.create({
   dialogTitle: {
     fontSize: 22,
     fontWeight: '800',
-    color: '#0f172a',
+    color: appColors.ink900,
   },
   dialogBody: {
     fontSize: 14,
     lineHeight: 22,
-    color: '#475569',
+    color: appColors.slate600,
   },
   dialogActions: {
     flexDirection: 'row',

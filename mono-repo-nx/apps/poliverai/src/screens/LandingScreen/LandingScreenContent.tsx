@@ -1,4 +1,5 @@
 import React from 'react';
+import { Platform } from 'react-native';
 import { useAuth } from '@poliverai/intl';
 import {
   Splash,
@@ -12,6 +13,8 @@ import {
   CTASection,
   TeamWriteup,
 } from '@poliverai/shared-ui';
+import AppFooter from '../../components/AppFooter';
+import poliveraiSplash from '../../../assets/lottie-animations/poliverai-splash.json';
 
 type LandingScreenContentProps = {
   showSplash: boolean;
@@ -32,7 +35,12 @@ export default function LandingScreenContent({
   return (
     <>
       {showSplash ? (
-        <Splash onFinish={onSplashFinish} delayMs={200} durationMs={5000} />
+        <Splash
+          onFinish={onSplashFinish}
+          source={Platform.OS === 'web' ? undefined : poliveraiSplash}
+          delayMs={200}
+          durationMs={5000}
+        />
       ) : null}
       <HeroSection />
       {section('platforms', <AppPlatforms />)}
@@ -47,7 +55,11 @@ export default function LandingScreenContent({
           <TeamWriteup />
         </>
       )}
-      <Footer hasBackground={true} />
+      {Platform.OS === 'web' ? (
+        <Footer hasBackground={true} />
+      ) : (
+        section('footer', <AppFooter />)
+      )}
     </>
   );
 }

@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+import { appColors } from './colorTokens'
 
 // Single clean RN tokens file used by shared-ui. Keep small and extend as
 // needed while porting web components to React Native.
@@ -21,27 +22,27 @@ const tokens = {
   },
   colors: {
     // semantic
-    textPrimary: { hex: '#111827' },
-    textSecondary: { hex: '#374151' },
-    textMuted: { hex: '#4B5563' },
-    surface: { hex: '#FFFFFF' },
-    surfaceMuted: { hex: '#F3F4F6' },
-    pageBg: { hex: '#FAFAFA' },
-    primary: { hex: '#2563EB' },
-    primaryBg: { hex: '#2563EB' },
-    primaryBgLight: { hex: '#DBEAFE' },
-    success: { hex: '#16A34A' },
-    danger: { hex: '#DC2626' },
-    dangerBg: { hex: '#FEE2E2' },
-    mutedText: { hex: '#9CA3AF' },
-    mutedBorder: { hex: '#E5E7EB' },
+    textPrimary: { hex: appColors.ink900 },
+    textSecondary: { hex: appColors.gray700 },
+    textMuted: { hex: appColors.gray600 },
+    surface: { hex: appColors.white },
+    surfaceMuted: { hex: appColors.gray100 },
+    pageBg: { hex: appColors.gray50 },
+    primary: { hex: appColors.blue600 },
+    primaryBg: { hex: appColors.blue600 },
+    primaryBgLight: { hex: appColors.blue100 },
+    success: { hex: appColors.green600 },
+    danger: { hex: appColors.red600 },
+    dangerBg: { hex: appColors.red100 },
+    mutedText: { hex: appColors.gray400 },
+    mutedBorder: { hex: appColors.gray200 },
     // palette aliases used by various components
-    white: { hex: '#FFFFFF' },
-    red600: { hex: '#DC2626' },
-    blue100: { hex: '#DBEAFE' },
-    gray600: { hex: '#4B5563' },
-    ctaText: { hex: '#FFFFFF' },
-    onPrimary: { hex: '#FFFFFF' },
+    white: { hex: appColors.white },
+    red600: { hex: appColors.red600 },
+    blue100: { hex: appColors.blue100 },
+    gray600: { hex: appColors.gray600 },
+    ctaText: { hex: appColors.white },
+    onPrimary: { hex: appColors.white },
   },
   spacing: {
     card: 16,

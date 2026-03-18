@@ -11,11 +11,12 @@ import {
   View,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { appAlphaColors, appColors } from '@poliverai/shared-ui';
 import { t, useAuth } from '@poliverai/intl';
 import { ArrowRight, LogIn, UserPlus } from 'lucide-react-native';
 import AppFooter from '../../components/AppFooter';
 import AppTopNav from '../../components/AppTopNav';
-import PoliveraiIconTransparent from '@assets/brand/poliverai-icon-transparent.svg';
+import { BrandLogo } from '../../components/BrandLogo';
 
 function copy(path: string, fallback: string) {
   const value = t(path, fallback);
@@ -67,7 +68,7 @@ export default function LoginScreen() {
         <AppTopNav currentRoute="login" />
         <ScrollView contentContainerStyle={styles.loadingScrollContent}>
           <View style={styles.loadingWrap}>
-            <ActivityIndicator size="large" color="#2563eb" />
+            <ActivityIndicator size="large" color={appColors.blue600} />
           </View>
           <View style={styles.footerWrap}>
             <AppFooter />
@@ -84,7 +85,7 @@ export default function LoginScreen() {
         <View style={styles.contentWrap}>
           <View style={styles.shell}>
             <View style={styles.hero}>
-              <PoliveraiIconTransparent width={280} height={200} style={styles.heroMarkImage} />
+              <BrandLogo width={280} height={120} style={styles.heroMarkImage} />
               <Text style={styles.heroTitle}>{copy('auth_login.welcome_title', 'Welcome back to PoliverAI')}</Text>
               <Text style={styles.heroSubtitle}>
                 {copy('auth_login.welcome_subtitle', 'Sign in to continue your privacy compliance workflow')}
@@ -106,7 +107,7 @@ export default function LoginScreen() {
                 <TextInput
                   style={styles.input}
                   placeholder={copy('auth.register.email_placeholder', 'Enter your email')}
-                  placeholderTextColor="#94a3b8"
+                  placeholderTextColor={appColors.slate400}
                   autoCapitalize="none"
                   keyboardType="email-address"
                   value={email}
@@ -119,7 +120,7 @@ export default function LoginScreen() {
                 <TextInput
                   style={styles.input}
                   placeholder={copy('auth.register.password_placeholder', 'Enter your password')}
-                  placeholderTextColor="#94a3b8"
+                  placeholderTextColor={appColors.slate400}
                   secureTextEntry
                   value={password}
                   onChangeText={setPassword}
@@ -128,10 +129,10 @@ export default function LoginScreen() {
 
               <Pressable style={styles.primaryButton} onPress={onSubmit} disabled={isSubmitting}>
                 {isSubmitting ? (
-                  <ActivityIndicator size="small" color="#ffffff" />
+                  <ActivityIndicator size="small" color={appColors.white} />
                 ) : (
                   <View style={styles.primaryButtonInner}>
-                    <LogIn size={16} color="#ffffff" />
+                    <LogIn size={16} color={appColors.white} />
                     <Text style={styles.primaryButtonText}>{copy('auth_login.sign_in_cta', 'Sign in')}</Text>
                   </View>
                 )}
@@ -140,9 +141,9 @@ export default function LoginScreen() {
               <View style={styles.bottomRow}>
                 <Text style={styles.bottomText}>{copy('auth_login.no_account_prefix', "Don't have an account?")}</Text>
                 <Pressable onPress={() => goTo('Register', '/register')} style={styles.inlineLinkButton}>
-                  <UserPlus size={14} color="#2563eb" />
+                  <UserPlus size={14} color={appColors.blue600} />
                   <Text style={styles.linkText}>{copy('auth_login.sign_up_cta', 'Sign up')}</Text>
-                  <ArrowRight size={14} color="#2563eb" />
+                  <ArrowRight size={14} color={appColors.blue600} />
                 </Pressable>
               </View>
             </View>
@@ -159,7 +160,7 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    backgroundColor: '#f8fafc',
+    backgroundColor: appColors.sky50,
   },
   scrollContent: {
     flexGrow: 1,
@@ -193,37 +194,39 @@ const styles = StyleSheet.create({
     width: 64,
     height: 64,
     borderRadius: 18,
-    backgroundColor: '#2563eb',
+    backgroundColor: appColors.blue600,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 12,
   },
   heroMarkText: {
-    color: '#ffffff',
+    color: appColors.white,
     fontSize: 32,
     fontWeight: '800',
   },
   heroMarkImage: {
+    width: 280,
+    height: 120,
     marginBottom: 12,
   },
   heroTitle: {
-    color: '#0f172a',
+    color: appColors.ink900,
     fontSize: 34,
     fontWeight: '700',
     textAlign: 'center',
   },
   heroSubtitle: {
     marginTop: 10,
-    color: '#64748b',
+    color: appColors.slate500,
     fontSize: 16,
     lineHeight: 24,
     textAlign: 'center',
   },
   card: {
-    backgroundColor: '#ffffff',
+    backgroundColor: appColors.white,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: 'rgba(226,232,240,0.95)',
+    borderColor: appAlphaColors.borderSoftStrong,
     padding: 28,
     ...(Platform.OS === 'web'
       ? ({ boxShadow: '0 24px 60px rgba(15, 23, 42, 0.08)' } as any)
@@ -236,25 +239,25 @@ const styles = StyleSheet.create({
         }),
   },
   cardTitle: {
-    color: '#0f172a',
+    color: appColors.ink900,
     fontSize: 24,
     fontWeight: '700',
   },
   cardDesc: {
     marginTop: 8,
-    color: '#64748b',
+    color: appColors.slate500,
     fontSize: 15,
     lineHeight: 23,
   },
   errorBox: {
     marginTop: 16,
     borderRadius: 10,
-    backgroundColor: '#fee2e2',
+    backgroundColor: appColors.red100,
     paddingHorizontal: 12,
     paddingVertical: 10,
   },
   errorText: {
-    color: '#dc2626',
+    color: appColors.red600,
     fontSize: 14,
   },
   field: {
@@ -262,30 +265,30 @@ const styles = StyleSheet.create({
   },
   label: {
     marginBottom: 8,
-    color: '#334155',
+    color: appColors.slate700,
     fontSize: 14,
     fontWeight: '600',
   },
   input: {
     height: 48,
     borderWidth: 1,
-    borderColor: 'rgba(203,213,225,0.9)',
+    borderColor: appAlphaColors.borderSoft,
     borderRadius: 12,
     paddingHorizontal: 14,
-    backgroundColor: '#ffffff',
-    color: '#0f172a',
+    backgroundColor: appColors.white,
+    color: appColors.ink900,
     fontSize: 15,
   },
   primaryButton: {
     marginTop: 22,
     minHeight: 50,
     borderRadius: 14,
-    backgroundColor: '#2563eb',
+    backgroundColor: appColors.blue600,
     alignItems: 'center',
     justifyContent: 'center',
   },
   primaryButtonText: {
-    color: '#ffffff',
+    color: appColors.white,
     fontSize: 15,
     fontWeight: '700',
   },
@@ -302,11 +305,11 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   bottomText: {
-    color: '#64748b',
+    color: appColors.slate500,
     fontSize: 14,
   },
   linkText: {
-    color: '#2563eb',
+    color: appColors.blue600,
     fontSize: 14,
     fontWeight: '700',
   },

@@ -1,10 +1,11 @@
 import React from 'react';
 import { Image, Modal, Platform, Pressable, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { PaymentsService, useAuth } from '@poliverai/intl';
-import EnterCreditsModal from '../../../../shared-ui/src/lib/EnterCreditsModal.native';
-import { brandAssets } from '@assets/brand';
+import { appAlphaColors, appColors, EnterCreditsModal } from '@poliverai/shared-ui';
 import { CreditCard, LayoutDashboard, LogIn, LogOut, Menu, ShieldCheck, Sparkles, UserPlus, X } from 'lucide-react-native';
+import { BrandLogo } from './BrandLogo';
 
 type AppTopNavProps = {
   currentRoute?: 'landing' | 'login' | 'register' | 'dashboard' | 'analyze' | 'credits' | 'reports';
@@ -64,6 +65,7 @@ function NavActionButton({
 
 export default function AppTopNav({ currentRoute = 'landing' }: AppTopNavProps) {
   const navigation = useNavigation<any>();
+  const insets = useSafeAreaInsets();
   const { isAuthenticated, isPro, user, logout } = useAuth() as unknown as {
     isAuthenticated?: boolean;
     isPro?: boolean;
@@ -109,6 +111,57 @@ export default function AppTopNav({ currentRoute = 'landing' }: AppTopNavProps) 
   const showLoginAction = !isAuthenticated && currentRoute !== 'login';
   const showSignupAction = !isAuthenticated && currentRoute !== 'register';
 
+  if (Platform.OS !== 'web') {
+    return (
+      <View style={[styles.nativeOuter, { paddingTop: Math.max(insets.top, 8), minHeight: 56 + insets.top }]}>
+        <Pressable onPress={() => safeNavigate('WebLanding', '/')} style={styles.nativeBrandButton}>
+          <BrandLogo width={40} height={40} />
+          <Text style={styles.brandText}>
+            Poliver <Text style={styles.brandAccent}>AI</Text>
+          </Text>
+        </Pressable>
+
+        <View style={styles.nativeActionsRow}>
+          {isAuthenticated ? (
+            <>
+              <Pressable onPress={() => safeNavigate('Dashboard', '/dashboard')} style={[styles.nativeActionButton, styles.nativePrimaryButton]}>
+                <View style={styles.nativeActionButtonInner}>
+                  <LayoutDashboard size={16} color={appColors.white} />
+                  <Text style={styles.primaryButtonText}>Dashboard</Text>
+                </View>
+              </Pressable>
+              <Pressable onPress={handleLogout} style={styles.nativeActionButton}>
+                <View style={styles.nativeActionButtonInner}>
+                  <LogOut size={16} color={appColors.ink900} />
+                  <Text style={styles.nativeSecondaryButtonText}>Logout</Text>
+                </View>
+              </Pressable>
+            </>
+          ) : (
+            <>
+              {showLoginAction ? (
+                <Pressable onPress={() => safeNavigate('Login', '/login')} style={styles.nativeActionButton}>
+                  <View style={styles.nativeActionButtonInner}>
+                    <LogIn size={16} color={appColors.ink900} />
+                    <Text style={styles.nativeSecondaryButtonText}>Login</Text>
+                  </View>
+                </Pressable>
+              ) : null}
+              {showSignupAction ? (
+                <Pressable onPress={() => safeNavigate('Register', '/register')} style={[styles.nativeActionButton, styles.nativePrimaryButton]}>
+                  <View style={styles.nativeActionButtonInner}>
+                    <UserPlus size={16} color={appColors.white} />
+                    <Text style={styles.primaryButtonText}>Sign Up</Text>
+                  </View>
+                </Pressable>
+              ) : null}
+            </>
+          )}
+        </View>
+      </View>
+    );
+  }
+
   const dashboardDesktopActions = (
     <>
       <View style={styles.dashboardLinksRow}>
@@ -136,12 +189,12 @@ export default function AppTopNav({ currentRoute = 'landing' }: AppTopNavProps) 
         <NavActionButton
           label="Upgrade to Pro"
           onPress={() => PaymentsService.purchaseUpgrade(29).catch(() => undefined)}
-          icon={<Sparkles size={16} color="#ffffff" />}
+          icon={<Sparkles size={16} color={appColors.white} />}
           variant="primary"
         />
       ) : null}
-      <NavActionButton label="Buy Credits" onPress={() => setCreditsModalOpen(true)} icon={<CreditCard size={16} color="#ffffff" />} variant="secondary" />
-      <NavActionButton label="Logout" onPress={handleLogout} icon={<LogOut size={16} color="#0f172a" />} variant="ghost" />
+      <NavActionButton label="Buy Credits" onPress={() => setCreditsModalOpen(true)} icon={<CreditCard size={16} color={appColors.white} />} variant="secondary" />
+      <NavActionButton label="Logout" onPress={handleLogout} icon={<LogOut size={16} color={appColors.ink900} />} variant="ghost" />
     </>
   );
 
@@ -149,37 +202,37 @@ export default function AppTopNav({ currentRoute = 'landing' }: AppTopNavProps) 
     <NavActionButton
       label="Go to Dashboard"
       onPress={() => safeNavigate('Dashboard', '/dashboard')}
-      icon={<LayoutDashboard size={16} color="#ffffff" />}
+      icon={<LayoutDashboard size={16} color={appColors.white} />}
       variant="primary"
     />
   ) : (
     <>
       {showLoginAction ? (
-        <NavActionButton label="Login" onPress={() => safeNavigate('Login', '/login')} icon={<LogIn size={16} color="#0f172a" />} variant="ghost" />
+        <NavActionButton label="Login" onPress={() => safeNavigate('Login', '/login')} icon={<LogIn size={16} color={appColors.ink900} />} variant="ghost" />
       ) : null}
       {showSignupAction ? (
-        <NavActionButton label="Sign Up" onPress={() => safeNavigate('Register', '/register')} icon={<UserPlus size={16} color="#ffffff" />} variant="primary" />
+        <NavActionButton label="Sign Up" onPress={() => safeNavigate('Register', '/register')} icon={<UserPlus size={16} color={appColors.white} />} variant="primary" />
       ) : null}
     </>
   );
 
   const dashboardMobileActions = (
     <>
-      <NavActionButton label="Dashboard" onPress={() => safeNavigate('Dashboard', '/dashboard')} icon={<LayoutDashboard size={16} color="#0f172a" />} variant="ghost" fullWidth />
-      <NavActionButton label="Analyze Policy" onPress={() => safeNavigate('Analyze', '/analyze')} icon={<ShieldCheck size={16} color="#0f172a" />} variant="ghost" fullWidth />
-      <NavActionButton label="Reports" onPress={() => safeNavigate('Reports', '/reports')} icon={<ShieldCheck size={16} color="#0f172a" />} variant="ghost" fullWidth />
-      <NavActionButton label="Transaction History" onPress={() => safeNavigate('Credits', '/credits')} icon={<CreditCard size={16} color="#0f172a" />} variant="ghost" fullWidth />
+      <NavActionButton label="Dashboard" onPress={() => safeNavigate('Dashboard', '/dashboard')} icon={<LayoutDashboard size={16} color={appColors.ink900} />} variant="ghost" fullWidth />
+      <NavActionButton label="Analyze Policy" onPress={() => safeNavigate('Analyze', '/analyze')} icon={<ShieldCheck size={16} color={appColors.ink900} />} variant="ghost" fullWidth />
+      <NavActionButton label="Reports" onPress={() => safeNavigate('Reports', '/reports')} icon={<ShieldCheck size={16} color={appColors.ink900} />} variant="ghost" fullWidth />
+      <NavActionButton label="Transaction History" onPress={() => safeNavigate('Credits', '/credits')} icon={<CreditCard size={16} color={appColors.ink900} />} variant="ghost" fullWidth />
       {!isPro ? (
         <NavActionButton
           label="Upgrade to Pro"
           onPress={() => PaymentsService.purchaseUpgrade(29).catch(() => undefined)}
-          icon={<Sparkles size={16} color="#ffffff" />}
+          icon={<Sparkles size={16} color={appColors.white} />}
           variant="primary"
           fullWidth
         />
       ) : null}
-      <NavActionButton label="Buy Credits" onPress={() => setCreditsModalOpen(true)} icon={<CreditCard size={16} color="#ffffff" />} variant="secondary" fullWidth />
-      <NavActionButton label="Logout" onPress={handleLogout} icon={<LogOut size={16} color="#0f172a" />} variant="ghost" fullWidth />
+      <NavActionButton label="Buy Credits" onPress={() => setCreditsModalOpen(true)} icon={<CreditCard size={16} color={appColors.white} />} variant="secondary" fullWidth />
+      <NavActionButton label="Logout" onPress={handleLogout} icon={<LogOut size={16} color={appColors.ink900} />} variant="ghost" fullWidth />
       <View style={styles.mobileMeta}>
         <Text style={styles.mobileMetaText}>{isPro ? 'PRO' : 'FREE'}</Text>
         <Text style={styles.mobileMetaText}>Credits: {creditCount}</Text>
@@ -192,17 +245,17 @@ export default function AppTopNav({ currentRoute = 'landing' }: AppTopNavProps) 
     <NavActionButton
       label="Go to Dashboard"
       onPress={() => safeNavigate('Dashboard', '/dashboard')}
-      icon={<LayoutDashboard size={16} color="#ffffff" />}
+      icon={<LayoutDashboard size={16} color={appColors.white} />}
       variant="primary"
       fullWidth
     />
   ) : (
     <>
       {showLoginAction ? (
-        <NavActionButton label="Login" onPress={() => safeNavigate('Login', '/login')} icon={<LogIn size={16} color="#0f172a" />} variant="ghost" fullWidth />
+        <NavActionButton label="Login" onPress={() => safeNavigate('Login', '/login')} icon={<LogIn size={16} color={appColors.ink900} />} variant="ghost" fullWidth />
       ) : null}
       {showSignupAction ? (
-        <NavActionButton label="Sign Up" onPress={() => safeNavigate('Register', '/register')} icon={<UserPlus size={16} color="#ffffff" />} variant="primary" fullWidth />
+        <NavActionButton label="Sign Up" onPress={() => safeNavigate('Register', '/register')} icon={<UserPlus size={16} color={appColors.white} />} variant="primary" fullWidth />
       ) : null}
     </>
   );
@@ -212,7 +265,7 @@ export default function AppTopNav({ currentRoute = 'landing' }: AppTopNavProps) 
       <View style={styles.inner}>
         <Pressable onPress={() => safeNavigate('WebLanding', '/')} style={styles.brandButton}>
           {Platform.OS === 'web' ? (
-            <Image source={brandAssets.poliveraiIconTransparent} style={styles.brandIconImage} resizeMode="contain" />
+            <BrandLogo width={40} height={40} style={styles.brandIconImage} />
           ) : (
             <View style={styles.brandIcon}>
               <Text style={styles.brandIconText}>P</Text>
@@ -230,7 +283,7 @@ export default function AppTopNav({ currentRoute = 'landing' }: AppTopNavProps) 
         ) : (
           <Pressable onPress={() => setMenuOpen((value) => !value)} style={styles.menuButton}>
             <View style={styles.actionButtonInner}>
-              {menuOpen ? <X size={16} color="#0f172a" /> : <Menu size={16} color="#0f172a" />}
+              {menuOpen ? <X size={16} color={appColors.ink900} /> : <Menu size={16} color={appColors.ink900} />}
               <Text style={styles.menuButtonText}>{menuOpen ? 'Close' : 'Menu'}</Text>
             </View>
           </Pressable>
@@ -244,7 +297,7 @@ export default function AppTopNav({ currentRoute = 'landing' }: AppTopNavProps) 
               <View style={styles.mobileMenuHeader}>
                 <Text style={styles.mobileMenuTitle}>Menu</Text>
                 <Pressable onPress={() => setMenuOpen(false)} style={styles.mobileMenuCloseButton}>
-                  <X size={18} color="#0f172a" />
+                  <X size={18} color={appColors.ink900} />
                 </Pressable>
               </View>
               <View style={styles.mobileActionsRow}>
@@ -266,10 +319,58 @@ export default function AppTopNav({ currentRoute = 'landing' }: AppTopNavProps) 
 }
 
 const styles = StyleSheet.create({
-  outer: {
-    backgroundColor: 'rgba(255,255,255,0.94)',
+  nativeOuter: {
+    backgroundColor: appColors.white,
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(226,232,240,0.9)',
+    borderBottomColor: appColors.slate200,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 12,
+  },
+  nativeBrandButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    flexShrink: 1,
+  },
+  nativeBrandImage: {
+    width: 112,
+    height: 32,
+  },
+  nativeActionsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    flexShrink: 0,
+  },
+  nativeActionButton: {
+    minHeight: 40,
+    paddingHorizontal: 14,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: appColors.slate200,
+  },
+  nativePrimaryButton: {
+    backgroundColor: appColors.blue600,
+  },
+  nativeActionButtonInner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  nativeSecondaryButtonText: {
+    color: appColors.ink900,
+    fontSize: 14,
+    fontWeight: '700',
+  },
+  outer: {
+    backgroundColor: appAlphaColors.white94,
+    borderBottomWidth: 1,
+    borderBottomColor: appAlphaColors.borderSoft,
     zIndex: 40,
   },
   inner: {
@@ -292,13 +393,13 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 12,
-    backgroundColor: '#2563eb',
+    backgroundColor: appColors.blue600,
     alignItems: 'center',
     justifyContent: 'center',
     boxShadow: '0 12px 30px rgba(37, 99, 235, 0.22)',
   } as any,
   brandIconText: {
-    color: '#ffffff',
+    color: appColors.white,
     fontSize: 20,
     fontWeight: '800',
   },
@@ -307,12 +408,12 @@ const styles = StyleSheet.create({
     height: 40,
   },
   brandText: {
-    color: '#0f172a',
+    color: appColors.ink900,
     fontSize: 20,
     fontWeight: '700',
   },
   brandAccent: {
-    color: '#2563eb',
+    color: appColors.blue600,
   },
   actionsRow: {
     flexDirection: 'row',
@@ -328,7 +429,7 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   dashboardLink: {
-    color: '#0f172a',
+    color: appColors.ink900,
     fontSize: 15,
     fontWeight: '600',
   },
@@ -343,23 +444,23 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
   },
   freeBadge: {
-    backgroundColor: '#dcfce7',
+    backgroundColor: appColors.green100,
   },
   proBadge: {
-    backgroundColor: '#dbeafe',
+    backgroundColor: appColors.blue100,
   },
   planBadgeText: {
     fontSize: 12,
     fontWeight: '800',
-    color: '#0f172a',
+    color: appColors.ink900,
   },
   creditsText: {
-    color: '#1e293b',
+    color: appColors.ink800,
     fontSize: 14,
     fontWeight: '700',
   },
   userNameText: {
-    color: '#0f172a',
+    color: appColors.ink900,
     fontSize: 14,
     fontWeight: '600',
   },
@@ -368,8 +469,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
     borderRadius: 999,
     borderWidth: 1,
-    borderColor: 'rgba(148,163,184,0.35)',
-    backgroundColor: '#ffffff',
+    borderColor: appAlphaColors.borderSlateSoft,
+    backgroundColor: appColors.white,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -395,7 +496,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   ghostButtonText: {
-    color: '#0f172a',
+    color: appColors.ink900,
     fontSize: 15,
     fontWeight: '700',
   },
@@ -403,13 +504,13 @@ const styles = StyleSheet.create({
     minHeight: 44,
     paddingHorizontal: 18,
     borderRadius: 999,
-    backgroundColor: '#2563eb',
+    backgroundColor: appColors.blue600,
     alignItems: 'center',
     justifyContent: 'center',
     boxShadow: '0 18px 40px rgba(37, 99, 235, 0.22)',
   } as any,
   primaryButtonText: {
-    color: '#ffffff',
+    color: appColors.white,
     fontSize: 15,
     fontWeight: '700',
   },
@@ -417,12 +518,12 @@ const styles = StyleSheet.create({
     minHeight: 44,
     paddingHorizontal: 18,
     borderRadius: 999,
-    backgroundColor: '#0f172a',
+    backgroundColor: appColors.ink900,
     alignItems: 'center',
     justifyContent: 'center',
   },
   secondaryButtonText: {
-    color: '#ffffff',
+    color: appColors.white,
     fontSize: 15,
     fontWeight: '700',
   },
@@ -432,13 +533,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: 'rgba(148,163,184,0.35)',
-    backgroundColor: '#ffffff',
+    borderColor: appAlphaColors.borderSlateSoft,
+    backgroundColor: appColors.white,
     alignItems: 'center',
     justifyContent: 'center',
   },
   menuButtonText: {
-    color: '#0f172a',
+    color: appColors.ink900,
     fontSize: 14,
     fontWeight: '700',
   },
@@ -454,9 +555,9 @@ const styles = StyleSheet.create({
     maxWidth: 520,
     alignSelf: 'center',
     borderRadius: 16,
-    backgroundColor: '#ffffff',
+    backgroundColor: appColors.white,
     borderWidth: 1,
-    borderColor: 'rgba(226,232,240,0.95)',
+    borderColor: appAlphaColors.borderSoftStrong,
     padding: 12,
     boxShadow: '0 16px 40px rgba(15, 23, 42, 0.08)',
   } as any,
@@ -467,7 +568,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   mobileMenuTitle: {
-    color: '#0f172a',
+    color: appColors.ink900,
     fontSize: 18,
     fontWeight: '800',
   },
@@ -477,7 +578,7 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#f8fafc',
+    backgroundColor: appColors.sky50,
   },
   mobileActionsRow: {
     flexDirection: 'column',
@@ -490,11 +591,11 @@ const styles = StyleSheet.create({
     marginTop: 8,
     paddingTop: 8,
     borderTopWidth: 1,
-    borderTopColor: 'rgba(226,232,240,0.95)',
+    borderTopColor: appAlphaColors.borderSoftStrong,
     gap: 4,
   },
   mobileMetaText: {
-    color: '#334155',
+    color: appColors.slate700,
     fontSize: 14,
     fontWeight: '600',
   },

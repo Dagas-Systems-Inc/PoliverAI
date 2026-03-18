@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { t } from '@poliverai/intl';
+import { appColors } from './colorTokens';
 
 const steps = [
   {
@@ -67,7 +68,7 @@ const styles = StyleSheet.create({
     marginBottom: 48,
   },
   heading: {
-    color: '#0f172a',
+    color: appColors.ink900,
     fontSize: 42,
     lineHeight: 46,
     fontWeight: '700',
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
   subheading: {
     marginTop: 12,
     maxWidth: 720,
-    color: '#475569',
+    color: appColors.slate600,
     fontSize: 18,
     lineHeight: 29,
     textAlign: 'center',
@@ -96,25 +97,25 @@ const styles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 999,
-    backgroundColor: '#2563eb',
+    backgroundColor: appColors.blue600,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 18,
   },
   stepCircleText: {
-    color: '#ffffff',
+    color: appColors.white,
     fontSize: 22,
     fontWeight: '800',
   },
   stepTitle: {
-    color: '#0f172a',
+    color: appColors.ink900,
     fontSize: 24,
     fontWeight: '700',
     textAlign: 'center',
   },
   stepDesc: {
     marginTop: 12,
-    color: '#475569',
+    color: appColors.slate600,
     fontSize: 16,
     lineHeight: 27,
     textAlign: 'center',

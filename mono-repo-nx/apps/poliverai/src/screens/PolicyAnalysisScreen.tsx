@@ -26,7 +26,7 @@ import {
   WalletCards,
   X,
 } from 'lucide-react-native';
-import { EnterInstructionsModal, EnterTitleModal, InsufficientCreditsModal } from '@poliverai/shared-ui';
+import { EnterInstructionsModal, EnterTitleModal, InsufficientCreditsModal, appAlphaColors, appColors } from '@poliverai/shared-ui';
 import { t, useAuth } from '@poliverai/intl';
 import { brandAssets } from '@assets/brand';
 import AppFooter from '../components/AppFooter';
@@ -39,10 +39,10 @@ type AnalysisTab = 'free' | 'full' | 'revised';
 
 const cardSurfaceShadow = Platform.select({
   web: {
-    boxShadow: '0 12px 28px rgba(15, 23, 42, 0.08)',
+    boxShadow: `0 12px 28px ${appAlphaColors.shadowCard}`,
   },
   default: {
-    shadowColor: '#0f172a',
+    shadowColor: appColors.ink900,
     shadowOpacity: 0.08,
     shadowRadius: 18,
     shadowOffset: { width: 0, height: 10 },
@@ -52,10 +52,10 @@ const cardSurfaceShadow = Platform.select({
 
 const mutedCardShadow = Platform.select({
   web: {
-    boxShadow: '0 8px 18px rgba(15, 23, 42, 0.05)',
+    boxShadow: `0 8px 18px ${appAlphaColors.shadowSoft}`,
   },
   default: {
-    shadowColor: '#0f172a',
+    shadowColor: appColors.ink900,
     shadowOpacity: 0.05,
     shadowRadius: 14,
     shadowOffset: { width: 0, height: 8 },
@@ -88,11 +88,11 @@ function percentValue(value?: number | null) {
 function severityTone(severity?: string | null) {
   switch (String(severity ?? '').toLowerCase()) {
     case 'high':
-      return { bg: '#fee2e2', text: '#b91c1c', label: 'HIGH' };
+      return { bg: appColors.red100, text: appColors.red700, label: 'HIGH' };
     case 'medium':
-      return { bg: '#fef3c7', text: '#b45309', label: 'MEDIUM' };
+      return { bg: appColors.yellow100, text: appColors.amber700, label: 'MEDIUM' };
     default:
-      return { bg: '#dcfce7', text: '#166534', label: 'LOW' };
+      return { bg: appColors.green100, text: appColors.green700, label: 'LOW' };
   }
 }
 
@@ -933,9 +933,9 @@ export default function PolicyAnalysisScreen() {
                     style={[styles.tabButton, activeTab === tab ? styles.tabButtonActive : null]}
                   >
                     <View style={styles.tabButtonInner}>
-                      {tab === 'free' ? <WalletCards size={15} color={activeTab === tab ? '#1d4ed8' : '#475569'} /> : null}
-                      {tab === 'full' ? <FileCheck size={15} color={activeTab === tab ? '#1d4ed8' : '#475569'} /> : null}
-                      {tab === 'revised' ? <Bot size={15} color={activeTab === tab ? '#1d4ed8' : '#475569'} /> : null}
+                      {tab === 'free' ? <WalletCards size={15} color={activeTab === tab ? '#1d4ed8' : appColors.slate600} /> : null}
+                      {tab === 'full' ? <FileCheck size={15} color={activeTab === tab ? '#1d4ed8' : appColors.slate600} /> : null}
+                      {tab === 'revised' ? <Bot size={15} color={activeTab === tab ? '#1d4ed8' : appColors.slate600} /> : null}
                       <Text style={[styles.tabButtonText, activeTab === tab ? styles.tabButtonTextActive : null]}>
                         {tab === 'free' ? 'Free' : tab === 'full' ? 'Full' : 'Revised'}
                       </Text>
@@ -985,7 +985,7 @@ export default function PolicyAnalysisScreen() {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: '#f8fafc',
+    backgroundColor: appColors.sky50,
   },
   content: {
     flexGrow: 1,
@@ -1010,7 +1010,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     lineHeight: 38,
     fontWeight: '800',
-    color: '#0f172a',
+    color: appColors.ink900,
   },
   topActions: {
     flexDirection: 'row',
@@ -1022,7 +1022,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingVertical: 8,
     borderRadius: 999,
-    backgroundColor: '#fef3c7',
+    backgroundColor: appColors.yellow100,
   },
   workInProgressText: {
     fontSize: 12,
@@ -1044,7 +1044,7 @@ const styles = StyleSheet.create({
     flexWrap: 'nowrap',
   },
   sidebar: {
-    backgroundColor: '#ffffff',
+    backgroundColor: appColors.white,
     borderRadius: 24,
     borderWidth: 1,
     borderColor: '#dbe7f5',
@@ -1063,7 +1063,7 @@ const styles = StyleSheet.create({
   uploadLabel: {
     fontSize: 15,
     fontWeight: '700',
-    color: '#0f172a',
+    color: appColors.ink900,
   },
   uploadZone: {
     minHeight: 220,
@@ -1082,12 +1082,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
     fontWeight: '700',
-    color: '#0f172a',
+    color: appColors.ink900,
   },
   uploadZoneMeta: {
     textAlign: 'center',
     fontSize: 13,
-    color: '#64748b',
+    color: appColors.slate500,
   },
   uploadActions: {
     flexDirection: 'row',
@@ -1099,7 +1099,7 @@ const styles = StyleSheet.create({
   selectedFileCard: {
     padding: 14,
     borderRadius: 16,
-    backgroundColor: '#f8fafc',
+    backgroundColor: appColors.sky50,
     borderWidth: 1,
     borderColor: '#dbe7f5',
     gap: 4,
@@ -1107,12 +1107,12 @@ const styles = StyleSheet.create({
   selectedFileLabel: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#334155',
+    color: appColors.slate700,
   },
   selectedFileMeta: {
     fontSize: 13,
     lineHeight: 20,
-    color: '#475569',
+    color: appColors.slate600,
   },
   sidebarBlock: {
     gap: 10,
@@ -1120,7 +1120,7 @@ const styles = StyleSheet.create({
   sidebarSummary: {
     fontSize: 14,
     lineHeight: 22,
-    color: '#475569',
+    color: appColors.slate600,
   },
   sectionHeadingRow: {
     flexDirection: 'row',
@@ -1130,18 +1130,18 @@ const styles = StyleSheet.create({
   sectionHeading: {
     fontSize: 16,
     fontWeight: '800',
-    color: '#0f172a',
+    color: appColors.ink900,
   },
   mutedBody: {
     fontSize: 14,
     lineHeight: 22,
-    color: '#64748b',
+    color: appColors.slate500,
   },
   sidebarFindingItem: {
     borderRadius: 16,
-    backgroundColor: '#f8fafc',
+    backgroundColor: appColors.sky50,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: appColors.slate200,
     padding: 12,
     gap: 6,
   },
@@ -1158,15 +1158,15 @@ const styles = StyleSheet.create({
   sidebarFindingArticle: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#0f172a',
+    color: appColors.ink900,
   },
   sidebarFindingIssue: {
     fontSize: 13,
     lineHeight: 19,
-    color: '#475569',
+    color: appColors.slate600,
   },
   mainPanel: {
-    backgroundColor: '#ffffff',
+    backgroundColor: appColors.white,
     borderRadius: 24,
     borderWidth: 1,
     borderColor: '#dbe7f5',
@@ -1191,7 +1191,7 @@ const styles = StyleSheet.create({
   mainPanelEyebrow: {
     fontSize: 12,
     fontWeight: '800',
-    color: '#64748b',
+    color: appColors.slate500,
     textTransform: 'uppercase',
     letterSpacing: 0.6,
   },
@@ -1199,7 +1199,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontSize: 22,
     fontWeight: '800',
-    color: '#0f172a',
+    color: appColors.ink900,
   },
   mainPanelMeta: {
     flexDirection: 'row',
@@ -1209,20 +1209,20 @@ const styles = StyleSheet.create({
   mainPanelMetaText: {
     fontSize: 14,
     fontWeight: '700',
-    color: '#475569',
+    color: appColors.slate600,
   },
   progressWrap: {
     gap: 8,
   },
   progressBarTrack: {
     height: 10,
-    backgroundColor: '#e2e8f0',
+    backgroundColor: appColors.slate200,
     borderRadius: 999,
     overflow: 'hidden',
   },
   progressBarFill: {
     height: '100%',
-    backgroundColor: '#2563eb',
+    backgroundColor: appColors.blue600,
     borderRadius: 999,
   },
   progressInfoRow: {
@@ -1233,12 +1233,12 @@ const styles = StyleSheet.create({
   progressLabel: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#334155',
+    color: appColors.slate700,
   },
   progressPercent: {
     fontSize: 13,
     fontWeight: '800',
-    color: '#2563eb',
+    color: appColors.blue600,
   },
   tabRow: {
     flexDirection: 'row',
@@ -1249,12 +1249,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingVertical: 9,
     borderRadius: 999,
-    backgroundColor: '#f1f5f9',
+    backgroundColor: appColors.slate100,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: appColors.slate200,
   },
   tabButtonActive: {
-    backgroundColor: '#dbeafe',
+    backgroundColor: appColors.blue100,
     borderColor: '#60a5fa',
   },
   tabButtonInner: {
@@ -1265,10 +1265,10 @@ const styles = StyleSheet.create({
   tabButtonText: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#475569',
+    color: appColors.slate600,
   },
   tabButtonTextActive: {
-    color: '#1d4ed8',
+    color: appColors.blue700,
   },
   mainPanelToolbar: {
     flexDirection: 'row',
@@ -1277,9 +1277,9 @@ const styles = StyleSheet.create({
   tabContainer: {
     minHeight: 560,
     borderRadius: 22,
-    backgroundColor: '#f8fafc',
+    backgroundColor: appColors.sky50,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: appColors.slate200,
     overflow: 'hidden',
   },
   tabScroll: {
@@ -1304,18 +1304,18 @@ const styles = StyleSheet.create({
   metricCaption: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#64748b',
+    color: appColors.slate500,
   },
   heroTitle: {
     marginTop: 6,
     fontSize: 26,
     fontWeight: '800',
-    color: '#0f172a',
+    color: appColors.ink900,
   },
   heroSubtext: {
     marginTop: 4,
     fontSize: 14,
-    color: '#64748b',
+    color: appColors.slate500,
   },
   starsRow: {
     flexDirection: 'row',
@@ -1325,7 +1325,7 @@ const styles = StyleSheet.create({
   },
   starGlyph: {
     fontSize: 20,
-    color: '#cbd5e1',
+    color: appColors.slate300,
   },
   starGlyphActive: {
     color: '#f59e0b',
@@ -1334,18 +1334,18 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontSize: 13,
     fontWeight: '700',
-    color: '#475569',
+    color: appColors.slate600,
   },
   summaryText: {
     fontSize: 15,
     lineHeight: 24,
-    color: '#334155',
+    color: appColors.slate700,
   },
   sectionBlock: {
     borderRadius: 20,
-    backgroundColor: '#ffffff',
+    backgroundColor: appColors.white,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: appColors.slate200,
     padding: 18,
     gap: 12,
     ...mutedCardShadow,
@@ -1362,17 +1362,17 @@ const styles = StyleSheet.create({
     fontSize: 15,
     lineHeight: 22,
     fontWeight: '800',
-    color: '#0f172a',
+    color: appColors.ink900,
   },
   findingIssue: {
     fontSize: 14,
     lineHeight: 22,
-    color: '#475569',
+    color: appColors.slate600,
   },
   findingConfidence: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#64748b',
+    color: appColors.slate500,
   },
   fullGrid: {
     gap: 18,
@@ -1406,9 +1406,9 @@ const styles = StyleSheet.create({
   },
   fullFindingCard: {
     borderRadius: 16,
-    backgroundColor: '#ffffff',
+    backgroundColor: appColors.white,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: appColors.slate200,
     padding: 14,
     gap: 8,
   },
@@ -1425,13 +1425,13 @@ const styles = StyleSheet.create({
   recommendationItem: {
     fontSize: 14,
     lineHeight: 22,
-    color: '#334155',
+    color: appColors.slate700,
   },
   metricsCard: {
     borderRadius: 20,
-    backgroundColor: '#ffffff',
+    backgroundColor: appColors.white,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: appColors.slate200,
     padding: 18,
     gap: 10,
     ...mutedCardShadow,
@@ -1439,17 +1439,17 @@ const styles = StyleSheet.create({
   metricLine: {
     fontSize: 14,
     lineHeight: 22,
-    color: '#334155',
+    color: appColors.slate700,
   },
   metricLineDanger: {
     fontSize: 14,
     lineHeight: 22,
     fontWeight: '700',
-    color: '#b91c1c',
+    color: appColors.red700,
   },
   evidenceCard: {
     borderRadius: 16,
-    backgroundColor: '#166534',
+    backgroundColor: appColors.green700,
     padding: 14,
     gap: 8,
   },
@@ -1457,12 +1457,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 20,
     fontWeight: '800',
-    color: '#ffffff',
+    color: appColors.white,
   },
   evidenceExcerpt: {
     fontSize: 12,
     lineHeight: 18,
-    color: '#dcfce7',
+    color: appColors.green100,
   },
   reportBrandWrap: {
     alignItems: 'center',
@@ -1470,11 +1470,11 @@ const styles = StyleSheet.create({
   },
   reportBrandCard: {
     borderRadius: 18,
-    backgroundColor: '#ffffff',
+    backgroundColor: appColors.white,
     paddingHorizontal: 22,
     paddingVertical: 14,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: appColors.slate200,
     ...mutedCardShadow,
   },
   reportBrandImage: {
@@ -1484,7 +1484,7 @@ const styles = StyleSheet.create({
   revisedContent: {
     fontSize: 14,
     lineHeight: 22,
-    color: '#334155',
+    color: appColors.slate700,
   },
   emptyState: {
     minHeight: 420,
@@ -1496,12 +1496,12 @@ const styles = StyleSheet.create({
   emptyStateTitle: {
     fontSize: 22,
     fontWeight: '800',
-    color: '#0f172a',
+    color: appColors.ink900,
   },
   emptyStateBody: {
     fontSize: 14,
     lineHeight: 22,
-    color: '#64748b',
+    color: appColors.slate500,
     textAlign: 'center',
     maxWidth: 460,
   },
@@ -1515,12 +1515,12 @@ const styles = StyleSheet.create({
   loadingStateTitle: {
     fontSize: 20,
     fontWeight: '800',
-    color: '#0f172a',
+    color: appColors.ink900,
   },
   loadingStateBody: {
     fontSize: 14,
     lineHeight: 22,
-    color: '#64748b',
+    color: appColors.slate500,
     textAlign: 'center',
     maxWidth: 420,
   },
@@ -1533,12 +1533,12 @@ const styles = StyleSheet.create({
   authStateTitle: {
     fontSize: 24,
     fontWeight: '800',
-    color: '#0f172a',
+    color: appColors.ink900,
   },
   authStateText: {
     fontSize: 14,
     lineHeight: 22,
-    color: '#64748b',
+    color: appColors.slate500,
   },
   panelAction: {
     minHeight: 42,
@@ -1548,20 +1548,20 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   panelActionPrimary: {
-    backgroundColor: '#2563eb',
-    borderColor: '#2563eb',
+    backgroundColor: appColors.blue600,
+    borderColor: appColors.blue600,
   },
   panelActionSecondary: {
-    backgroundColor: '#0f172a',
-    borderColor: '#0f172a',
+    backgroundColor: appColors.ink900,
+    borderColor: appColors.ink900,
   },
   panelActionDanger: {
-    backgroundColor: '#dc2626',
-    borderColor: '#dc2626',
+    backgroundColor: appColors.red600,
+    borderColor: appColors.red600,
   },
   panelActionGhost: {
-    backgroundColor: '#ffffff',
-    borderColor: '#cbd5e1',
+    backgroundColor: appColors.white,
+    borderColor: appColors.slate300,
   },
   panelActionDisabled: {
     opacity: 0.45,
@@ -1581,32 +1581,32 @@ const styles = StyleSheet.create({
     fontWeight: '800',
   },
   panelActionTextPrimary: {
-    color: '#ffffff',
+    color: appColors.white,
   },
   panelActionTextSecondary: {
-    color: '#ffffff',
+    color: appColors.white,
   },
   panelActionTextDanger: {
-    color: '#ffffff',
+    color: appColors.white,
   },
   panelActionTextGhost: {
-    color: '#475569',
+    color: appColors.slate600,
   },
   panelActionTextDisabled: {
-    color: '#ffffff',
+    color: appColors.white,
   },
   dialogBackdrop: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
-    backgroundColor: 'rgba(15,23,42,0.45)',
+    backgroundColor: appAlphaColors.overlayDark45,
   },
   dialogCard: {
     width: '100%',
     maxWidth: 460,
     borderRadius: 24,
-    backgroundColor: '#ffffff',
+    backgroundColor: appColors.white,
     padding: 24,
     gap: 14,
     ...cardSurfaceShadow,
@@ -1614,12 +1614,12 @@ const styles = StyleSheet.create({
   dialogTitle: {
     fontSize: 22,
     fontWeight: '800',
-    color: '#0f172a',
+    color: appColors.ink900,
   },
   dialogBody: {
     fontSize: 14,
     lineHeight: 22,
-    color: '#475569',
+    color: appColors.slate600,
   },
   dialogActions: {
     flexDirection: 'row',

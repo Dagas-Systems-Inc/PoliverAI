@@ -1,8 +1,8 @@
 {
   "run": {
-    "command": "nx run @poliverai/poliverai:run-android",
-    "startTime": "2026-03-18T17:10:56.147Z",
-    "endTime": "2026-03-18T17:11:36.652Z",
+    "command": "nx run @poliverai/poliverai:start --reset-cache",
+    "startTime": "2026-03-18T17:10:49.549Z",
+    "endTime": "2026-03-18T18:18:52.579Z",
     "inner": false
   },
   "tasks": []

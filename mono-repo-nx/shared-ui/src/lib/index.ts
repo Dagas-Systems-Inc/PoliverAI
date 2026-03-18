@@ -3,6 +3,7 @@ export { default as Input } from './Input';
 export { Button } from './Button/Button';
 export { default as Card } from './Card';
 export * from './styleTokens';
+export { appColors, appAlphaColors } from './colorTokens';
 export * from './icons/FeatureIcons';
 export { default as Splash } from './Splash/Splash';
 export { default as FeaturesSection } from './FeaturesSection';
@@ -33,7 +34,7 @@ export { default as TopControls } from './TopControls.native'
 export { default as RevisedPolicyPreview } from './RevisedPolicyPreview.native'
 export { default as EnterTitleModal } from './EnterTitleModal.native'
 export { default as EnterInstructionsModal } from './EnterInstructionsModal.native'
-export { default as EnterCreditsModal } from './EnterCreditsModal.native'
+export { default as EnterCreditsModal } from './EnterCreditsModal'
 export { default as InsufficientCreditsModal } from './InsufficientCreditsModal.native'
 export { default as ReportViewerModal } from './ReportViewerModal.native'
 export { default as ReportCard } from './ReportCard.native'

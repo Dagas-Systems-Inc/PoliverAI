@@ -10,9 +10,14 @@ const appNodeModules = path.resolve(__dirname, 'node_modules');
 const rootNodeModules = path.resolve(workspaceRoot, 'node_modules');
 const intlEntry = path.resolve(workspaceRoot, 'libs', 'intl', 'src', 'index.ts');
 const sharedUiEntry = path.resolve(workspaceRoot, 'shared-ui', 'src', 'index.ts');
+const sharedUiRoot = path.resolve(workspaceRoot, 'shared-ui', 'src');
 const assetsEntry = path.resolve(__dirname, 'assets');
 
 function resolveWorkspaceAlias(moduleName) {
+  if (moduleName === '@shared-ui') return sharedUiEntry;
+  if (moduleName.startsWith('@shared-ui/')) {
+    return path.resolve(sharedUiRoot, moduleName.slice('@shared-ui/'.length));
+  }
   if (moduleName === '@poliverai/intl') return intlEntry;
   if (moduleName === '@poliverai/shared-ui') return sharedUiEntry;
   if (moduleName === '@assets') return path.resolve(assetsEntry, 'index.ts');
@@ -46,6 +51,7 @@ const customConfig = {
       {},
       {
         get: (_, name) => {
+          if (name === '@shared-ui') return sharedUiEntry;
           if (name === '@poliverai/intl') return intlEntry;
           if (name === '@poliverai/shared-ui') return sharedUiEntry;
           return path.join(rootNodeModules, name);
