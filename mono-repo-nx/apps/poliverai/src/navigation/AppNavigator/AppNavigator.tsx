@@ -82,7 +82,7 @@ export const AppNavigator = ({
     }
   }, []);
 
-  if (loading) {
+  if (loading && authenticated) {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: appColors.sky50, gap: 12 }}>
         <ActivityIndicator size="large" color={appColors.blue600} />

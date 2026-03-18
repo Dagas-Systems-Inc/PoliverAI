@@ -3,7 +3,7 @@
 // used by both web (Vite) and React Native. Do not import Expo or app assets
 // from here. A calling app should pass a `source` prop for the animation.
 import React, { useEffect, useRef } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { Animated, Easing, View, StyleSheet, Text } from 'react-native';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 interface SplashProps {
@@ -31,9 +31,15 @@ const tryRequire = (name: string) => {
 };
 
 const LottieView: any = isReactNative ? tryRequire('lottie-react-native') : null;
+const NativeAnimatedLogo =
+  isReactNative
+    ? (tryRequire('../../../../apps/poliverai/assets/brand/poliverai-icon-transparent.svg')?.default ?? null)
+    : null;
 
 export const Splash: React.FC<SplashProps> = ({ onFinish, source, duration = 4000, delayMs, durationMs }) => {
   const animRef = useRef<any>(null);
+  const fallbackScale = useRef(new Animated.Value(0.9)).current;
+  const fallbackOpacity = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     // Simple in-app splash timing; do not call any Expo/native API here.
@@ -44,6 +50,46 @@ export const Splash: React.FC<SplashProps> = ({ onFinish, source, duration = 400
 
     return () => clearTimeout(timer);
   }, [duration, onFinish]);
+
+  useEffect(() => {
+    if (!isReactNative || LottieView || !NativeAnimatedLogo) return;
+
+    const animation = Animated.loop(
+      Animated.sequence([
+        Animated.parallel([
+          Animated.timing(fallbackOpacity, {
+            toValue: 1,
+            duration: 420,
+            easing: Easing.out(Easing.ease),
+            useNativeDriver: true,
+          }),
+          Animated.timing(fallbackScale, {
+            toValue: 1,
+            duration: 420,
+            easing: Easing.out(Easing.ease),
+            useNativeDriver: true,
+          }),
+        ]),
+        Animated.parallel([
+          Animated.timing(fallbackOpacity, {
+            toValue: 0.82,
+            duration: 900,
+            easing: Easing.inOut(Easing.ease),
+            useNativeDriver: true,
+          }),
+          Animated.timing(fallbackScale, {
+            toValue: 1.05,
+            duration: 900,
+            easing: Easing.inOut(Easing.ease),
+            useNativeDriver: true,
+          }),
+        ]),
+      ])
+    );
+
+    animation.start();
+    return () => animation.stop();
+  }, [fallbackOpacity, fallbackScale]);
 
   // If Lottie is available (native), render it. Otherwise render a simple web fallback.
   if (LottieView && source) {
@@ -76,7 +122,23 @@ export const Splash: React.FC<SplashProps> = ({ onFinish, source, duration = 400
     );
   }
 
-  // Web / fallback rendering
+  if (NativeAnimatedLogo) {
+    return (
+      <View style={[styles.container, styles.pointerEventsNone]}>
+        <Animated.View
+          style={{
+            opacity: fallbackOpacity,
+            transform: [{ scale: fallbackScale }],
+          }}
+        >
+          <NativeAnimatedLogo width={180} height={180} />
+        </Animated.View>
+        <Text style={styles.brand}>PoliverAI</Text>
+      </View>
+    );
+  }
+
+  // Native fallback rendering
   return (
     <View style={[styles.container, styles.pointerEventsNone]}>
       <Text style={styles.mark}>P</Text>
