@@ -64,8 +64,13 @@ end
 target 'poliverai-macOS' do
   platform :macos, '11.0'
 
-  # Autolink native modules (this will use the CLI to produce a JSON autolinking file)
-  use_native_modules!
+  # Autolink native modules, but exclude lottie-react-native on macOS. This
+  # app uses the native AppKit splash window plus the JS fallback animation on
+  # desktop, and the lottie-react-native pod does not build cleanly here.
+  autolink_config = list_native_modules!($default_command)
+  autolink_config[:ios_packages].reject! { |pkg| pkg[:name] == 'lottie-react-native' }
+  autolink_config[:ios_packages].reject! { |pkg| pkg[:name] == '@lottiefiles/dotlottie-react-native' }
+  link_native_modules!(autolink_config)
 
   # Flags change depending on the env values.
   flags = get_default_flags()
@@ -75,10 +80,10 @@ target 'poliverai-macOS' do
   mac_react_native_path = File.dirname(mac_react_native_pkg)
   mac_react_native_path = Pathname.new(mac_react_native_path).relative_path_from(Pod::Config.instance.installation_root).to_s
 
-  # Ensure codegen runs during pod install so generated artifacts are created
-  # (remove the temporary disable flags previously used during debugging).
-  # Ensure New Architecture is enabled for pods that validate it (Reanimated requires this)
-  ENV['RCT_NEW_ARCH_ENABLED'] = '1' unless ENV.key?('RCT_NEW_ARCH_ENABLED')
+  # The current macOS target in this repo is not compatible with the New
+  # Architecture pod/codegen path. Keep desktop on the legacy architecture so
+  # pod install and native builds remain stable.
+  ENV['RCT_NEW_ARCH_ENABLED'] = '0'
 
   # For macOS we have a codegen parser issue with the built-in `NativeIdleCallbacks`
   # module (unrecognized generic `IdleCallbackID`) that breaks `pod install` on

@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.poliverai.app-mergeDebugResources-43:/values-as/values-as.xml",
+            "outputFile": "com.poliverai.app-mergeDebugResources-44:/values-as/values-as.xml",
             "map": [
                 {
                     "source": "/Users/gabrieldagadu/.gradle/caches/8.13/transforms/631e6581931e2cb580599e02097ad0dc/transformed/core-1.16.0/res/values-as/values-as.xml",

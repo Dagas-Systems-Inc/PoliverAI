@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Platform, ScrollView, StyleSheet, View } from 'react-native';
-import { appColors } from '@poliverai/shared-ui';
+import { appColors, Splash } from '@poliverai/shared-ui';
 import AppTopNav from '../../components/AppTopNav';
 import LandingScreenContent from './LandingScreenContent';
 
@@ -13,7 +13,7 @@ const pageStyle: React.CSSProperties = {
 };
 
 export default function LandingScreen() {
-	const [showSplash, setShowSplash] = useState(true);
+  const [showWebSplash, setShowWebSplash] = useState(true);
 
   if (Platform.OS !== 'web') {
     return (
@@ -25,11 +25,7 @@ export default function LandingScreen() {
           showsVerticalScrollIndicator={false}
         >
           <View>
-            <LandingScreenContent
-              showSplash={showSplash}
-              onSplashFinish={() => setShowSplash(false)}
-              wrapSection={(id, children) => <View key={id}>{children}</View>}
-            />
+            <LandingScreenContent wrapSection={(id, children) => <View key={id}>{children}</View>} />
           </View>
         </ScrollView>
       </View>
@@ -39,9 +35,14 @@ export default function LandingScreen() {
 	return (
 		<div style={pageStyle}>
       <AppTopNav currentRoute="landing" />
+      {showWebSplash ? (
+        <Splash
+          onFinish={() => setShowWebSplash(false)}
+          delayMs={200}
+          durationMs={5000}
+        />
+      ) : null}
       <LandingScreenContent
-        showSplash={showSplash}
-        onSplashFinish={() => setShowSplash(false)}
         wrapSection={(id, children) => <div id={id}>{children}</div>}
       />
 		</div>

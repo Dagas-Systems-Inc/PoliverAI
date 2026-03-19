@@ -16,6 +16,8 @@ import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.zoontek.rnbootsplash.RNBootSplashPackage;
 // react-native-gesture-handler
 import com.swmansion.gesturehandler.RNGestureHandlerPackage;
+// lottie-react-native
+import com.airbnb.android.react.lottie.LottiePackage;
 // react-native-reanimated
 import com.swmansion.reanimated.ReanimatedPackage;
 // react-native-safe-area-context
@@ -72,6 +74,7 @@ public class PackageList {
       new AsyncStoragePackage(),
       new RNBootSplashPackage(),
       new RNGestureHandlerPackage(),
+      new LottiePackage(),
       new ReanimatedPackage(),
       new SafeAreaContextPackage(),
       new RNScreensPackage(),

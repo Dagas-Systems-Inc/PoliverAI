@@ -5,7 +5,7 @@ export { default as Card } from './Card';
 export * from './styleTokens';
 export { appColors, appAlphaColors } from './colorTokens';
 export * from './icons/FeatureIcons';
-export { default as Splash } from './Splash/Splash';
+export { default as Splash, POLIVERAI_SPLASH_DOTLOTTIE_URL } from './Splash';
 export { default as FeaturesSection } from './FeaturesSection';
 export { default as Footer } from './Footer';
 export { default as TeamCarousel } from './TeamCarousel';

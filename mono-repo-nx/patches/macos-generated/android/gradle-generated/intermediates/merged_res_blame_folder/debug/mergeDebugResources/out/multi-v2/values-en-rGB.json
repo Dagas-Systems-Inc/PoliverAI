@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.poliverai.app-mergeDebugResources-43:/values-en-rGB/values-en-rGB.xml",
+            "outputFile": "com.poliverai.app-mergeDebugResources-44:/values-en-rGB/values-en-rGB.xml",
             "map": [
                 {
                     "source": "/Users/gabrieldagadu/.gradle/caches/8.13/transforms/3de85972d3619b5106aec0e731e93a3b/transformed/appcompat-1.7.0/res/values-en-rGB/values-en-rGB.xml",

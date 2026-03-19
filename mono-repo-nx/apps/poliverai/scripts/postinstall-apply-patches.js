@@ -24,11 +24,15 @@ function run(cmd, args, opts = {}) {
 // Run app-level postinstall steps and repo-level apply patch
 const restore = path.join(appRoot, 'scripts', 'restore-codegen-stubs.js');
 const patch = path.join(appRoot, 'scripts', 'patch-react-native-worklets.js');
+const patchLottie = path.join(appRoot, 'scripts', 'patch-lottie-react-native.js');
+const patchDotLottie = path.join(appRoot, 'scripts', 'patch-dotlottie-react-native.js');
 const applyRepo = path.join(appRoot, '..', '..', 'scripts', 'apply-react-native-worklets-patch.js');
 const repoRoot = path.resolve(appRoot, '..', '..');
 
 if (fs.existsSync(restore)) run('node', [restore], { cwd: appRoot });
 if (fs.existsSync(patch)) run('node', [patch], { cwd: appRoot });
+if (fs.existsSync(patchLottie)) run('node', [patchLottie], { cwd: appRoot });
+if (fs.existsSync(patchDotLottie)) run('node', [patchDotLottie], { cwd: appRoot });
 if (fs.existsSync(applyRepo)) run('node', [applyRepo], { cwd: repoRoot });
 
 ensureAppHoistedLinks({

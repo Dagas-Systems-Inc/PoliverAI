@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.poliverai.app-mergeDebugResources-43:/values-es-rES/values-es-rES.xml",
+            "outputFile": "com.poliverai.app-mergeDebugResources-44:/values-es-rES/values-es-rES.xml",
             "map": [
                 {
                     "source": "/Users/gabrieldagadu/.gradle/caches/8.13/transforms/33b1ee09c5d103c8511704d0785c9f6c/transformed/react-android-0.79.6-debug/res/values-es-rES/values-es-rES.xml",

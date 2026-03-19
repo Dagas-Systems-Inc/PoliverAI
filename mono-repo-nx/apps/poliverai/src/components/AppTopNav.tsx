@@ -112,53 +112,120 @@ export default function AppTopNav({ currentRoute = 'landing' }: AppTopNavProps) 
   const showSignupAction = !isAuthenticated && currentRoute !== 'register';
 
   if (Platform.OS !== 'web') {
-    return (
-      <View style={[styles.nativeOuter, { paddingTop: Math.max(insets.top, 8), minHeight: 56 + insets.top }]}>
-        <Pressable onPress={() => safeNavigate('WebLanding', '/')} style={styles.nativeBrandButton}>
-          <BrandLogo width={40} height={40} />
-          <Text style={styles.brandText}>
-            Poliver <Text style={styles.brandAccent}>AI</Text>
-          </Text>
-        </Pressable>
+    const nativeMobileActions = isAuthenticated ? (
+      <>
+        <NavActionButton
+          label="Dashboard"
+          onPress={() => safeNavigate('Dashboard', '/dashboard')}
+          icon={<LayoutDashboard size={16} color={appColors.ink900} />}
+          variant="ghost"
+          fullWidth
+        />
+        <NavActionButton
+          label="Logout"
+          onPress={handleLogout}
+          icon={<LogOut size={16} color={appColors.ink900} />}
+          variant="ghost"
+          fullWidth
+        />
+      </>
+    ) : (
+      <>
+        {showLoginAction ? (
+          <NavActionButton
+            label="Login"
+            onPress={() => safeNavigate('Login', '/login')}
+            icon={<LogIn size={16} color={appColors.ink900} />}
+            variant="ghost"
+            fullWidth
+          />
+        ) : null}
+        {showSignupAction ? (
+          <NavActionButton
+            label="Sign Up"
+            onPress={() => safeNavigate('Register', '/register')}
+            icon={<UserPlus size={16} color={appColors.white} />}
+            variant="primary"
+            fullWidth
+          />
+        ) : null}
+      </>
+    );
 
-        <View style={styles.nativeActionsRow}>
-          {isAuthenticated ? (
-            <>
-              <Pressable onPress={() => safeNavigate('Dashboard', '/dashboard')} style={[styles.nativeActionButton, styles.nativePrimaryButton]}>
-                <View style={styles.nativeActionButtonInner}>
-                  <LayoutDashboard size={16} color={appColors.white} />
-                  <Text style={styles.primaryButtonText}>Dashboard</Text>
-                </View>
-              </Pressable>
-              <Pressable onPress={handleLogout} style={styles.nativeActionButton}>
-                <View style={styles.nativeActionButtonInner}>
-                  <LogOut size={16} color={appColors.ink900} />
-                  <Text style={styles.nativeSecondaryButtonText}>Logout</Text>
-                </View>
-              </Pressable>
-            </>
+    return (
+      <>
+        <View style={[styles.nativeOuter, { paddingTop: Math.max(insets.top, 8), minHeight: 56 + insets.top }]}>
+          <Pressable onPress={() => safeNavigate('WebLanding', '/')} style={styles.nativeBrandButton}>
+            <BrandLogo width={40} height={40} />
+            <Text style={styles.brandText}>
+              Poliver <Text style={styles.brandAccent}>AI</Text>
+            </Text>
+          </Pressable>
+
+          {isDesktop ? (
+            <View style={styles.nativeActionsRow}>
+              {isAuthenticated ? (
+                <>
+                  <Pressable onPress={() => safeNavigate('Dashboard', '/dashboard')} style={[styles.nativeActionButton, styles.nativePrimaryButton]}>
+                    <View style={styles.nativeActionButtonInner}>
+                      <LayoutDashboard size={16} color={appColors.white} />
+                      <Text style={styles.primaryButtonText}>Dashboard</Text>
+                    </View>
+                  </Pressable>
+                  <Pressable onPress={handleLogout} style={styles.nativeActionButton}>
+                    <View style={styles.nativeActionButtonInner}>
+                      <LogOut size={16} color={appColors.ink900} />
+                      <Text style={styles.nativeSecondaryButtonText}>Logout</Text>
+                    </View>
+                  </Pressable>
+                </>
+              ) : (
+                <>
+                  {showLoginAction ? (
+                    <Pressable onPress={() => safeNavigate('Login', '/login')} style={styles.nativeActionButton}>
+                      <View style={styles.nativeActionButtonInner}>
+                        <LogIn size={16} color={appColors.ink900} />
+                        <Text style={styles.nativeSecondaryButtonText}>Login</Text>
+                      </View>
+                    </Pressable>
+                  ) : null}
+                  {showSignupAction ? (
+                    <Pressable onPress={() => safeNavigate('Register', '/register')} style={[styles.nativeActionButton, styles.nativePrimaryButton]}>
+                      <View style={styles.nativeActionButtonInner}>
+                        <UserPlus size={16} color={appColors.white} />
+                        <Text style={styles.primaryButtonText}>Sign Up</Text>
+                      </View>
+                    </Pressable>
+                  ) : null}
+                </>
+              )}
+            </View>
           ) : (
-            <>
-              {showLoginAction ? (
-                <Pressable onPress={() => safeNavigate('Login', '/login')} style={styles.nativeActionButton}>
-                  <View style={styles.nativeActionButtonInner}>
-                    <LogIn size={16} color={appColors.ink900} />
-                    <Text style={styles.nativeSecondaryButtonText}>Login</Text>
-                  </View>
-                </Pressable>
-              ) : null}
-              {showSignupAction ? (
-                <Pressable onPress={() => safeNavigate('Register', '/register')} style={[styles.nativeActionButton, styles.nativePrimaryButton]}>
-                  <View style={styles.nativeActionButtonInner}>
-                    <UserPlus size={16} color={appColors.white} />
-                    <Text style={styles.primaryButtonText}>Sign Up</Text>
-                  </View>
-                </Pressable>
-              ) : null}
-            </>
+            <Pressable onPress={() => setMenuOpen(true)} style={styles.menuButton}>
+              <View style={styles.actionButtonInner}>
+                <Menu size={16} color={appColors.ink900} />
+                <Text style={styles.menuButtonText}>Menu</Text>
+              </View>
+            </Pressable>
           )}
         </View>
-      </View>
+
+        {!isDesktop ? (
+          <Modal visible={menuOpen} transparent animationType="fade" onRequestClose={() => setMenuOpen(false)}>
+            <Pressable style={styles.mobileMenuBackdrop} onPress={() => setMenuOpen(false)}>
+              <Pressable style={styles.mobileMenuSheet} onPress={() => undefined}>
+                <View style={styles.mobileMenuHeader}>
+                  <Text style={styles.mobileMenuTitle}>Menu</Text>
+                  <Pressable onPress={() => setMenuOpen(false)} style={styles.mobileMenuCloseButton}>
+                    <X size={18} color={appColors.ink900} />
+                  </Pressable>
+                </View>
+                <View style={styles.mobileActionsRow}>{nativeMobileActions}</View>
+              </Pressable>
+            </Pressable>
+          </Modal>
+        ) : null}
+      </>
     );
   }
 

@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.poliverai.app-mergeDebugResources-43:/values-v30/values-v30.xml",
+            "outputFile": "com.poliverai.app-mergeDebugResources-44:/values-v30/values-v30.xml",
             "map": [
                 {
                     "source": "/Users/gabrieldagadu/PoliverAI/mono-repo-nx/apps/poliverai/node_modules/react-native-bootsplash/android/build/intermediates/packaged_res/debug/packageDebugResources/values-v30/values-v30.xml",

@@ -2,7 +2,6 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { useAuth } from '@poliverai/intl';
 import {
-  Splash,
   HeroSection,
   FeaturesSection,
   Footer,
@@ -14,17 +13,12 @@ import {
   TeamWriteup,
 } from '@poliverai/shared-ui';
 import AppFooter from '../../components/AppFooter';
-import poliveraiSplash from '../../../assets/lottie-animations/poliverai-splash.json';
 
 type LandingScreenContentProps = {
-  showSplash: boolean;
-  onSplashFinish: () => void;
   wrapSection?: (id: string, children: React.ReactNode) => React.ReactNode;
 };
 
 export default function LandingScreenContent({
-  showSplash,
-  onSplashFinish,
   wrapSection,
 }: LandingScreenContentProps) {
   const { isAuthenticated } = useAuth();
@@ -34,14 +28,6 @@ export default function LandingScreenContent({
 
   return (
     <>
-      {showSplash ? (
-        <Splash
-          onFinish={onSplashFinish}
-          source={Platform.OS === 'web' ? undefined : poliveraiSplash}
-          delayMs={200}
-          durationMs={5000}
-        />
-      ) : null}
       <HeroSection />
       {section('platforms', <AppPlatforms />)}
       {section('features', <FeaturesSection />)}
