@@ -954,6 +954,7 @@ export default function PolicyAnalysisScreen() {
             </View>
           </View>
         </View>
+        <AppFooter />
       </ScrollView>
 
       <EnterTitleModal open={titleModalOpen} initial={file?.name ?? ''} onClose={() => setTitleModalOpen(false)} onConfirm={async (title?: string) => { await handleSaveReport(title); }} />
@@ -977,7 +978,6 @@ export default function PolicyAnalysisScreen() {
         </Pressable>
       </Modal>
 
-      <AppFooter />
     </View>
   );
 }
@@ -988,15 +988,15 @@ const styles = StyleSheet.create({
     backgroundColor: appColors.sky50,
   },
   content: {
-    flexGrow: 1,
-    paddingHorizontal: 16,
-    paddingTop: 28,
-    paddingBottom: 56,
+    width: '100%',
   },
   pageWrap: {
     width: '100%',
     maxWidth: 1280,
     alignSelf: 'center',
+    paddingHorizontal: 16,
+    paddingTop: 28,
+    paddingBottom: 40,
     gap: 16,
   },
   headerRow: {

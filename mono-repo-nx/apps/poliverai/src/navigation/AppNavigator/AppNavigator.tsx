@@ -8,7 +8,6 @@ import PolicyAnalysisScreen from '../../screens/PolicyAnalysisScreen';
 import ReportsScreen from '../../screens/ReportsScreen';
 import RegisterScreen from '../../screens/RegisterScreen/RegisterScreen';
 import DashboardScreen from '../../screens/DashboardScreen';
-import { TabNavigator } from '../TabNavigator/TabNavigator';
 import { LandingScreen } from '../../screens/LandingScreen';
 import CreditsScreen from '../../screens/CreditsScreen';
 
@@ -83,7 +82,7 @@ export const AppNavigator = ({
           headerShown: false,
           cardStyle: { backgroundColor: appColors.white },
         }}
-        initialRouteName={authenticated ? 'Main' : 'WebLanding'}
+        initialRouteName={authenticated ? 'Dashboard' : 'WebLanding'}
       >
         {/* Always include the key web routes as screens so the linking config can navigate to them */}
         <Stack.Screen name="WebLanding" component={LandingScreen} />
@@ -95,9 +94,6 @@ export const AppNavigator = ({
         <Stack.Screen name="Reports" component={ReportsScreen} />
         <Stack.Screen name="Credits" component={CreditsScreen} />
         <Stack.Screen name="PaymentReturn" component={CreditsScreen} />
-        {authenticated ? (
-          <Stack.Screen name="Main" component={TabNavigator} />
-        ) : null}
       </Stack.Navigator>
     </NavigationContainer>
   );

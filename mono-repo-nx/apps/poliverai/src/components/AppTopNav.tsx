@@ -122,12 +122,54 @@ export default function AppTopNav({ currentRoute = 'landing' }: AppTopNavProps) 
           fullWidth
         />
         <NavActionButton
+          label="Analyze Policy"
+          onPress={() => safeNavigate('Analyze', '/analyze')}
+          icon={<ShieldCheck size={16} color={appColors.ink900} />}
+          variant="ghost"
+          fullWidth
+        />
+        <NavActionButton
+          label="Reports"
+          onPress={() => safeNavigate('Reports', '/reports')}
+          icon={<ShieldCheck size={16} color={appColors.ink900} />}
+          variant="ghost"
+          fullWidth
+        />
+        <NavActionButton
+          label="Transaction History"
+          onPress={() => safeNavigate('Credits', '/credits')}
+          icon={<CreditCard size={16} color={appColors.ink900} />}
+          variant="ghost"
+          fullWidth
+        />
+        {!isPro ? (
+          <NavActionButton
+            label="Upgrade to Pro"
+            onPress={() => PaymentsService.purchaseUpgrade(29).catch(() => undefined)}
+            icon={<Sparkles size={16} color={appColors.white} />}
+            variant="primary"
+            fullWidth
+          />
+        ) : null}
+        <NavActionButton
+          label="Buy Credits"
+          onPress={() => setCreditsModalOpen(true)}
+          icon={<CreditCard size={16} color={appColors.white} />}
+          variant="secondary"
+          fullWidth
+        />
+        <NavActionButton
           label="Logout"
           onPress={handleLogout}
           icon={<LogOut size={16} color={appColors.ink900} />}
           variant="ghost"
           fullWidth
         />
+        <View style={styles.mobileMeta}>
+          <Text style={styles.mobileMetaText}>{isPro ? 'PRO' : 'FREE'}</Text>
+          <Text style={styles.mobileMetaText}>Credits: {creditCount}</Text>
+          <Text style={styles.mobileMetaText}>{displayName}</Text>
+        </View>
       </>
     ) : (
       <>

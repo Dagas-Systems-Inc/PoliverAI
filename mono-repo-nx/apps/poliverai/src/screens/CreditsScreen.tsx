@@ -307,9 +307,11 @@ function FilterInput({
 function TransactionCard({
   tx,
   isDesktop,
+  isCompact,
 }: {
   tx: Transaction;
   isDesktop: boolean;
+  isCompact: boolean;
 }) {
   const status = getTxStatus(tx);
   const tone = getStatusTone(status);
@@ -356,12 +358,12 @@ function TransactionCard({
         {tx.failure_message ? <Text style={styles.transactionError}>{tx.failure_message}</Text> : null}
       </View>
 
-      <View style={[styles.transactionAside, isDesktop ? styles.transactionAsideDesktop : null]}>
+      <View style={[styles.transactionAside, isDesktop ? styles.transactionAsideDesktop : null, isCompact ? styles.transactionAsideCompact : null]}>
         <View style={[styles.statusBadge, { backgroundColor: tone.bg }]}>
           <Text style={[styles.statusBadgeText, { color: tone.text }]}>{tone.label}</Text>
         </View>
-        <Text style={styles.transactionCredits}>{formatCredits(credits)}</Text>
-        <Text style={[styles.transactionUsd, amountPositive ? styles.amountPositive : styles.amountNegative]}>
+        <Text style={[styles.transactionCredits, isCompact ? styles.transactionCreditsCompact : null]}>{formatCredits(credits)}</Text>
+        <Text style={[styles.transactionUsd, amountPositive ? styles.amountPositive : styles.amountNegative, isCompact ? styles.transactionUsdCompact : null]}>
           {formatAmountUsd(amount)}
         </Text>
       </View>
@@ -498,7 +500,7 @@ const CreditsScreen: React.FC = () => {
       refreshUser?.().catch(() => undefined);
     };
 
-    if (typeof window !== 'undefined' && window?.addEventListener) {
+    if (typeof window !== 'undefined' && typeof window.addEventListener === 'function' && typeof window.removeEventListener === 'function') {
       window.addEventListener('transactions:refresh', handler as EventListener);
       return () => window.removeEventListener('transactions:refresh', handler as EventListener);
     }
@@ -724,13 +726,14 @@ const CreditsScreen: React.FC = () => {
               ) : (
                 <View style={styles.transactionList}>
                   {filtered.map((tx) => (
-                    <TransactionCard key={tx.id} tx={tx} isDesktop={isDesktop} />
+                    <TransactionCard key={tx.id} tx={tx} isDesktop={isDesktop} isCompact={isCompact} />
                   ))}
                 </View>
               )}
             </View>
           </View>
         </View>
+        <AppFooter />
       </ScrollView>
       <Modal
         visible={Boolean(returnDialog)}
@@ -754,7 +757,6 @@ const CreditsScreen: React.FC = () => {
           </Pressable>
         </Pressable>
       </Modal>
-      <AppFooter />
     </View>
   );
 };
@@ -765,15 +767,15 @@ const styles = StyleSheet.create({
     backgroundColor: appColors.sky50,
   },
   scrollContent: {
-    flexGrow: 1,
-    paddingHorizontal: 16,
-    paddingTop: 32,
-    paddingBottom: 56,
+    width: '100%',
   },
   shell: {
     width: '100%',
     maxWidth: 1240,
     alignSelf: 'center',
+    paddingHorizontal: 16,
+    paddingTop: 32,
+    paddingBottom: 40,
   },
   headerRow: {
     gap: 16,
@@ -1206,6 +1208,13 @@ const styles = StyleSheet.create({
     gap: 8,
     alignItems: 'flex-start',
   },
+  transactionAsideCompact: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    flexWrap: 'nowrap',
+    gap: 10,
+  },
   transactionAsideDesktop: {
     minWidth: 148,
     alignItems: 'flex-end',
@@ -1256,9 +1265,15 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     color: appColors.ink900,
   },
+  transactionCreditsCompact: {
+    fontSize: 15,
+  },
   transactionUsd: {
     fontSize: 15,
     fontWeight: '700',
+  },
+  transactionUsdCompact: {
+    fontSize: 14,
   },
   amountPositive: {
     color: appColors.green800,
