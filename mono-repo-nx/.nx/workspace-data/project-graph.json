@@ -18561,17 +18561,22 @@
       },
       {
         "source": "@poliverai/shared-ui",
+        "target": "npm:@lottiefiles/dotlottie-react-native",
+        "type": "static"
+      },
+      {
+        "source": "@poliverai/shared-ui",
+        "target": "@poliverai/poliverai",
+        "type": "static"
+      },
+      {
+        "source": "@poliverai/shared-ui",
         "target": "npm:@lottiefiles/dotlottie-react",
         "type": "static"
       },
       {
         "source": "@poliverai/shared-ui",
         "target": "npm:react-native-svg",
-        "type": "static"
-      },
-      {
-        "source": "@poliverai/shared-ui",
-        "target": "@poliverai/poliverai",
         "type": "static"
       },
       {
@@ -42365,5 +42370,5 @@
   },
   "version": "6.0",
   "errors": [],
-  "computedAt": 1773883347733
+  "computedAt": 1773885681935
 }

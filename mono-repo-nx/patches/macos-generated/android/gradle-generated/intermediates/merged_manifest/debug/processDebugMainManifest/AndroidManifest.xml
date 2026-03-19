@@ -14,6 +14,8 @@
     for React Native Apps.
     -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <permission
         android:name="com.poliverai.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"

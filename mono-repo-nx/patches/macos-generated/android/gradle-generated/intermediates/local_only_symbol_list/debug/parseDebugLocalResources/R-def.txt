@@ -9,4 +9,3 @@ mipmap ic_launcher_foreground
 mipmap ic_launcher_round
 string app_name
 style AppTheme
-style BootTheme

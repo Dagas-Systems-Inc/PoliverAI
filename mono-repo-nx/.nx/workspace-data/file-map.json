@@ -92,6 +92,218 @@
   ],
   "fileMap": {
     "projectFileMap": {
+      "@poliverai/intl": [
+        {
+          "file": "libs/intl/package.json",
+          "hash": "6717310270380888081"
+        },
+        {
+          "file": "libs/intl/src/.index.ts.swp",
+          "hash": "10913091892218957509"
+        },
+        {
+          "file": "libs/intl/src/contexts/auth-context.ts",
+          "hash": "9902205910197039385",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "libs/intl/src/contexts/useAuth.ts",
+          "hash": "8338893413458689133",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "libs/intl/src/hooks/useAccountStatus.ts",
+          "hash": "10750230790380600308"
+        },
+        {
+          "file": "libs/intl/src/hooks/useAnalysisProgress.ts",
+          "hash": "245404019684765536"
+        },
+        {
+          "file": "libs/intl/src/hooks/useAuth.tsx",
+          "hash": "5187354994404876107",
+          "deps": [
+            "npm:react",
+            "npm:axios",
+            "npm:react-redux"
+          ]
+        },
+        {
+          "file": "libs/intl/src/hooks/useAvailableFeatures.ts",
+          "hash": "7469551708450597288",
+          "deps": [
+            "@poliverai/shared-ui"
+          ]
+        },
+        {
+          "file": "libs/intl/src/hooks/useCreditsSummary.ts",
+          "hash": "17266441249588050384"
+        },
+        {
+          "file": "libs/intl/src/i18n.ts",
+          "hash": "3343752786328715505",
+          "deps": [
+            "npm:react-redux"
+          ]
+        },
+        {
+          "file": "libs/intl/src/i18n/index.ts",
+          "hash": "5844569588801625279"
+        },
+        {
+          "file": "libs/intl/src/i18n/locales/en.ts",
+          "hash": "17621861692707538132"
+        },
+        {
+          "file": "libs/intl/src/index.ts",
+          "hash": "17863546125006680275"
+        },
+        {
+          "file": "libs/intl/src/lib/authHelpers.ts",
+          "hash": "12898438545314597577"
+        },
+        {
+          "file": "libs/intl/src/lib/dashboardHelpers.ts",
+          "hash": "4983812968203113729"
+        },
+        {
+          "file": "libs/intl/src/lib/errorHelpers.ts",
+          "hash": "7070483877526315995"
+        },
+        {
+          "file": "libs/intl/src/lib/eventHelpers.ts",
+          "hash": "7782995236264238630"
+        },
+        {
+          "file": "libs/intl/src/lib/fileHelpers.ts",
+          "hash": "1026472820605201296"
+        },
+        {
+          "file": "libs/intl/src/lib/paymentsHelpers.ts",
+          "hash": "276972399160577127",
+          "deps": [
+            "npm:react-native"
+          ]
+        },
+        {
+          "file": "libs/intl/src/lib/platformStorage.ts",
+          "hash": "18214786429822938809",
+          "deps": [
+            "npm:react-native",
+            [
+              "npm:@react-native-async-storage/async-storage",
+              "dynamic"
+            ]
+          ]
+        },
+        {
+          "file": "libs/intl/src/lib/transactionHelpers.ts",
+          "hash": "15158004932885376477"
+        },
+        {
+          "file": "libs/intl/src/lib/urlHelpers.ts",
+          "hash": "13582505931222900591"
+        },
+        {
+          "file": "libs/intl/src/lib/utils.ts",
+          "hash": "16099772572521786089"
+        },
+        {
+          "file": "libs/intl/src/locales/en-US.json",
+          "hash": "8475635836672221928"
+        },
+        {
+          "file": "libs/intl/src/locales/en-US.reduced.json",
+          "hash": "5865168391254347054"
+        },
+        {
+          "file": "libs/intl/src/provider.tsx",
+          "hash": "5784255659666271652",
+          "deps": [
+            "npm:react",
+            "npm:react-redux",
+            "npm:redux-persist",
+            "npm:react-native"
+          ]
+        },
+        {
+          "file": "libs/intl/src/services/api.ts",
+          "hash": "9710884498371273633"
+        },
+        {
+          "file": "libs/intl/src/services/authService.ts",
+          "hash": "8377460633098761782"
+        },
+        {
+          "file": "libs/intl/src/services/payments.ts",
+          "hash": "7605283572485006524",
+          "deps": [
+            "npm:react-native"
+          ]
+        },
+        {
+          "file": "libs/intl/src/services/policyService.ts",
+          "hash": "4007621785872376220"
+        },
+        {
+          "file": "libs/intl/src/services/streamingService.ts",
+          "hash": "48241733109461091"
+        },
+        {
+          "file": "libs/intl/src/services/transactions.ts",
+          "hash": "6531985045265783318"
+        },
+        {
+          "file": "libs/intl/src/slices/authSlice.ts",
+          "hash": "10775949452474165254",
+          "deps": [
+            "npm:@reduxjs/toolkit"
+          ]
+        },
+        {
+          "file": "libs/intl/src/slices/localeSlice.ts",
+          "hash": "1820278012315914749",
+          "deps": [
+            "npm:@reduxjs/toolkit"
+          ]
+        },
+        {
+          "file": "libs/intl/src/store.ts",
+          "hash": "1418567516425287171",
+          "deps": [
+            "npm:@reduxjs/toolkit",
+            "npm:redux",
+            "npm:redux-persist"
+          ]
+        },
+        {
+          "file": "libs/intl/src/types/api.ts",
+          "hash": "1794623772159251499"
+        },
+        {
+          "file": "libs/intl/src/types/feature.ts",
+          "hash": "9387895665725394901",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "libs/intl/src/types/user.ts",
+          "hash": "17253464488466273021"
+        },
+        {
+          "file": "libs/intl/src/utils/cn.ts",
+          "hash": "15516058123845190687",
+          "deps": [
+            "npm:clsx",
+            "npm:tailwind-merge"
+          ]
+        }
+      ],
       "backend": [
         {
           "file": "apps/backend/README.md",
@@ -100,6 +312,39 @@
         {
           "file": "apps/backend/project.json",
           "hash": "1901762643705807133"
+        }
+      ],
+      "@poliverai/poliverai-e2e": [
+        {
+          "file": "apps/poliverai-e2e/eslint.config.mjs",
+          "hash": "1172734138943286526",
+          "deps": [
+            "npm:eslint-plugin-playwright"
+          ]
+        },
+        {
+          "file": "apps/poliverai-e2e/package.json",
+          "hash": "1314024798413686166"
+        },
+        {
+          "file": "apps/poliverai-e2e/playwright.config.ts",
+          "hash": "1851517654716273094",
+          "deps": [
+            "npm:@playwright/test",
+            "npm:@nx/playwright",
+            "npm:@nx/devkit"
+          ]
+        },
+        {
+          "file": "apps/poliverai-e2e/src/example.spec.ts",
+          "hash": "16019101014373124625",
+          "deps": [
+            "npm:@playwright/test"
+          ]
+        },
+        {
+          "file": "apps/poliverai-e2e/tsconfig.json",
+          "hash": "15001458170383955177"
         }
       ],
       "@poliverai/poliverai": [
@@ -997,507 +1242,35 @@
         },
         {
           "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/compile-file-map.properties",
-          "hash": "6674911717884691525"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-af/values-af.xml",
-          "hash": "13296565144214248438"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-am/values-am.xml",
-          "hash": "7007870743585365080"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ar/values-ar.xml",
-          "hash": "9951555023330558448"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-as/values-as.xml",
-          "hash": "17755148289288562805"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-az/values-az.xml",
-          "hash": "15876866530209713413"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-b+es+419/values-b+es+419.xml",
-          "hash": "12399897285102401813"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-b+sr+Latn/values-b+sr+Latn.xml",
-          "hash": "1675483263316381394"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-be/values-be.xml",
-          "hash": "10938880921850457447"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-bg/values-bg.xml",
-          "hash": "10777541696092746768"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-bn/values-bn.xml",
-          "hash": "5129762489078014666"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-bs/values-bs.xml",
-          "hash": "16332779914059409089"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ca/values-ca.xml",
-          "hash": "9539470173794256521"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-cs/values-cs.xml",
-          "hash": "15287163328707736385"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-da/values-da.xml",
-          "hash": "2371569525294498354"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-de/values-de.xml",
-          "hash": "198209939894498020"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-el/values-el.xml",
-          "hash": "1128600629934715726"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-en-rAU/values-en-rAU.xml",
-          "hash": "15550527252383325511"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-en-rCA/values-en-rCA.xml",
-          "hash": "16831365633299769639"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-en-rGB/values-en-rGB.xml",
-          "hash": "8681605799425417180"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-en-rIN/values-en-rIN.xml",
-          "hash": "15550527252383325511"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-en-rXC/values-en-rXC.xml",
-          "hash": "14389324998327635452"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-es-rES/values-es-rES.xml",
-          "hash": "18161091031228459609"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-es-rUS/values-es-rUS.xml",
-          "hash": "5370972621980747781"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-es/values-es.xml",
-          "hash": "8945084310357681090"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-et/values-et.xml",
-          "hash": "4665303899742459699"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-eu/values-eu.xml",
-          "hash": "8847389015958614491"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-fa/values-fa.xml",
-          "hash": "6665949441671276111"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-fi/values-fi.xml",
-          "hash": "17066912551775156088"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-fr-rCA/values-fr-rCA.xml",
-          "hash": "12619610368376352415"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-fr/values-fr.xml",
-          "hash": "6889851857574852462"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-gl/values-gl.xml",
-          "hash": "3783821628423214962"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-gu/values-gu.xml",
-          "hash": "17123681622044833384"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-h320dp-port-v13/values-h320dp-port-v13.xml",
-          "hash": "597240098516217395"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-h360dp-land-v13/values-h360dp-land-v13.xml",
-          "hash": "11767262621428169223"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-h480dp-land-v13/values-h480dp-land-v13.xml",
-          "hash": "1851605384597159411"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-h550dp-port-v13/values-h550dp-port-v13.xml",
-          "hash": "17148328087140882177"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-h720dp-v13/values-h720dp-v13.xml",
-          "hash": "16786321714790185101"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-hdpi-v4/values-hdpi-v4.xml",
-          "hash": "17155933601423451874"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-hi/values-hi.xml",
-          "hash": "15630472254174897077"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-hr/values-hr.xml",
-          "hash": "15216655455976485789"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-hu/values-hu.xml",
-          "hash": "7289762300719888202"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-hy/values-hy.xml",
-          "hash": "4380280396137599243"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-in/values-in.xml",
-          "hash": "12612375986203497529"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-is/values-is.xml",
-          "hash": "653648312075232642"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-it/values-it.xml",
-          "hash": "9576679360960278069"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-iw/values-iw.xml",
-          "hash": "13218883934063948396"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ja/values-ja.xml",
-          "hash": "3444498370845273884"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ka/values-ka.xml",
-          "hash": "5914340093833349616"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-kk/values-kk.xml",
-          "hash": "12099566837090195965"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-km/values-km.xml",
-          "hash": "3322318246987635779"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-kn/values-kn.xml",
-          "hash": "2879610881848863598"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ko/values-ko.xml",
-          "hash": "3610829649680176798"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ky/values-ky.xml",
-          "hash": "6129862731831641962"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-land/values-land.xml",
-          "hash": "266869883333182351"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-large-v4/values-large-v4.xml",
-          "hash": "11466994364185398173"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ldltr-v21/values-ldltr-v21.xml",
-          "hash": "1793785377438430374"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ldrtl-v17/values-ldrtl-v17.xml",
-          "hash": "6656888463299851542"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-lo/values-lo.xml",
-          "hash": "17324462133947070654"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-lt/values-lt.xml",
-          "hash": "14232788043154248957"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-lv/values-lv.xml",
-          "hash": "2885705955768934454"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-mk/values-mk.xml",
-          "hash": "13046482673382145023"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ml/values-ml.xml",
-          "hash": "9505320237739284333"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-mn/values-mn.xml",
-          "hash": "2884415661171591483"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-mr/values-mr.xml",
-          "hash": "15807109794719602978"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ms/values-ms.xml",
-          "hash": "9071792185935982277"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-my/values-my.xml",
-          "hash": "9974218818368826219"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-nb/values-nb.xml",
-          "hash": "16056592633040725875"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ne/values-ne.xml",
-          "hash": "16031913175363362387"
+          "hash": "13956418584854975118"
         },
         {
           "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-night-v8/values-night-v8.xml",
-          "hash": "18445008135625903807"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-nl/values-nl.xml",
-          "hash": "14558686906151188841"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-or/values-or.xml",
-          "hash": "11892944204861281368"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-pa/values-pa.xml",
-          "hash": "9353006932605608826"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-pl/values-pl.xml",
-          "hash": "7773503530828588808"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-port/values-port.xml",
-          "hash": "5344467065285146592"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-pt-rBR/values-pt-rBR.xml",
-          "hash": "9401475179256983635"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-pt-rPT/values-pt-rPT.xml",
-          "hash": "3636203684208827699"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-pt/values-pt.xml",
-          "hash": "345213962773807924"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ro/values-ro.xml",
-          "hash": "2766044946512977670"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ru/values-ru.xml",
-          "hash": "12350129492298866220"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-si/values-si.xml",
-          "hash": "15250488765838681729"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sk/values-sk.xml",
-          "hash": "3945737407591187542"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sl/values-sl.xml",
-          "hash": "2308774711834165"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-small-v4/values-small-v4.xml",
-          "hash": "2294239216967708931"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sq/values-sq.xml",
-          "hash": "10553596312602944904"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sr/values-sr.xml",
-          "hash": "17389246621737342499"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sv/values-sv.xml",
-          "hash": "11929560306084343573"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sw/values-sw.xml",
-          "hash": "8231683251163847745"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sw600dp-v13/values-sw600dp-v13.xml",
-          "hash": "17916087784299147295"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ta/values-ta.xml",
-          "hash": "6314537935565050433"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-te/values-te.xml",
-          "hash": "2958436095137113448"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-th/values-th.xml",
-          "hash": "12112038052919554809"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-tl/values-tl.xml",
-          "hash": "459614187104723386"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-tr/values-tr.xml",
-          "hash": "15290705520698892655"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-uk/values-uk.xml",
-          "hash": "8078680375946638960"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ur/values-ur.xml",
-          "hash": "4159562080026298061"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-uz/values-uz.xml",
-          "hash": "240077137078619858"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v16/values-v16.xml",
-          "hash": "13837617393924437057"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v17/values-v17.xml",
-          "hash": "13933536524732322945"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v18/values-v18.xml",
-          "hash": "11468429338332782565"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v21/values-v21.xml",
-          "hash": "6298267128383549347"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v22/values-v22.xml",
-          "hash": "8518519900873989838"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v23/values-v23.xml",
-          "hash": "1546724505007267449"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v24/values-v24.xml",
-          "hash": "17857382539144453083"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v25/values-v25.xml",
-          "hash": "7988059719345077740"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v26/values-v26.xml",
-          "hash": "13454037865820334454"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v28/values-v28.xml",
-          "hash": "3537456063708148656"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v31/values-v31.xml",
-          "hash": "13635733402589635533"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v34/values-v34.xml",
-          "hash": "3424989326057007136"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-vi/values-vi.xml",
-          "hash": "13901615224929728086"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-w320dp-land-v13/values-w320dp-land-v13.xml",
-          "hash": "17499378799366319022"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-w360dp-port-v13/values-w360dp-port-v13.xml",
-          "hash": "11248714527208016888"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-w400dp-port-v13/values-w400dp-port-v13.xml",
-          "hash": "316340044231979712"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-w600dp-land-v13/values-w600dp-land-v13.xml",
-          "hash": "15953348877800862760"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-watch-v20/values-watch-v20.xml",
-          "hash": "6180171457078011664"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-watch-v21/values-watch-v21.xml",
-          "hash": "12248213944906249147"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-xlarge-v4/values-xlarge-v4.xml",
-          "hash": "4166542754981518265"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-zh-rCN/values-zh-rCN.xml",
-          "hash": "7210714900258646156"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-zh-rHK/values-zh-rHK.xml",
-          "hash": "5452622283956040608"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-zh-rTW/values-zh-rTW.xml",
-          "hash": "5048049896045719463"
-        },
-        {
-          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-zu/values-zu.xml",
-          "hash": "7573132086076121063"
+          "hash": "11665255677429399125"
         },
         {
           "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values/values.xml",
-          "hash": "4807734455644646549"
+          "hash": "5948092384840643566"
         },
         {
           "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/mergeDebugResources/merger.xml",
-          "hash": "11408101729354298618"
+          "hash": "3040887296525538955"
         },
         {
           "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties",
-          "hash": "5145081564928736717"
+          "hash": "9473444548730093535"
+        },
+        {
+          "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir/values-night-v8/values-night-v8.xml",
+          "hash": "1680872143181147403"
         },
         {
           "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir/values/values.xml",
-          "hash": "3638555298773350484"
+          "hash": "8582373678685108627"
         },
         {
           "file": "apps/poliverai/android/app/build/intermediates/incremental/debug/packageDebugResources/merger.xml",
-          "hash": "21859196703208020"
+          "hash": "495809240828231720"
         },
         {
           "file": "apps/poliverai/android/app/build/intermediates/incremental/mergeDebugAssets/merger.xml",
@@ -1533,7 +1306,7 @@
         },
         {
           "file": "apps/poliverai/android/app/build/intermediates/linked_resources_binary_format/debug/processDebugResources/linked-resources-binary-format-debug.ap_",
-          "hash": "724769390847027539"
+          "hash": "11269532224933580349"
         },
         {
           "file": "apps/poliverai/android/app/build/intermediates/linked_resources_binary_format/debug/processDebugResources/output-metadata.json",
@@ -1917,7 +1690,7 @@
         },
         {
           "file": "apps/poliverai/android/app/build/intermediates/merged_res/debug/mergeDebugResources/values-night-v8_values-night-v8.arsc.flat",
-          "hash": "7948591409047978033"
+          "hash": "11986220207195797570"
         },
         {
           "file": "apps/poliverai/android/app/build/intermediates/merged_res/debug/mergeDebugResources/values-nl_values-nl.arsc.flat",
@@ -2125,11 +1898,11 @@
         },
         {
           "file": "apps/poliverai/android/app/build/intermediates/merged_res/debug/mergeDebugResources/values_values.arsc.flat",
-          "hash": "9669039917976897826"
+          "hash": "8064129563787352982"
         },
         {
           "file": "apps/poliverai/android/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/mergeDebugResources.json",
-          "hash": "4128542118178154878"
+          "hash": "9911570088664200024"
         },
         {
           "file": "apps/poliverai/android/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-af.json",
@@ -2405,7 +2178,7 @@
         },
         {
           "file": "apps/poliverai/android/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-night-v8.json",
-          "hash": "2752810319466576481"
+          "hash": "4016923646747000753"
         },
         {
           "file": "apps/poliverai/android/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-nl.json",
@@ -2613,7 +2386,7 @@
         },
         {
           "file": "apps/poliverai/android/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values.json",
-          "hash": "213015626932881827"
+          "hash": "14580525309615064713"
         },
         {
           "file": "apps/poliverai/android/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/single/mergeDebugResources.json",
@@ -2716,8 +2489,12 @@
           "hash": "8022053050509749594"
         },
         {
+          "file": "apps/poliverai/android/app/build/intermediates/packaged_res/debug/packageDebugResources/values-night-v8/values-night-v8.xml",
+          "hash": "1680872143181147403"
+        },
+        {
           "file": "apps/poliverai/android/app/build/intermediates/packaged_res/debug/packageDebugResources/values/values.xml",
-          "hash": "3638555298773350484"
+          "hash": "8582373678685108627"
         },
         {
           "file": "apps/poliverai/android/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/454c7c9472e15219bf7e3e8faf2bcd7b377cfe2033650cc275f45c5dfe523b5d_0.jar",
@@ -3244,6 +3021,10 @@
           "hash": "17499839432766459909"
         },
         {
+          "file": "apps/poliverai/android/app/src/main/res/values-night/styles.xml",
+          "hash": "17614480041951500742"
+        },
+        {
           "file": "apps/poliverai/android/app/src/main/res/values/ic_launcher_background.xml",
           "hash": "14955376483839065915"
         },
@@ -3253,7 +3034,7 @@
         },
         {
           "file": "apps/poliverai/android/app/src/main/res/values/styles.xml",
-          "hash": "14052910750539201041"
+          "hash": "8336742998036694406"
         },
         {
           "file": "apps/poliverai/android/build.gradle",
@@ -40964,7 +40745,7 @@
         },
         {
           "file": "apps/poliverai/macos/build/generated/ios/ReactCodegen.podspec",
-          "hash": "1845964580600727425"
+          "hash": "12699766540253159362"
         },
         {
           "file": "apps/poliverai/macos/build/generated/ios/react/renderer/components/lottiereactnative/ComponentDescriptors.cpp",
@@ -41694,7 +41475,7 @@
         },
         {
           "file": "apps/poliverai/scripts/patch-dotlottie-react-native.js",
-          "hash": "13971300992771929741"
+          "hash": "8941515628916135776"
         },
         {
           "file": "apps/poliverai/scripts/patch-lottie-react-native.js",
@@ -41799,7 +41580,7 @@
         },
         {
           "file": "apps/poliverai/src/components/AppTopNav.tsx",
-          "hash": "5154692951992087169",
+          "hash": "10165123839797540039",
           "deps": [
             "npm:react",
             "npm:react-native",
@@ -42420,251 +42201,6 @@
           "hash": "3013222065611708352"
         }
       ],
-      "@poliverai/intl": [
-        {
-          "file": "libs/intl/package.json",
-          "hash": "6717310270380888081"
-        },
-        {
-          "file": "libs/intl/src/.index.ts.swp",
-          "hash": "10913091892218957509"
-        },
-        {
-          "file": "libs/intl/src/contexts/auth-context.ts",
-          "hash": "9902205910197039385",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "libs/intl/src/contexts/useAuth.ts",
-          "hash": "8338893413458689133",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "libs/intl/src/hooks/useAccountStatus.ts",
-          "hash": "10750230790380600308"
-        },
-        {
-          "file": "libs/intl/src/hooks/useAnalysisProgress.ts",
-          "hash": "245404019684765536"
-        },
-        {
-          "file": "libs/intl/src/hooks/useAuth.tsx",
-          "hash": "5187354994404876107",
-          "deps": [
-            "npm:react",
-            "npm:axios",
-            "npm:react-redux"
-          ]
-        },
-        {
-          "file": "libs/intl/src/hooks/useAvailableFeatures.ts",
-          "hash": "7469551708450597288",
-          "deps": [
-            "@poliverai/shared-ui"
-          ]
-        },
-        {
-          "file": "libs/intl/src/hooks/useCreditsSummary.ts",
-          "hash": "17266441249588050384"
-        },
-        {
-          "file": "libs/intl/src/i18n.ts",
-          "hash": "3343752786328715505",
-          "deps": [
-            "npm:react-redux"
-          ]
-        },
-        {
-          "file": "libs/intl/src/i18n/index.ts",
-          "hash": "5844569588801625279"
-        },
-        {
-          "file": "libs/intl/src/i18n/locales/en.ts",
-          "hash": "17621861692707538132"
-        },
-        {
-          "file": "libs/intl/src/index.ts",
-          "hash": "17863546125006680275"
-        },
-        {
-          "file": "libs/intl/src/lib/authHelpers.ts",
-          "hash": "12898438545314597577"
-        },
-        {
-          "file": "libs/intl/src/lib/dashboardHelpers.ts",
-          "hash": "4983812968203113729"
-        },
-        {
-          "file": "libs/intl/src/lib/errorHelpers.ts",
-          "hash": "7070483877526315995"
-        },
-        {
-          "file": "libs/intl/src/lib/eventHelpers.ts",
-          "hash": "7782995236264238630"
-        },
-        {
-          "file": "libs/intl/src/lib/fileHelpers.ts",
-          "hash": "1026472820605201296"
-        },
-        {
-          "file": "libs/intl/src/lib/paymentsHelpers.ts",
-          "hash": "276972399160577127",
-          "deps": [
-            "npm:react-native"
-          ]
-        },
-        {
-          "file": "libs/intl/src/lib/platformStorage.ts",
-          "hash": "18214786429822938809",
-          "deps": [
-            "npm:react-native",
-            [
-              "npm:@react-native-async-storage/async-storage",
-              "dynamic"
-            ]
-          ]
-        },
-        {
-          "file": "libs/intl/src/lib/transactionHelpers.ts",
-          "hash": "15158004932885376477"
-        },
-        {
-          "file": "libs/intl/src/lib/urlHelpers.ts",
-          "hash": "13582505931222900591"
-        },
-        {
-          "file": "libs/intl/src/lib/utils.ts",
-          "hash": "16099772572521786089"
-        },
-        {
-          "file": "libs/intl/src/locales/en-US.json",
-          "hash": "8475635836672221928"
-        },
-        {
-          "file": "libs/intl/src/locales/en-US.reduced.json",
-          "hash": "5865168391254347054"
-        },
-        {
-          "file": "libs/intl/src/provider.tsx",
-          "hash": "5784255659666271652",
-          "deps": [
-            "npm:react",
-            "npm:react-redux",
-            "npm:redux-persist",
-            "npm:react-native"
-          ]
-        },
-        {
-          "file": "libs/intl/src/services/api.ts",
-          "hash": "9710884498371273633"
-        },
-        {
-          "file": "libs/intl/src/services/authService.ts",
-          "hash": "8377460633098761782"
-        },
-        {
-          "file": "libs/intl/src/services/payments.ts",
-          "hash": "7605283572485006524",
-          "deps": [
-            "npm:react-native"
-          ]
-        },
-        {
-          "file": "libs/intl/src/services/policyService.ts",
-          "hash": "4007621785872376220"
-        },
-        {
-          "file": "libs/intl/src/services/streamingService.ts",
-          "hash": "48241733109461091"
-        },
-        {
-          "file": "libs/intl/src/services/transactions.ts",
-          "hash": "6531985045265783318"
-        },
-        {
-          "file": "libs/intl/src/slices/authSlice.ts",
-          "hash": "10775949452474165254",
-          "deps": [
-            "npm:@reduxjs/toolkit"
-          ]
-        },
-        {
-          "file": "libs/intl/src/slices/localeSlice.ts",
-          "hash": "1820278012315914749",
-          "deps": [
-            "npm:@reduxjs/toolkit"
-          ]
-        },
-        {
-          "file": "libs/intl/src/store.ts",
-          "hash": "1418567516425287171",
-          "deps": [
-            "npm:@reduxjs/toolkit",
-            "npm:redux",
-            "npm:redux-persist"
-          ]
-        },
-        {
-          "file": "libs/intl/src/types/api.ts",
-          "hash": "1794623772159251499"
-        },
-        {
-          "file": "libs/intl/src/types/feature.ts",
-          "hash": "9387895665725394901",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "libs/intl/src/types/user.ts",
-          "hash": "17253464488466273021"
-        },
-        {
-          "file": "libs/intl/src/utils/cn.ts",
-          "hash": "15516058123845190687",
-          "deps": [
-            "npm:clsx",
-            "npm:tailwind-merge"
-          ]
-        }
-      ],
-      "@poliverai/poliverai-e2e": [
-        {
-          "file": "apps/poliverai-e2e/eslint.config.mjs",
-          "hash": "1172734138943286526",
-          "deps": [
-            "npm:eslint-plugin-playwright"
-          ]
-        },
-        {
-          "file": "apps/poliverai-e2e/package.json",
-          "hash": "1314024798413686166"
-        },
-        {
-          "file": "apps/poliverai-e2e/playwright.config.ts",
-          "hash": "1851517654716273094",
-          "deps": [
-            "npm:@playwright/test",
-            "npm:@nx/playwright",
-            "npm:@nx/devkit"
-          ]
-        },
-        {
-          "file": "apps/poliverai-e2e/src/example.spec.ts",
-          "hash": "16019101014373124625",
-          "deps": [
-            "npm:@playwright/test"
-          ]
-        },
-        {
-          "file": "apps/poliverai-e2e/tsconfig.json",
-          "hash": "15001458170383955177"
-        }
-      ],
       "@poliverai/shared-ui": [
         {
           "file": "shared-ui/.babelrc.js",
@@ -43120,13 +42656,37 @@
           ]
         },
         {
-          "file": "shared-ui/src/lib/Splash/Splash.tsx",
-          "hash": "10945346769731306253",
+          "file": "shared-ui/src/lib/Splash/Splash.native.tsx",
+          "hash": "10200270048368720777",
           "deps": [
             "npm:react",
             "npm:react-native",
+            "npm:@lottiefiles/dotlottie-react-native",
+            "@poliverai/poliverai"
+          ]
+        },
+        {
+          "file": "shared-ui/src/lib/Splash/Splash.web.tsx",
+          "hash": "1202912084979590933",
+          "deps": [
+            "npm:react",
             "npm:@lottiefiles/dotlottie-react"
           ]
+        },
+        {
+          "file": "shared-ui/src/lib/Splash/index.native.ts",
+          "hash": "14089412888897303327"
+        },
+        {
+          "file": "shared-ui/src/lib/Splash/index.ts",
+          "hash": "8213936543731710477",
+          "deps": [
+            "npm:react-native"
+          ]
+        },
+        {
+          "file": "shared-ui/src/lib/Splash/index.web.ts",
+          "hash": "10337259714459863238"
         },
         {
           "file": "shared-ui/src/lib/TabControls.native.tsx",
@@ -43177,7 +42737,7 @@
         },
         {
           "file": "shared-ui/src/lib/index.ts",
-          "hash": "7909995667050733391"
+          "hash": "15687184033100279962"
         },
         {
           "file": "shared-ui/src/lib/landingAssets.ts",
