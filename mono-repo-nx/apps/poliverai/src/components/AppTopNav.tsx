@@ -108,6 +108,15 @@ export default function AppTopNav({ currentRoute = 'landing' }: AppTopNavProps) 
     }
   }, [logout, safeNavigate]);
 
+  const openCreditsModal = React.useCallback(() => {
+    if (Platform.OS !== 'web' && menuOpen) {
+      setMenuOpen(false);
+      setTimeout(() => setCreditsModalOpen(true), 150);
+      return;
+    }
+    setCreditsModalOpen(true);
+  }, [menuOpen]);
+
   const showLoginAction = !isAuthenticated && currentRoute !== 'login';
   const showSignupAction = !isAuthenticated && currentRoute !== 'register';
 
@@ -153,7 +162,7 @@ export default function AppTopNav({ currentRoute = 'landing' }: AppTopNavProps) 
         ) : null}
         <NavActionButton
           label="Buy Credits"
-          onPress={() => setCreditsModalOpen(true)}
+          onPress={openCreditsModal}
           icon={<CreditCard size={16} color={appColors.white} />}
           variant="secondary"
           fullWidth
@@ -302,7 +311,7 @@ export default function AppTopNav({ currentRoute = 'landing' }: AppTopNavProps) 
           variant="primary"
         />
       ) : null}
-      <NavActionButton label="Buy Credits" onPress={() => setCreditsModalOpen(true)} icon={<CreditCard size={16} color={appColors.white} />} variant="secondary" />
+      <NavActionButton label="Buy Credits" onPress={openCreditsModal} icon={<CreditCard size={16} color={appColors.white} />} variant="secondary" />
       <NavActionButton label="Logout" onPress={handleLogout} icon={<LogOut size={16} color={appColors.ink900} />} variant="ghost" />
     </>
   );

@@ -11,6 +11,7 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
+import DocumentPicker from 'react-native-document-picker';
 import {
   AlertTriangle,
   BarChart3,
@@ -36,6 +37,7 @@ import { getReportDownloadUrl } from '../lib/policyHelpers';
 import type { ComplianceResult, Finding } from '../types/api';
 
 type AnalysisTab = 'free' | 'full' | 'revised';
+type SelectedFile = File | UploadFile;
 
 const cardSurfaceShadow = Platform.select({
   web: {
@@ -266,7 +268,7 @@ export default function PolicyAnalysisScreen() {
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const progressIntervalRef = React.useRef<number | null>(null);
 
-  const [file, setFile] = React.useState<File | null>(null);
+  const [file, setFile] = React.useState<SelectedFile | null>(null);
   const [progress, setProgress] = React.useState(0);
   const [message, setMessage] = React.useState('');
   const [result, setResult] = React.useState<ComplianceResult | null>(null);
@@ -319,6 +321,7 @@ export default function PolicyAnalysisScreen() {
     return null;
   }, [detailedReport, result]);
   const revisedContent = revisedPolicy?.content ?? detailedContent;
+  const selectedFileSize = file && 'size' in file && typeof file.size === 'number' ? file.size : null;
 
   const stopIndeterminateProgress = React.useCallback(() => {
     if (progressIntervalRef.current !== null && typeof window !== 'undefined') {
@@ -475,7 +478,7 @@ export default function PolicyAnalysisScreen() {
     startIndeterminateProgress('Generating revised policy');
 
     try {
-      const original = file ? await file.text() : '';
+      const original = file && 'text' in file ? await file.text() : '';
       const response = await policyService.generatePolicyRevision(
         original,
         result.findings as unknown as Record<string, unknown>[],
@@ -545,7 +548,34 @@ export default function PolicyAnalysisScreen() {
   }, [stopIndeterminateProgress]);
 
   const triggerBrowse = React.useCallback(() => {
-    if (Platform.OS === 'web') inputRef.current?.click();
+    if (Platform.OS === 'web') {
+      inputRef.current?.click();
+      return;
+    }
+
+    void DocumentPicker.pickSingle({
+      type: [
+        DocumentPicker.types.pdf,
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'text/html',
+        'application/xhtml+xml',
+        DocumentPicker.types.plainText,
+      ],
+      copyTo: 'cachesDirectory',
+      presentationStyle: 'fullScreen',
+    })
+      .then((picked) => {
+        setFile({
+          uri: picked.fileCopyUri ?? picked.uri,
+          name: picked.name ?? 'policy',
+          type: picked.type ?? 'application/octet-stream',
+        });
+      })
+      .catch((err) => {
+        if (!DocumentPicker.isCancel(err)) {
+          setStatusDialog(statusDialogFromError(err, 'Unable to open file picker'));
+        }
+      });
   }, []);
 
   const onFileChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -866,7 +896,7 @@ export default function PolicyAnalysisScreen() {
               {file ? (
                 <View style={styles.selectedFileCard}>
                   <Text style={styles.selectedFileLabel}>Selected file</Text>
-                  <Text style={styles.selectedFileMeta}>{file.name} • {formatBytes(file.size)} • {file.type || 'document'}</Text>
+                  <Text style={styles.selectedFileMeta}>{file.name} • {formatBytes(selectedFileSize)} • {file.type || 'document'}</Text>
                 </View>
               ) : null}
 
