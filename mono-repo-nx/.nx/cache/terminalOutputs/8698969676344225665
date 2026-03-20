@@ -1,0 +1,24 @@
+Starting JS server...
+[36m[1minfo[22m[39m [0mDetected architectures arm64-v8a[0m
+[36m[1minfo[22m[39m [0mInstalling the app...[0m
+[34m[39m
+[34mWelcome to React Native v0.79[39m
+Starting dev server on http://localhost:8081
+
+[31m[1merror[22m[39m [0mlisten EADDRINUSE: address already in use :::8081.[0m
+[0mError: listen EADDRINUSE: address already in use :::8081[0m
+[0m    at Server.setupListenHandle [as _listen2] (node:net:1908:16)[0m
+[0m    at listenInCluster (node:net:1965:12)[0m
+[0m    at Server.listen (node:net:2067:7)[0m
+[0m    at /Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/metro/src/index.flow.js:358:14[0m
+[0m    at new Promise (<anonymous>)[0m
+[0m    at earlyPortCheck (/Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/metro/src/index.flow.js:354:11)[0m
+[0m    at exports.runServer (/Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/metro/src/index.flow.js:128:9)[0m
+[0m    at Object.runServer [as func] (/Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/@react-native/community-cli-plugin/dist/commands/start/runServer.js:147:47)[0m
+[0m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[0m
+[0m    at async Command.handleAction (/Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/@react-native-community/cli/build/index.js:139:9)[0m
+[1m[31mFailed to start the packager server. Error details: 1[39m[22m
+
+[0m[7m[1m[31m NX [39m[22m[27m[0m  [31m1[39m
+
+

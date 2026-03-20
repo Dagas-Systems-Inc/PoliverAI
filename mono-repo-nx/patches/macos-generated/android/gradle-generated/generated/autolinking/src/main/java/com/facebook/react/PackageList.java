@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import com.dotlottiereactnative.DotlottieReactNativePackage;
 // @react-native-async-storage/async-storage
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
+// react-native-document-picker
+import com.reactnativedocumentpicker.RNDocumentPickerPackage;
 // react-native-gesture-handler
 import com.swmansion.gesturehandler.RNGestureHandlerPackage;
 // lottie-react-native
@@ -73,6 +75,7 @@ public class PackageList {
       new MainReactPackage(mConfig),
       new DotlottieReactNativePackage(),
       new AsyncStoragePackage(),
+      new RNDocumentPickerPackage(),
       new RNGestureHandlerPackage(),
       new LottiePackage(),
       new ReanimatedPackage(),

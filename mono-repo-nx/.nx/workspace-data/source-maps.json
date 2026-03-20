@@ -324,6 +324,10 @@
       "apps/poliverai/package.json",
       "nx/core/package-json"
     ],
+    "metadata.targetGroups.NPM Scripts.4": [
+      "apps/poliverai/package.json",
+      "nx/core/package-json"
+    ],
     "metadata.js": [
       "apps/poliverai/package.json",
       "nx/core/package-json"
@@ -417,6 +421,34 @@
       "nx/core/package-json"
     ],
     "targets.macos.metadata.runCommand": [
+      "apps/poliverai/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.start:metro": [
+      "apps/poliverai/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.start:metro.executor": [
+      "apps/poliverai/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.start:metro.options": [
+      "apps/poliverai/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.start:metro.metadata": [
+      "apps/poliverai/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.start:metro.options.script": [
+      "apps/poliverai/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.start:metro.metadata.scriptContent": [
+      "apps/poliverai/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.start:metro.metadata.runCommand": [
       "apps/poliverai/package.json",
       "nx/core/package-json"
     ],

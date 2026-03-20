@@ -517,6 +517,18 @@
             "configurations": {},
             "parallelism": true
           },
+          "start:metro": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "start:metro"
+            },
+            "metadata": {
+              "scriptContent": "node ./scripts/start-metro.js",
+              "runCommand": "yarn start:metro"
+            },
+            "configurations": {},
+            "parallelism": true
+          },
           "postinstall": {
             "executor": "nx:run-script",
             "options": {
@@ -666,6 +678,7 @@
               "android",
               "ios",
               "macos",
+              "start:metro",
               "postinstall"
             ]
           },
@@ -15154,6 +15167,15 @@
         "hash": "sha512-B88f5rIymJXmy1sNC/MhTkb3xxBej1KkuAt7TiT9iM7oXz3RM8Bn+7GUrfR02TvSgKm4cg2XiSuLEKYfKwNsjA=="
       }
     },
+    "npm:react-native-document-picker": {
+      "type": "npm",
+      "name": "npm:react-native-document-picker",
+      "data": {
+        "version": "9.3.1",
+        "packageName": "react-native-document-picker",
+        "hash": "sha512-Vcofv9wfB0j67zawFjfq9WQPMMzXxOZL9kBmvWDpjVuEcVK73ndRmlXHlkeFl5ZHVsv4Zb6oZYhqm9u5omJOPA=="
+      }
+    },
     "npm:react-native-drawer-layout": {
       "type": "npm",
       "name": "npm:react-native-drawer-layout",
@@ -18396,6 +18418,11 @@
       },
       {
         "source": "@poliverai/poliverai",
+        "target": "npm:react-native-document-picker",
+        "type": "static"
+      },
+      {
+        "source": "@poliverai/poliverai",
         "target": "npm:lottie-react-native",
         "type": "static"
       },
@@ -18461,11 +18488,6 @@
       },
       {
         "source": "@poliverai/poliverai",
-        "target": "npm:@react-navigation/bottom-tabs",
-        "type": "static"
-      },
-      {
-        "source": "@poliverai/poliverai",
         "target": "npm:@nx/vite",
         "type": "static"
       },
@@ -18494,12 +18516,12 @@
       },
       {
         "source": "@poliverai/intl",
-        "target": "@poliverai/shared-ui",
+        "target": "npm:react-native",
         "type": "static"
       },
       {
         "source": "@poliverai/intl",
-        "target": "npm:react-native",
+        "target": "@poliverai/shared-ui",
         "type": "static"
       },
       {
@@ -18561,12 +18583,17 @@
       },
       {
         "source": "@poliverai/shared-ui",
-        "target": "npm:@lottiefiles/dotlottie-react-native",
-        "type": "static"
+        "target": "@poliverai/poliverai",
+        "type": "dynamic"
       },
       {
         "source": "@poliverai/shared-ui",
         "target": "@poliverai/poliverai",
+        "type": "static"
+      },
+      {
+        "source": "@poliverai/shared-ui",
+        "target": "npm:@lottiefiles/dotlottie-react-native",
         "type": "static"
       },
       {
@@ -37871,6 +37898,13 @@
         "type": "static"
       }
     ],
+    "npm:react-native-document-picker": [
+      {
+        "source": "npm:react-native-document-picker",
+        "target": "npm:invariant",
+        "type": "static"
+      }
+    ],
     "npm:react-native-drawer-layout": [
       {
         "source": "npm:react-native-drawer-layout",
@@ -42370,5 +42404,5 @@
   },
   "version": "6.0",
   "errors": [],
-  "computedAt": 1773885681935
+  "computedAt": 1774032655125
 }

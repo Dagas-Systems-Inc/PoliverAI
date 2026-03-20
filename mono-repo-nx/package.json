@@ -10,7 +10,7 @@
     "lint": "NX_DAEMON=false nx run-many --target=lint --all",
     "typecheck": "NX_DAEMON=false nx run-many --target=typecheck --all",
     "start:web": "NX_DAEMON=false nx run @poliverai/poliverai:serve",
-    "start:metro": "NX_DAEMON=false nx run @poliverai/poliverai:start",
+    "start:metro": "cd apps/poliverai && node ./scripts/start-metro.js",
     "start:android": "NX_DAEMON=false nx run @poliverai/poliverai:run-android",
     "start:ios": "node ./scripts/prepare-and-install.js ios && cd apps/poliverai && yarn run ios",
     "run:android": "NX_DAEMON=false nx run @poliverai/poliverai:run-android",

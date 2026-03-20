@@ -2,7 +2,6 @@ import React from 'react';
 import {
   ActivityIndicator,
   Linking,
-  Modal,
   Platform,
   Pressable,
   ScrollView,
@@ -34,7 +33,7 @@ import { t } from '@poliverai/intl';
 import type { ReportMetadata } from '../types/api';
 import AppFooter from '../components/AppFooter';
 import AppTopNav from '../components/AppTopNav';
-import { ReportViewerModal, appAlphaColors, appColors } from '@poliverai/shared-ui';
+import { CrossPlatformModal, ReportViewerModal, appAlphaColors, appColors } from '@poliverai/shared-ui';
 import useReports from '../components/reports-ui/useReports';
 import useSelection from '../components/reports-ui/useSelection';
 import policyService from '../services/policyService';
@@ -47,6 +46,7 @@ const cardSurfaceShadow = Platform.select({
   web: {
     boxShadow: `0 10px 18px ${appAlphaColors.shadowCardSoft}`,
   },
+  macos: undefined,
   default: {
     shadowColor: appColors.ink900,
     shadowOpacity: 0.06,
@@ -60,6 +60,7 @@ const rowSurfaceShadow = Platform.select({
   web: {
     boxShadow: `0 6px 12px ${appAlphaColors.shadowSofter}`,
   },
+  macos: undefined,
   default: {
     shadowColor: appColors.ink900,
     shadowOpacity: 0.03,
@@ -314,7 +315,9 @@ function ReportRow({
 
 export default function ReportsScreen() {
   const { width } = useWindowDimensions();
-  const isDesktop = width >= 1080;
+  const [contentWidth, setContentWidth] = React.useState(0);
+  const effectiveWidth = contentWidth > 0 ? contentWidth : width;
+  const isDesktop = effectiveWidth >= 1080;
   const { reports, setReports, isLoading, error, fetchReports, page, setPage, limit, setLimit, total, totalPages } = useReports();
   const { selectedFiles, toggle, clear, getSelected, syncWithReports, setAll } = useSelection();
 
@@ -469,7 +472,10 @@ export default function ReportsScreen() {
   }, [verdictOptions]);
 
   return (
-    <View style={styles.screen}>
+    <View
+      style={styles.screen}
+      onLayout={(event) => setContentWidth(event.nativeEvent.layout.width)}
+    >
       <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
         <AppTopNav currentRoute="reports" />
 
@@ -708,13 +714,7 @@ export default function ReportsScreen() {
         onClose={() => setViewerUrl(null)}
       />
 
-      <Modal
-        visible={deleteDialogOpen}
-        animationType="fade"
-        transparent
-        presentationStyle="overFullScreen"
-        onRequestClose={() => setDeleteDialogOpen(false)}
-      >
+      <CrossPlatformModal open={deleteDialogOpen} animationType="fade" onRequestClose={() => setDeleteDialogOpen(false)}>
         <Pressable style={styles.modalBackdrop} onPress={() => setDeleteDialogOpen(false)}>
           <Pressable style={styles.modalCard} onPress={() => undefined}>
             <Text style={styles.modalTitle}>{copy('reports.confirm_delete_title', 'Delete selected reports?')}</Text>
@@ -737,15 +737,9 @@ export default function ReportsScreen() {
             </View>
           </Pressable>
         </Pressable>
-      </Modal>
+      </CrossPlatformModal>
 
-      <Modal
-        visible={Boolean(deleteResultDialog)}
-        animationType="fade"
-        transparent
-        presentationStyle="overFullScreen"
-        onRequestClose={() => setDeleteResultDialog(null)}
-      >
+      <CrossPlatformModal open={Boolean(deleteResultDialog)} animationType="fade" onRequestClose={() => setDeleteResultDialog(null)}>
         <Pressable style={styles.modalBackdrop} onPress={() => setDeleteResultDialog(null)}>
           <Pressable style={styles.modalCard} onPress={() => undefined}>
             <Text style={styles.modalTitle}>{deleteResultDialog?.title}</Text>
@@ -760,7 +754,7 @@ export default function ReportsScreen() {
             </View>
           </Pressable>
         </Pressable>
-      </Modal>
+      </CrossPlatformModal>
     </View>
   );
 }

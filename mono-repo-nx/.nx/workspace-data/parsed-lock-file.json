@@ -14193,6 +14193,15 @@
         "hash": "sha512-B88f5rIymJXmy1sNC/MhTkb3xxBej1KkuAt7TiT9iM7oXz3RM8Bn+7GUrfR02TvSgKm4cg2XiSuLEKYfKwNsjA=="
       }
     },
+    "npm:react-native-document-picker": {
+      "type": "npm",
+      "name": "npm:react-native-document-picker",
+      "data": {
+        "version": "9.3.1",
+        "packageName": "react-native-document-picker",
+        "hash": "sha512-Vcofv9wfB0j67zawFjfq9WQPMMzXxOZL9kBmvWDpjVuEcVK73ndRmlXHlkeFl5ZHVsv4Zb6oZYhqm9u5omJOPA=="
+      }
+    },
     "npm:react-native-drawer-layout": {
       "type": "npm",
       "name": "npm:react-native-drawer-layout",
@@ -41938,6 +41947,11 @@
     {
       "source": "npm:react-native-css-interop",
       "target": "npm:semver",
+      "type": "static"
+    },
+    {
+      "source": "npm:react-native-document-picker",
+      "target": "npm:invariant",
       "type": "static"
     },
     {

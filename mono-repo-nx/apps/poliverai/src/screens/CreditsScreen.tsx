@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   ActivityIndicator,
-  Modal,
   Platform,
   Pressable,
   ScrollView,
@@ -28,7 +27,7 @@ import {
 } from 'lucide-react-native';
 import { PaymentsService, t, transactionsService, useAuth, useCreditsSummary } from '@poliverai/intl';
 import type { Transaction } from '@poliverai/intl';
-import { appAlphaColors, appColors } from '@poliverai/shared-ui';
+import { CrossPlatformModal, appAlphaColors, appColors } from '@poliverai/shared-ui';
 import AppFooter from '../components/AppFooter';
 import AppTopNav from '../components/AppTopNav';
 import useRampedCounters from '../hooks/useRampedCounters';
@@ -36,6 +35,10 @@ import useRampedCounters from '../hooks/useRampedCounters';
 type CreditsRouteParams = {
   session_id?: string;
   status?: string;
+  payment_title?: string;
+  payment_message?: string;
+  payment_tone?: 'success' | 'danger';
+  skip_payment_processing?: boolean;
 };
 
 type TransactionStatus = 'pending' | 'success' | 'failed' | 'processing' | 'insufficient_funds' | 'unknown' | 'task';
@@ -47,6 +50,7 @@ const cardSurfaceShadow = Platform.select({
   web: {
     boxShadow: `0 10px 18px ${appAlphaColors.shadowSoft}`,
   },
+  macos: undefined,
   default: {
     shadowColor: appColors.ink900,
     shadowOpacity: 0.05,
@@ -374,8 +378,10 @@ function TransactionCard({
 const CreditsScreen: React.FC = () => {
   const route = useRoute<RouteProp<Record<string, CreditsRouteParams | undefined>, string>>();
   const { width } = useWindowDimensions();
-  const isDesktop = width > 1140;
-  const isCompact = width <= 768;
+  const [contentWidth, setContentWidth] = React.useState(0);
+  const effectiveWidth = contentWidth > 0 ? contentWidth : width;
+  const isDesktop = effectiveWidth > 1140;
+  const isCompact = effectiveWidth <= 768;
   const webReturnParams = React.useMemo<CreditsRouteParams>(() => {
     if (Platform.OS !== 'web' || typeof window === 'undefined') return {};
     try {
@@ -414,10 +420,24 @@ const CreditsScreen: React.FC = () => {
   const handledReturnKeyRef = React.useRef<string | null>(null);
   const paymentReturnSessionId = route.params?.session_id ?? webReturnParams.session_id;
   const paymentReturnStatus = route.params?.status ?? webReturnParams.status;
+  const skipPaymentProcessing = route.params?.skip_payment_processing === true;
+  const forcedPaymentDialog: { title: string; message: string; tone: 'success' | 'danger' } | null =
+    route.params?.payment_title && route.params?.payment_message
+      ? {
+          title: route.params.payment_title,
+          message: route.params.payment_message,
+          tone: route.params.payment_tone === 'success' ? 'success' : 'danger',
+        }
+      : null;
 
   React.useEffect(() => {
     setFiltersOpen(isDesktop);
   }, [isDesktop]);
+
+  React.useEffect(() => {
+    if (!forcedPaymentDialog) return;
+    setReturnDialog(forcedPaymentDialog);
+  }, [forcedPaymentDialog]);
 
   const subscriptionCredits = Number((user && (user as Record<string, unknown>).subscription_credits) ?? 0);
   const purchasedCredits = Number((user && (user as Record<string, unknown>).credits) ?? 0);
@@ -461,6 +481,7 @@ const CreditsScreen: React.FC = () => {
   }, [fetchTransactions]);
 
   React.useEffect(() => {
+    if (skipPaymentProcessing) return;
     const status = paymentReturnStatus;
     if (!status) return;
     const returnKey = `${paymentReturnSessionId ?? 'no-session'}:${status}`;
@@ -492,7 +513,7 @@ const CreditsScreen: React.FC = () => {
         });
       }
     })().catch(() => undefined);
-  }, [fetchTransactions, paymentReturnSessionId, paymentReturnStatus, refreshUser]);
+  }, [fetchTransactions, paymentReturnSessionId, paymentReturnStatus, refreshUser, skipPaymentProcessing]);
 
   React.useEffect(() => {
     const handler = () => {
@@ -555,7 +576,10 @@ const CreditsScreen: React.FC = () => {
   }
 
   return (
-    <View style={styles.page}>
+    <View
+      style={styles.page}
+      onLayout={(event) => setContentWidth(event.nativeEvent.layout.width)}
+    >
       <AppTopNav currentRoute="credits" />
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.shell}>
@@ -735,13 +759,7 @@ const CreditsScreen: React.FC = () => {
         </View>
         <AppFooter />
       </ScrollView>
-      <Modal
-        visible={Boolean(returnDialog)}
-        animationType="fade"
-        transparent
-        presentationStyle="overFullScreen"
-        onRequestClose={() => setReturnDialog(null)}
-      >
+      <CrossPlatformModal open={Boolean(returnDialog)} animationType="fade" onRequestClose={() => setReturnDialog(null)}>
         <Pressable style={styles.dialogBackdrop} onPress={() => setReturnDialog(null)}>
           <Pressable style={styles.dialogCard} onPress={() => undefined}>
             <Text style={styles.dialogTitle}>{returnDialog?.title}</Text>
@@ -756,7 +774,7 @@ const CreditsScreen: React.FC = () => {
             </View>
           </Pressable>
         </Pressable>
-      </Modal>
+      </CrossPlatformModal>
     </View>
   );
 };
