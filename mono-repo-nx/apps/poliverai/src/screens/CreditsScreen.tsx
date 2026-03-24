@@ -382,6 +382,9 @@ const CreditsScreen: React.FC = () => {
   const effectiveWidth = contentWidth > 0 ? contentWidth : width;
   const isDesktop = effectiveWidth > 1140;
   const isCompact = effectiveWidth <= 768;
+  const handleContentLayout = React.useCallback((nextWidth: number) => {
+    setContentWidth((current) => (Math.abs(current - nextWidth) > 1 ? nextWidth : current));
+  }, []);
   const webReturnParams = React.useMemo<CreditsRouteParams>(() => {
     if (Platform.OS !== 'web' || typeof window === 'undefined') return {};
     try {
@@ -578,7 +581,7 @@ const CreditsScreen: React.FC = () => {
   return (
     <View
       style={styles.page}
-      onLayout={(event) => setContentWidth(event.nativeEvent.layout.width)}
+      onLayout={(event) => handleContentLayout(event.nativeEvent.layout.width)}
     >
       <AppTopNav currentRoute="credits" />
       <ScrollView contentContainerStyle={styles.scrollContent}>

@@ -16,9 +16,9 @@
     "run:android": "NX_DAEMON=false nx run @poliverai/poliverai:run-android",
     "run:ios": "node ./scripts/prepare-and-install.js ios && cd apps/poliverai && yarn run ios",
     "run:macos": "node ./scripts/prepare-and-install.js macos && cd apps/poliverai && yarn run macos",
-    "run:windows": "NX_DAEMON=false nx run @poliverai/poliverai:run-windows",
+    "run:windows": "node ./scripts/prepare-and-install.js windows && cd apps/poliverai && node ../../node_modules/react-native/cli.js run-windows --logging",
     "start:macos": "node ./scripts/prepare-and-install.js macos && cd apps/poliverai && yarn run macos",
-    "start:windows": "NX_DAEMON=false nx run @poliverai/poliverai:run-windows",
+    "start:windows": "node ./scripts/prepare-and-install.js windows && cd apps/poliverai && node ../../node_modules/react-native/cli.js run-windows --logging",
     "build:web:dev": "NX_DAEMON=false nx run @poliverai/poliverai:build --configuration=development",
     "build:web:release": "NX_DAEMON=false nx run @poliverai/poliverai:build --configuration=production",
     "build:android:dev": "NX_DAEMON=false nx run @poliverai/poliverai:run-android",
@@ -29,7 +29,9 @@
     "backend:serve": "NX_DAEMON=false nx run backend:serve",
     "backend:test": "NX_DAEMON=false nx run backend:test",
     "backend:lint": "NX_DAEMON=false nx run backend:lint",
-    "backend:typecheck": "NX_DAEMON=false nx run backend:typecheck"
+    "backend:typecheck": "NX_DAEMON=false nx run backend:typecheck",
+    "start:metro:windows": "cd apps/poliverai && node ./scripts/start-metro-windows.js",
+    "run:windows:devtools": "node ./scripts/prepare-and-install.js windows && cd apps/poliverai && node ../../node_modules/react-native/cli.js run-windows --logging --no-packager"
   },
   "scriptsDeprecated": {},
   "private": true,

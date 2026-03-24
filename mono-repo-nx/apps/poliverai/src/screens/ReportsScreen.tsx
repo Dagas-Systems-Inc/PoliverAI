@@ -318,6 +318,9 @@ export default function ReportsScreen() {
   const [contentWidth, setContentWidth] = React.useState(0);
   const effectiveWidth = contentWidth > 0 ? contentWidth : width;
   const isDesktop = effectiveWidth >= 1080;
+  const handleContentLayout = React.useCallback((nextWidth: number) => {
+    setContentWidth((current) => (Math.abs(current - nextWidth) > 1 ? nextWidth : current));
+  }, []);
   const { reports, setReports, isLoading, error, fetchReports, page, setPage, limit, setLimit, total, totalPages } = useReports();
   const { selectedFiles, toggle, clear, getSelected, syncWithReports, setAll } = useSelection();
 
@@ -474,7 +477,7 @@ export default function ReportsScreen() {
   return (
     <View
       style={styles.screen}
-      onLayout={(event) => setContentWidth(event.nativeEvent.layout.width)}
+      onLayout={(event) => handleContentLayout(event.nativeEvent.layout.width)}
     >
       <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
         <AppTopNav currentRoute="reports" />

@@ -92,6 +92,9 @@ export default function AppTopNav({ currentRoute = 'landing' }: AppTopNavProps) 
   const isDesktop = effectiveWidth > desktopBreakpoint;
   const creditCount = Number(user?.credits ?? 0);
   const displayName = user?.name?.trim() || 'Account';
+  const handleContainerLayout = React.useCallback((nextWidth: number) => {
+    setContainerWidth((current) => (Math.abs(current - nextWidth) > 1 ? nextWidth : current));
+  }, []);
 
   React.useEffect(() => {
     if (isDesktop && menuOpen) {
@@ -293,7 +296,7 @@ export default function AppTopNav({ currentRoute = 'landing' }: AppTopNavProps) 
     return (
       <>
         <View
-          onLayout={(event) => setContainerWidth(event.nativeEvent.layout.width)}
+          onLayout={(event) => handleContainerLayout(event.nativeEvent.layout.width)}
           style={[styles.nativeOuter, { paddingTop: Math.max(insets.top, 8), minHeight: 56 + insets.top }]}
         >
           <Pressable onPress={() => safeNavigate('WebLanding', '/')} style={styles.nativeBrandButton}>
@@ -443,7 +446,7 @@ export default function AppTopNav({ currentRoute = 'landing' }: AppTopNavProps) 
 
   return (
     <View
-      onLayout={(event) => setContainerWidth(event.nativeEvent.layout.width)}
+      onLayout={(event) => handleContainerLayout(event.nativeEvent.layout.width)}
       style={[styles.outer, Platform.OS === 'web' ? webStickyStyle : null]}
     >
       <View style={styles.inner}>

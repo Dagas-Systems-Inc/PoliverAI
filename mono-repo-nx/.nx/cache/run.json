@@ -1,9 +1,21 @@
 {
   "run": {
-    "command": "nx run @poliverai/poliverai:serve",
-    "startTime": "2026-03-20T17:47:52.516Z",
-    "endTime": "2026-03-20T17:48:02.352Z",
+    "command": "nx run @poliverai/poliverai:run-windows",
+    "startTime": "2026-03-23T08:52:48.413Z",
+    "endTime": "2026-03-23T09:27:40.714Z",
     "inner": false
   },
-  "tasks": []
+  "tasks": [
+    {
+      "taskId": "@poliverai/poliverai:run-windows",
+      "target": "run-windows",
+      "projectName": "@poliverai/poliverai",
+      "hash": "7240874077162948530",
+      "startTime": "2026-03-23T08:52:48.430Z",
+      "endTime": "2026-03-23T09:27:38.736Z",
+      "params": "",
+      "cacheStatus": "cache-miss",
+      "status": 1
+    }
+  ]
 }

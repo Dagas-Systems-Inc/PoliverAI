@@ -5,14 +5,79 @@ import { AppRegistry, Platform, ScrollView, StyleSheet, Text, View } from 'react
 import App from './App';
 import { ReduxProvider } from '@poliverai/intl';
 
+type CapturedLogEntry = {
+  level: 'log' | 'warn' | 'error';
+  text: string;
+  timestamp: string;
+};
+
+type RuntimeErrorBoundaryState = {
+  error: Error | null;
+  info: string | null;
+};
+
+const runtimeLogs: CapturedLogEntry[] = [];
+const originalConsole = {
+  log: console.log.bind(console),
+  warn: console.warn.bind(console),
+  error: console.error.bind(console),
+};
+
+function formatLogPart(value: unknown): string {
+  if (typeof value === 'string') {
+    return value;
+  }
+
+  try {
+    return JSON.stringify(value, null, 2);
+  } catch {
+    return String(value);
+  }
+}
+
+function pushRuntimeLog(level: CapturedLogEntry['level'], args: unknown[]) {
+  runtimeLogs.push({
+    level,
+    text: args.map(formatLogPart).join(' '),
+    timestamp: new Date().toISOString(),
+  });
+
+  if (runtimeLogs.length > 120) {
+    runtimeLogs.splice(0, runtimeLogs.length - 120);
+  }
+
+}
+
+const globalFlags = globalThis as typeof globalThis & {
+  __POLIVERAI_CONSOLE_CAPTURED__?: boolean;
+  ErrorUtils?: {
+    getGlobalHandler?: () => ((error: unknown, isFatal?: boolean) => void) | undefined;
+    setGlobalHandler?: (handler: (error: unknown, isFatal?: boolean) => void) => void;
+  };
+};
+
+if (!globalFlags.__POLIVERAI_CONSOLE_CAPTURED__) {
+  globalFlags.__POLIVERAI_CONSOLE_CAPTURED__ = true;
+
+  console.log = (...args: unknown[]) => {
+    pushRuntimeLog('log', args);
+    originalConsole.log(...args);
+  };
+
+  console.warn = (...args: unknown[]) => {
+    pushRuntimeLog('warn', args);
+    originalConsole.warn(...args);
+  };
+
+  console.error = (...args: unknown[]) => {
+    pushRuntimeLog('error', args);
+    originalConsole.error(...args);
+  };
+}
+
 console.log('[startup] Main.tsx loaded', { platform: Platform.OS });
 
-const globalErrorUtils = (globalThis as typeof globalThis & {
-	ErrorUtils?: {
-		getGlobalHandler?: () => ((error: unknown, isFatal?: boolean) => void) | undefined;
-		setGlobalHandler?: (handler: (error: unknown, isFatal?: boolean) => void) => void;
-	};
-}).ErrorUtils;
+const globalErrorUtils = globalFlags.ErrorUtils;
 
 if (globalErrorUtils?.setGlobalHandler) {
   const previousHandler = globalErrorUtils.getGlobalHandler?.();
@@ -22,16 +87,12 @@ if (globalErrorUtils?.setGlobalHandler) {
   });
 }
 
-type RuntimeErrorBoundaryState = {
-  error: Error | null;
-  info: string | null;
-};
-
 class RuntimeErrorBoundary extends React.Component<React.PropsWithChildren, RuntimeErrorBoundaryState> {
   override state: RuntimeErrorBoundaryState = {
     error: null,
     info: null,
   };
+
 
   static getDerivedStateFromError(error: Error): RuntimeErrorBoundaryState {
     return {
@@ -58,12 +119,14 @@ class RuntimeErrorBoundary extends React.Component<React.PropsWithChildren, Runt
       return this.props.children;
     }
 
+    const recentLogs = runtimeLogs.slice(-40);
+
     return (
       <View style={styles.errorRoot}>
         <View style={styles.errorCard}>
-          <Text style={styles.errorTitle}>macOS Render Error</Text>
+          <Text style={styles.errorTitle}>App Render Error</Text>
           <Text style={styles.errorSubtitle}>
-            A JavaScript render failure was caught before DevTools attached.
+            A failure was caught before DevTools attached.
           </Text>
           <ScrollView style={styles.errorScroll} contentContainerStyle={styles.errorScrollContent}>
             <Text style={styles.errorLabel}>Message</Text>
@@ -75,6 +138,16 @@ class RuntimeErrorBoundary extends React.Component<React.PropsWithChildren, Runt
                 <Text style={styles.errorBody}>{this.state.info}</Text>
               </>
             ) : null}
+            {recentLogs.length > 0 ? (
+              <>
+                <Text style={styles.errorLabel}>Recent Logs</Text>
+                {recentLogs.map((entry, index) => (
+                  <Text key={entry.timestamp + String(index)} style={styles.errorBody}>
+                    [{entry.level.toUpperCase()}] {entry.timestamp} {entry.text}
+                  </Text>
+                ))}
+              </>
+            ) : null}
           </ScrollView>
         </View>
       </View>
@@ -83,19 +156,22 @@ class RuntimeErrorBoundary extends React.Component<React.PropsWithChildren, Runt
 }
 
 const WrappedApp = () => (
-	console.log('[startup] WrappedApp render', { platform: Platform.OS }),
-	<RuntimeErrorBoundary>
-		{ReduxProvider ? (
-			<ReduxProvider>
-				<App />
-			</ReduxProvider>
-		) : (
-			<App />
-		)}
-	</RuntimeErrorBoundary>
+  console.log('[startup] WrappedApp render', { platform: Platform.OS }),
+  <RuntimeErrorBoundary>
+    {ReduxProvider ? (
+      <ReduxProvider>
+        <App />
+      </ReduxProvider>
+    ) : (
+      <App />
+    )}
+  </RuntimeErrorBoundary>
 );
 
-AppRegistry.registerComponent('PoliverAI', () => WrappedApp);
+const appComponentProvider = () => WrappedApp;
+
+AppRegistry.registerComponent('PoliverAI', appComponentProvider);
+AppRegistry.registerComponent('poliverai', appComponentProvider);
 
 const styles = StyleSheet.create({
   errorRoot: {

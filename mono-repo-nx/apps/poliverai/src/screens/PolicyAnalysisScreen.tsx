@@ -267,6 +267,9 @@ export default function PolicyAnalysisScreen() {
   const effectiveWidth = contentWidth > 0 ? contentWidth : width;
   const isDesktop = effectiveWidth >= 1100;
   const isWideFullReport = effectiveWidth >= 1200;
+  const handleContentLayout = React.useCallback((nextWidth: number) => {
+    setContentWidth((current) => (Math.abs(current - nextWidth) > 1 ? nextWidth : current));
+  }, []);
 
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const progressIntervalRef = React.useRef<number | null>(null);
@@ -849,7 +852,7 @@ export default function PolicyAnalysisScreen() {
   return (
     <View
       style={styles.screen}
-      onLayout={(event) => setContentWidth(event.nativeEvent.layout.width)}
+      onLayout={(event) => handleContentLayout(event.nativeEvent.layout.width)}
     >
       <AppTopNav currentRoute="analyze" />
       <ScrollView contentContainerStyle={styles.content}>

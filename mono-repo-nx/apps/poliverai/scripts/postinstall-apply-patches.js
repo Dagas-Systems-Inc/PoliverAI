@@ -26,6 +26,7 @@ const restore = path.join(appRoot, 'scripts', 'restore-codegen-stubs.js');
 const patch = path.join(appRoot, 'scripts', 'patch-react-native-worklets.js');
 const patchLottie = path.join(appRoot, 'scripts', 'patch-lottie-react-native.js');
 const patchDotLottie = path.join(appRoot, 'scripts', 'patch-dotlottie-react-native.js');
+const patchLucide = path.join(appRoot, 'scripts', 'patch-lucide-react-native.js');
 const patchDocumentPicker = path.join(appRoot, 'scripts', 'patch-react-native-document-picker.js');
 const patchDevMiddleware = path.join(appRoot, 'scripts', 'patch-react-native-dev-middleware.js');
 const applyRepo = path.join(appRoot, '..', '..', 'scripts', 'apply-react-native-worklets-patch.js');
@@ -35,6 +36,7 @@ if (fs.existsSync(restore)) run('node', [restore], { cwd: appRoot });
 if (fs.existsSync(patch)) run('node', [patch], { cwd: appRoot });
 if (fs.existsSync(patchLottie)) run('node', [patchLottie], { cwd: appRoot });
 if (fs.existsSync(patchDotLottie)) run('node', [patchDotLottie], { cwd: appRoot });
+if (fs.existsSync(patchLucide)) run('node', [patchLucide], { cwd: appRoot });
 if (fs.existsSync(patchDocumentPicker)) run('node', [patchDocumentPicker], { cwd: appRoot });
 if (fs.existsSync(patchDevMiddleware)) run('node', [patchDevMiddleware], { cwd: appRoot });
 if (fs.existsSync(applyRepo)) run('node', [applyRepo], { cwd: repoRoot });
@@ -44,6 +46,19 @@ ensureAppHoistedLinks({
   appRoot,
   logPrefix: 'postinstall-apply-patches',
 });
+
+try {
+  if (fs.existsSync(marker) && process.platform === 'win32') {
+    try {
+      require('child_process').spawnSync('cmd', ['/c', 'attrib', '-H', '-R', marker], { stdio: 'ignore' });
+    } catch (_) {
+      // best-effort only
+    }
+    fs.rmSync(marker, { force: true });
+  }
+} catch (_) {
+  // best-effort only
+}
 
 fs.writeFileSync(marker, `applied ${new Date().toISOString()}\n`);
 console.log('postinstall-apply-patches: applied and recorded marker', marker);
