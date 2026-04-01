@@ -70,6 +70,14 @@ const INITIAL_STATUS_FILTER: StatusFilter = {
   task: true,
 };
 
+const desktopFilterInputStyle =
+  Platform.OS === 'macos' || Platform.OS === 'windows'
+    ? ({
+        paddingTop: 11,
+        paddingBottom: 11,
+      } as const)
+    : null;
+
 function copy(path: string, fallback: string) {
   const value = t(path, fallback);
   return typeof value === 'string' ? value : fallback;
@@ -938,6 +946,7 @@ const styles = StyleSheet.create({
     color: appColors.ink900,
     fontSize: 14,
     paddingHorizontal: 0,
+    ...(desktopFilterInputStyle ?? null),
     borderWidth: 0,
     backgroundColor: 'transparent',
   },

@@ -70,6 +70,14 @@ const rowSurfaceShadow = Platform.select({
   },
 });
 
+const desktopFilterInputStyle =
+  Platform.OS === 'macos' || Platform.OS === 'windows'
+    ? ({
+        paddingTop: 11,
+        paddingBottom: 11,
+      } as const)
+    : null;
+
 function copy(path: string, fallback: string) {
   const value = t(path, fallback);
   return typeof value === 'string' ? value : fallback;
@@ -881,6 +889,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: appColors.ink900,
     paddingRight: 14,
+    ...(desktopFilterInputStyle ?? null),
   },
   filterChipsWrap: {
     flexDirection: 'row',

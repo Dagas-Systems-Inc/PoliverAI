@@ -44,6 +44,48 @@ function assertPatched(filePath, snippets, label) {
   return false;
 }
 
+function assertCompatible(filePath, snippets, label) {
+  if (!fs.existsSync(filePath)) {
+    return false;
+  }
+
+  const source = fs.readFileSync(filePath, 'utf8');
+  const missing = snippets.filter((snippet) => !source.includes(snippet));
+  if (missing.length === 0) {
+    console.log(
+      `[patch-react-native-jsruntime-factory] ${label} already compatible; skipping.`
+    );
+    return true;
+  }
+  return false;
+}
+
+if (
+  assertCompatible(
+    headerPath,
+    [
+      'class JSRuntime {',
+      'virtual jsinspector_modern::RuntimeTargetDelegate& getRuntimeTargetDelegate();',
+      'std::optional<jsinspector_modern::FallbackRuntimeTargetDelegate>',
+      'class JSIRuntimeHolder : public JSRuntime {',
+      'explicit JSIRuntimeHolder(std::unique_ptr<jsi::Runtime> runtime);',
+    ],
+    'JSRuntimeFactory.h'
+  ) &&
+  assertCompatible(
+    cppPath,
+    [
+      'jsi::Runtime& JSIRuntimeHolder::getRuntime() noexcept {',
+      'jsinspector_modern::RuntimeTargetDelegate&',
+      'JSRuntime::getRuntimeTargetDelegate() {',
+      'runtimeTargetDelegate_.emplace(getRuntime().description());',
+    ],
+    'JSRuntimeFactory.cpp'
+  )
+) {
+  process.exit(0);
+}
+
 if (
   fs.existsSync(headerPath) &&
   fs.existsSync(cppPath) &&

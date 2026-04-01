@@ -6,7 +6,7 @@ const { spawn, spawnSync } = require('child_process');
 
 const appRoot = path.resolve(__dirname, '..');
 const repoRoot = path.resolve(appRoot, '..', '..');
-const reactNativeCli = path.join(repoRoot, 'node_modules', 'react-native-macos', 'cli.js');
+const reactNativeCli = path.join(repoRoot, 'node_modules', 'react-native', 'cli.js');
 
 function supportsStyleText(nodeBinary) {
   if (!nodeBinary || !fs.existsSync(nodeBinary)) {

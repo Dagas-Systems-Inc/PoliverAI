@@ -75,7 +75,7 @@ function NativeStartupSplash({
     setVisible(false);
   }, [appReady, hideMacSplashScreen, minDurationElapsed, visible]);
 
-  if (!visible || Platform.OS === 'web') {
+  if (!visible || Platform.OS === 'web' || Platform.OS === 'macos') {
     return null;
   }
 
@@ -114,7 +114,7 @@ function AppContent({ onReady }: { onReady?: () => void }) {
     <View style={styles.appRoot}>
       <StatusBar barStyle="dark-content" backgroundColor="#ffffff" />
       <AppNavigator initialPlatform={initialPlatform} isAuthenticated={isAuthenticated} isLoading={loading} />
-      <NativeStartupSplash appReady={!loading} />
+      <NativeStartupSplash appReady={Platform.OS === 'macos' ? true : !loading} />
     </View>
   );
 }
@@ -132,14 +132,14 @@ export const App = () => {
     }
 
     const hideTimer = setTimeout(() => {
-    console.log('[startup] App root forcing MacSplashScreen.hide');
+      console.log('[startup] App root forcing MacSplashScreen.hide');
       NativeModules.MacSplashScreen?.hide?.();
-    }, 900);
+    }, 700);
 
     const fallbackTimer = setTimeout(() => {
       console.log('[startup] App root enabling macOS fallback overlay');
       setShowMacFallback(true);
-    }, 2600);
+    }, 1800);
 
     return () => {
       clearTimeout(hideTimer);

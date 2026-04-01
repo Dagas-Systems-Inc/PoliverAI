@@ -38,7 +38,7 @@
 - (NSURL *)bundleURL
 {
 #if DEBUG
-  return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.macos"];
+  return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"src/Main"];
 #else
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif

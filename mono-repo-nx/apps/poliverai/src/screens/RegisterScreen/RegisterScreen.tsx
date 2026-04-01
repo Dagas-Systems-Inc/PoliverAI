@@ -24,6 +24,14 @@ function copy(path: string, fallback: string) {
   return typeof value === 'string' ? value : fallback;
 }
 
+const desktopSingleLineInputStyle =
+  Platform.OS === 'macos' || Platform.OS === 'windows'
+    ? ({
+        paddingTop: 12,
+        paddingBottom: 12,
+      } as const)
+    : null;
+
 export default function RegisterScreen() {
   const navigation = useNavigation<any>();
   const { register, loading, isAuthenticated } = useAuth();
@@ -340,6 +348,7 @@ const styles = StyleSheet.create({
     borderColor: appAlphaColors.borderSoft,
     borderRadius: 12,
     paddingHorizontal: 14,
+    ...(desktopSingleLineInputStyle ?? null),
     backgroundColor: appColors.white,
     color: appColors.ink900,
     fontSize: 15,

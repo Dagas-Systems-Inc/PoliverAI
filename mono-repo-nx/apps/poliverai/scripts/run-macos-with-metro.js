@@ -11,6 +11,7 @@ const repoRoot = path.resolve(appRoot, '..', '..');
 const metroPort = Number(process.env.RCT_METRO_PORT || 8081);
 const metroHost = 'localhost';
 const reactNativeCli = path.join(repoRoot, 'node_modules', 'react-native-macos', 'cli.js');
+const reactNativeMetroCli = path.join(repoRoot, 'node_modules', 'react-native', 'cli.js');
 let startedMetroProcess = null;
 
 function supportsStyleText(nodeBinary) {
@@ -92,7 +93,14 @@ async function ensureMetroRunning() {
 
   const metroProcess = spawn(
     metroNodeBinary,
-    [reactNativeCli, 'start', '--port', String(metroPort), '--config', 'metro.config.js'],
+    [
+      reactNativeMetroCli,
+      'start',
+      '--port',
+      String(metroPort),
+      '--config',
+      'metro.config.js',
+    ],
     {
       cwd: appRoot,
       env: {

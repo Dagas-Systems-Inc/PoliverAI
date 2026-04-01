@@ -24,6 +24,18 @@
         "parallel": false
       }
     },
+    "run-ios-debug-experimental": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "RCT_NEW_ARCH_ENABLED=1 node ../../scripts/prepare-and-install.js ios && RCT_NEW_ARCH_ENABLED=1 npx react-native run-ios --scheme PoliverAI-DebugExperimental --mode DebugExperimental"
+          }
+        ],
+        "cwd": "apps/poliverai",
+        "parallel": false
+      }
+    },
     "build-android": {
       "executor": "@nx/react-native:build-android",
       "options": {}

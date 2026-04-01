@@ -20,10 +20,42 @@ function log(...args) {
 
 function patchFile(target, replacements) {
   const source = fs.readFileSync(target, 'utf8');
+  const helperSnippet = `const normalizeNumericSvgProp = (value) => typeof value === 'string' && /^-?\\d+(?:\\.\\d+)?$/.test(value) ? Number(value) : value;`;
+  const helperCount = source.split(helperSnippet).length - 1;
+
+  if (
+    helperCount === 1 &&
+    source.includes('const normalizedSize = normalizeNumericSvgProp(size);') &&
+    source.includes('width: normalizedSize,') &&
+    source.includes('height: normalizedSize,')
+  ) {
+    log('Already patched', target);
+    return false;
+  }
+
   let next = source;
 
   for (const [from, to] of replacements) {
     next = next.replace(from, to);
+  }
+
+  if (helperCount > 1) {
+    let firstHelperSeen = false;
+    next = next
+      .split('\n')
+      .filter((line) => {
+        if (line !== helperSnippet) {
+          return true;
+        }
+
+        if (!firstHelperSeen) {
+          firstHelperSeen = true;
+          return true;
+        }
+
+        return false;
+      })
+      .join('\n');
   }
 
   if (next === source) {
