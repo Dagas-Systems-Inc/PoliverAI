@@ -74,6 +74,7 @@
   ],
   "fileMap": {
     "projectFileMap": {
+<<<<<<< Updated upstream
       "@poliverai/intl": [
         {
           "file": "libs/intl/package.json",
@@ -287,6 +288,8 @@
           ]
         }
       ],
+=======
+>>>>>>> Stashed changes
       "@poliverai/poliverai-e2e": [
         {
           "file": "apps/poliverai-e2e/eslint.config.mjs",
@@ -920,6 +923,7 @@
           "hash": "12062670755262846032"
         }
       ],
+<<<<<<< Updated upstream
       "backend": [
         {
           "file": "apps/backend/README.md",
@@ -930,6 +934,8 @@
           "hash": "1901762643705807133"
         }
       ],
+=======
+>>>>>>> Stashed changes
       "@poliverai/poliverai": [
         {
           "file": "apps/poliverai/.babelrc.js",
@@ -35220,11 +35226,11 @@
         },
         {
           "file": "apps/poliverai/macos/build/generated/ios/ReactAppDependencyProvider.podspec",
-          "hash": "2605477196701818982"
+          "hash": "2795966743064786063"
         },
         {
           "file": "apps/poliverai/macos/build/generated/ios/ReactCodegen.podspec",
-          "hash": "1845964580600727425"
+          "hash": "7834049657161647562"
         },
         {
           "file": "apps/poliverai/macos/build/generated/ios/react/renderer/components/lottiereactnative/ComponentDescriptors.cpp",
@@ -36232,7 +36238,11 @@
         },
         {
           "file": "apps/poliverai/src/Main.tsx",
+<<<<<<< Updated upstream
           "hash": "15680544839057082004",
+=======
+          "hash": "15341519265449677294",
+>>>>>>> Stashed changes
           "deps": [
             "npm:react-native-gesture-handler",
             "npm:react",
@@ -36436,10 +36446,9 @@
         },
         {
           "file": "apps/poliverai/src/lib/documentPicker.ts",
-          "hash": "5840341730683061761",
+          "hash": "14917308700714977891",
           "deps": [
-            "npm:react-native",
-            "npm:react-native-document-picker"
+            "npm:react-native"
           ]
         },
         {
@@ -36741,8 +36750,48 @@
           "hash": "18100724281219252865"
         },
         {
+          "file": "apps/poliverai/windows/msbuild_1560_build.binlog",
+          "hash": "2390836714800062215"
+        },
+        {
+          "file": "apps/poliverai/windows/msbuild_1560_build.err",
+          "hash": "12108140771103327566"
+        },
+        {
+          "file": "apps/poliverai/windows/msbuild_1560_build.wrn",
+          "hash": "15246182437152585643"
+        },
+        {
+          "file": "apps/poliverai/windows/msbuild_2572_build.binlog",
+          "hash": "18269756044675813058"
+        },
+        {
+          "file": "apps/poliverai/windows/msbuild_2572_build.err",
+          "hash": "17539940908428578754"
+        },
+        {
+          "file": "apps/poliverai/windows/msbuild_2572_build.wrn",
+          "hash": "8480481502923919957"
+        },
+        {
+          "file": "apps/poliverai/windows/msbuild_4328_build.binlog",
+          "hash": "2140629942302097499"
+        },
+        {
+          "file": "apps/poliverai/windows/msbuild_4328_build.err",
+          "hash": "14165997503872223909"
+        },
+        {
+          "file": "apps/poliverai/windows/msbuild_4328_build.wrn",
+          "hash": "14793904430216602107"
+        },
+        {
           "file": "apps/poliverai/windows/poliverai.sln",
+<<<<<<< Updated upstream
           "hash": "13184347250290817492"
+=======
+          "hash": "4751751504863042638"
+>>>>>>> Stashed changes
         },
         {
           "file": "apps/poliverai/windows/poliverai/.gitignore",
@@ -36798,7 +36847,11 @@
         },
         {
           "file": "apps/poliverai/windows/poliverai/AutolinkedNativeModules.g.cpp",
+<<<<<<< Updated upstream
           "hash": "16666914335469127502"
+=======
+          "hash": "11940173008855918038"
+>>>>>>> Stashed changes
         },
         {
           "file": "apps/poliverai/windows/poliverai/AutolinkedNativeModules.g.h",
@@ -36806,11 +36859,15 @@
         },
         {
           "file": "apps/poliverai/windows/poliverai/AutolinkedNativeModules.g.props",
-          "hash": "13207894248764602948"
+          "hash": "16629473040787547863"
         },
         {
           "file": "apps/poliverai/windows/poliverai/AutolinkedNativeModules.g.targets",
+<<<<<<< Updated upstream
           "hash": "14141187396736698110"
+=======
+          "hash": "1391975826037969366"
+>>>>>>> Stashed changes
         },
         {
           "file": "apps/poliverai/windows/poliverai/MainPage.cpp",
@@ -36846,7 +36903,11 @@
         },
         {
           "file": "apps/poliverai/windows/poliverai/packages.lock.json",
+<<<<<<< Updated upstream
           "hash": "16148210789723332110"
+=======
+          "hash": "15570654576888574096"
+>>>>>>> Stashed changes
         },
         {
           "file": "apps/poliverai/windows/poliverai/pch.cpp",
@@ -36862,12 +36923,242 @@
         },
         {
           "file": "apps/poliverai/windows/poliverai/poliverai.vcxproj",
+<<<<<<< Updated upstream
           "hash": "12184024035350247188"
+=======
+          "hash": "12937678042336061118"
+>>>>>>> Stashed changes
         },
         {
           "file": "apps/poliverai/windows/poliverai/poliverai.vcxproj.filters",
           "hash": "3013222065611708352"
         }
+<<<<<<< Updated upstream
+=======
+      ],
+      "backend": [
+        {
+          "file": "apps/backend/README.md",
+          "hash": "1828311541741101327"
+        },
+        {
+          "file": "apps/backend/project.json",
+          "hash": "1901762643705807133"
+        }
+      ],
+      "@poliverai/intl": [
+        {
+          "file": "libs/intl/package.json",
+          "hash": "6717310270380888081"
+        },
+        {
+          "file": "libs/intl/src/.index.ts.swp",
+          "hash": "10913091892218957509"
+        },
+        {
+          "file": "libs/intl/src/contexts/auth-context.ts",
+          "hash": "9902205910197039385",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "libs/intl/src/contexts/useAuth.ts",
+          "hash": "8338893413458689133",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "libs/intl/src/hooks/useAccountStatus.ts",
+          "hash": "10750230790380600308"
+        },
+        {
+          "file": "libs/intl/src/hooks/useAnalysisProgress.ts",
+          "hash": "245404019684765536"
+        },
+        {
+          "file": "libs/intl/src/hooks/useAuth.tsx",
+          "hash": "8028870318204270752",
+          "deps": [
+            "npm:react",
+            "npm:axios",
+            "npm:react-redux",
+            "npm:react-native"
+          ]
+        },
+        {
+          "file": "libs/intl/src/hooks/useAvailableFeatures.ts",
+          "hash": "7469551708450597288",
+          "deps": [
+            "@poliverai/shared-ui"
+          ]
+        },
+        {
+          "file": "libs/intl/src/hooks/useCreditsSummary.ts",
+          "hash": "17266441249588050384"
+        },
+        {
+          "file": "libs/intl/src/i18n.ts",
+          "hash": "3343752786328715505",
+          "deps": [
+            "npm:react-redux"
+          ]
+        },
+        {
+          "file": "libs/intl/src/i18n/index.ts",
+          "hash": "5844569588801625279"
+        },
+        {
+          "file": "libs/intl/src/i18n/locales/en.ts",
+          "hash": "17621861692707538132"
+        },
+        {
+          "file": "libs/intl/src/index.ts",
+          "hash": "16482099797539597875"
+        },
+        {
+          "file": "libs/intl/src/lib/authHelpers.ts",
+          "hash": "12898438545314597577"
+        },
+        {
+          "file": "libs/intl/src/lib/dashboardHelpers.ts",
+          "hash": "4983812968203113729"
+        },
+        {
+          "file": "libs/intl/src/lib/errorHelpers.ts",
+          "hash": "7070483877526315995"
+        },
+        {
+          "file": "libs/intl/src/lib/eventHelpers.ts",
+          "hash": "7782995236264238630"
+        },
+        {
+          "file": "libs/intl/src/lib/fileHelpers.ts",
+          "hash": "1026472820605201296"
+        },
+        {
+          "file": "libs/intl/src/lib/paymentsHelpers.ts",
+          "hash": "276972399160577127",
+          "deps": [
+            "npm:react-native"
+          ]
+        },
+        {
+          "file": "libs/intl/src/lib/platformStorage.ts",
+          "hash": "18214786429822938809",
+          "deps": [
+            "npm:react-native",
+            [
+              "npm:@react-native-async-storage/async-storage",
+              "dynamic"
+            ]
+          ]
+        },
+        {
+          "file": "libs/intl/src/lib/transactionHelpers.ts",
+          "hash": "15158004932885376477"
+        },
+        {
+          "file": "libs/intl/src/lib/urlHelpers.ts",
+          "hash": "13582505931222900591"
+        },
+        {
+          "file": "libs/intl/src/lib/utils.ts",
+          "hash": "16099772572521786089"
+        },
+        {
+          "file": "libs/intl/src/locales/en-US.json",
+          "hash": "8475635836672221928"
+        },
+        {
+          "file": "libs/intl/src/locales/en-US.reduced.json",
+          "hash": "5865168391254347054"
+        },
+        {
+          "file": "libs/intl/src/provider.tsx",
+          "hash": "12304310751060912073",
+          "deps": [
+            "npm:react",
+            "npm:react-redux",
+            "npm:redux-persist",
+            "npm:react-native"
+          ]
+        },
+        {
+          "file": "libs/intl/src/services/api.ts",
+          "hash": "9710884498371273633"
+        },
+        {
+          "file": "libs/intl/src/services/authService.ts",
+          "hash": "8377460633098761782"
+        },
+        {
+          "file": "libs/intl/src/services/payments.ts",
+          "hash": "7605283572485006524",
+          "deps": [
+            "npm:react-native"
+          ]
+        },
+        {
+          "file": "libs/intl/src/services/policyService.ts",
+          "hash": "4007621785872376220"
+        },
+        {
+          "file": "libs/intl/src/services/streamingService.ts",
+          "hash": "48241733109461091"
+        },
+        {
+          "file": "libs/intl/src/services/transactions.ts",
+          "hash": "9953864580337113627"
+        },
+        {
+          "file": "libs/intl/src/slices/authSlice.ts",
+          "hash": "10775949452474165254",
+          "deps": [
+            "npm:@reduxjs/toolkit"
+          ]
+        },
+        {
+          "file": "libs/intl/src/slices/localeSlice.ts",
+          "hash": "1820278012315914749",
+          "deps": [
+            "npm:@reduxjs/toolkit"
+          ]
+        },
+        {
+          "file": "libs/intl/src/store.ts",
+          "hash": "1418567516425287171",
+          "deps": [
+            "npm:@reduxjs/toolkit",
+            "npm:redux",
+            "npm:redux-persist"
+          ]
+        },
+        {
+          "file": "libs/intl/src/types/api.ts",
+          "hash": "1794623772159251499"
+        },
+        {
+          "file": "libs/intl/src/types/feature.ts",
+          "hash": "9387895665725394901",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "libs/intl/src/types/user.ts",
+          "hash": "17253464488466273021"
+        },
+        {
+          "file": "libs/intl/src/utils/cn.ts",
+          "hash": "15516058123845190687",
+          "deps": [
+            "npm:clsx",
+            "npm:tailwind-merge"
+          ]
+        }
+>>>>>>> Stashed changes
       ]
     },
     "nonProjectFiles": [
@@ -36929,7 +37220,11 @@
       },
       {
         "file": "nx.json",
+<<<<<<< Updated upstream
         "hash": "13304595410355880145"
+=======
+        "hash": "17258001290880629289"
+>>>>>>> Stashed changes
       },
       {
         "file": "package-lock.json",
@@ -36937,7 +37232,11 @@
       },
       {
         "file": "package.json",
+<<<<<<< Updated upstream
         "hash": "17009313944050617145"
+=======
+        "hash": "13249657184938203322"
+>>>>>>> Stashed changes
       },
       {
         "file": "patches/generated/android/gradle-generated/generated/autolinking/src/main/java/com/facebook/react/PackageList.java",
@@ -43917,19 +44216,28 @@
       },
       {
         "file": "scripts/ensure-app-hoisted-links.js",
+<<<<<<< Updated upstream
         "hash": "10100527788172505117"
+=======
+        "hash": "1791116109889338040"
+>>>>>>> Stashed changes
       },
       {
         "file": "scripts/fix-macos-codegen-paths.sh",
         "hash": "15066375550337089500"
       },
       {
+<<<<<<< Updated upstream
         "file": "scripts/patch-react-native-windows-projects.js",
         "hash": "13765683276295378261"
       },
       {
         "file": "scripts/prepare-and-install.js",
         "hash": "3021521494616792840"
+=======
+        "file": "scripts/prepare-and-install.js",
+        "hash": "17016116334003270415"
+>>>>>>> Stashed changes
       },
       {
         "file": "scripts/reduce-locales.js",
@@ -43944,10 +44252,13 @@
         "hash": "5928114095821167674"
       },
       {
+<<<<<<< Updated upstream
         "file": "tmp-graph.json",
         "hash": "1434295851602263375"
       },
       {
+=======
+>>>>>>> Stashed changes
         "file": "tsconfig.base.json",
         "hash": "925468377933909228"
       },

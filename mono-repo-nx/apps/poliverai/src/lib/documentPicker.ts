@@ -1,5 +1,4 @@
 import { NativeModules, Platform } from 'react-native';
-import DocumentPicker from 'react-native-document-picker';
 
 type DocumentPickOptions = {
   allowedExtensions?: string[];
@@ -22,6 +21,34 @@ type MacDocumentPickerModule = {
     size?: number | null;
   }>;
 };
+
+type NativeDocumentPickerModule = {
+  isCancel: (error: unknown) => boolean;
+  pickSingle: (options: {
+    type: string[];
+    copyTo: 'cachesDirectory';
+    presentationStyle: 'fullScreen';
+  }) => Promise<{
+    uri: string;
+    fileCopyUri?: string | null;
+    name?: string | null;
+    type?: string | null;
+    size?: number | null;
+  }>;
+  types: {
+    allFiles: string;
+  };
+};
+
+function getNativeDocumentPicker(): NativeDocumentPickerModule {
+  const moduleName = ['react-native', 'document-picker'].join('-');
+  const loadModule = new Function(
+    'moduleName',
+    'return require(moduleName);'
+  ) as (name: string) => unknown;
+  const module = loadModule(moduleName) as { default?: NativeDocumentPickerModule };
+  return (module.default ?? module) as NativeDocumentPickerModule;
+}
 
 function toWebAcceptValue(options: DocumentPickOptions) {
   const extensionAccept = (options.allowedExtensions ?? []).map((extension) =>
@@ -74,8 +101,10 @@ function pickDocumentOnWeb(options: DocumentPickOptions): Promise<PickedDocument
 }
 
 export function isDocumentPickerCancel(error: unknown) {
-  if (DocumentPicker.isCancel(error)) {
-    return true;
+  if (Platform.OS !== 'web' && Platform.OS !== 'macos') {
+    if (getNativeDocumentPicker().isCancel(error)) {
+      return true;
+    }
   }
 
   return Boolean(
@@ -110,8 +139,9 @@ export async function pickDocument(options: DocumentPickOptions): Promise<Picked
     };
   }
 
-  const picked = await DocumentPicker.pickSingle({
-    type: options.types && options.types.length > 0 ? options.types : [DocumentPicker.types.allFiles],
+  const documentPicker = getNativeDocumentPicker();
+  const picked = await documentPicker.pickSingle({
+    type: options.types && options.types.length > 0 ? options.types : [documentPicker.types.allFiles],
     copyTo: 'cachesDirectory',
     presentationStyle: 'fullScreen',
   });

@@ -9962,7 +9962,11 @@
       }
     }
   },
+<<<<<<< Updated upstream
   "440332940451287958": {
+=======
+  "5857766171975464213": {
+>>>>>>> Stashed changes
     "targets": {
       "test": {
         "command": "jest",
@@ -9998,12 +10002,20 @@
           }
         ],
         "outputs": [
+<<<<<<< Updated upstream
           "{workspaceRoot}\\coverage\\apps\\poliverai"
+=======
+          "{workspaceRoot}/coverage/apps/poliverai"
+>>>>>>> Stashed changes
         ]
       }
     }
   },
+<<<<<<< Updated upstream
   "15608632495384947788": {
+=======
+  "11636160529737083101": {
+>>>>>>> Stashed changes
     "targets": {
       "test": {
         "command": "jest",
@@ -10039,12 +10051,20 @@
           }
         ],
         "outputs": [
+<<<<<<< Updated upstream
           "{workspaceRoot}\\coverage\\apps\\poliverai"
+=======
+          "{workspaceRoot}/coverage/apps/poliverai"
+>>>>>>> Stashed changes
         ]
       }
     }
   },
+<<<<<<< Updated upstream
   "11270941317117079589": {
+=======
+  "4876254136094949462": {
+>>>>>>> Stashed changes
     "targets": {
       "test": {
         "command": "jest",
@@ -10080,6 +10100,7 @@
           }
         ],
         "outputs": [
+<<<<<<< Updated upstream
           "{workspaceRoot}\\coverage\\apps\\poliverai"
         ]
       }
@@ -10122,6 +10143,9 @@
         ],
         "outputs": [
           "{workspaceRoot}\\coverage\\apps\\poliverai"
+=======
+          "{workspaceRoot}/coverage/apps/poliverai"
+>>>>>>> Stashed changes
         ]
       }
     }

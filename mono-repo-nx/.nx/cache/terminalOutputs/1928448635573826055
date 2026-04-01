@@ -1,0 +1,29 @@
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m4200[22m/[39m
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mNo matching export in "node_modules/react-native-web/dist/index.js" for import "TurboModuleRegistry"[0m
+
+    node_modules/react-native-document-picker/lib/module/NativeDocumentPicker.js:1:9:
+[37m      1 │ import { [32mTurboModuleRegistry[37m } from 'react-native';
+        ╵          [32m~~~~~~~~~~~~~~~~~~~[0m
+
+/Users/gabrieldagadu/PoliverAI/mono-repo-nx/node_modules/esbuild/lib/main.js:1467
+  let error = new Error(text);
+              ^
+
+Error: [31mError during dependency optimization:
+
+[39m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mNo matching export in "node_modules/react-native-web/dist/index.js" for import "TurboModuleRegistry"[0m
+
+    node_modules/react-native-document-picker/lib/module/NativeDocumentPicker.js:1:9:
+[37m      1 │ import { [32mTurboModuleRegistry[37m } from 'react-native';
+        ╵          [32m~~~~~~~~~~~~~~~~~~~[0m
+
+
+    at failureErrorWithLog [90m(/Users/gabrieldagadu/PoliverAI/mono-repo-nx/[39mnode_modules/[4mesbuild[24m/lib/main.js:1467:15[90m)[39m
+    at [90m/Users/gabrieldagadu/PoliverAI/mono-repo-nx/[39mnode_modules/[4mesbuild[24m/lib/main.js:926:25
+    at [90m/Users/gabrieldagadu/PoliverAI/mono-repo-nx/[39mnode_modules/[4mesbuild[24m/lib/main.js:1345:9
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m {
+  errors: [36m[Getter/Setter][39m,
+  warnings: [36m[Getter/Setter][39m
+}
+
+Node.js v20.19.4

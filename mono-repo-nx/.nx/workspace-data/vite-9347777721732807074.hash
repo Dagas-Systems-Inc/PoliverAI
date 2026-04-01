@@ -43431,7 +43431,11 @@
     "metadata": {},
     "projectType": "application"
   },
+<<<<<<< Updated upstream
   "15891612523587341565apps/poliverai/vite.config.ts": {
+=======
+  "8744023004333578557apps/poliverai/vite.config.ts": {
+>>>>>>> Stashed changes
     "targets": {
       "build": {
         "command": "vite build",
@@ -43452,7 +43456,11 @@
           }
         ],
         "outputs": [
+<<<<<<< Updated upstream
           "{workspaceRoot}\\dist\\apps\\poliverai\\web"
+=======
+          "{workspaceRoot}/dist/apps/poliverai/web"
+>>>>>>> Stashed changes
         ],
         "metadata": {
           "technologies": [
@@ -43609,7 +43617,11 @@
     "metadata": {},
     "projectType": "application"
   },
+<<<<<<< Updated upstream
   "16641798342442481407apps/poliverai/vite.config.ts": {
+=======
+  "18270334643832351652apps/poliverai/vite.config.ts": {
+>>>>>>> Stashed changes
     "targets": {
       "build": {
         "command": "vite build",
@@ -43630,7 +43642,11 @@
           }
         ],
         "outputs": [
+<<<<<<< Updated upstream
           "{workspaceRoot}\\dist\\apps\\poliverai\\web"
+=======
+          "{workspaceRoot}/dist/apps/poliverai/web"
+>>>>>>> Stashed changes
         ],
         "metadata": {
           "technologies": [
@@ -43787,7 +43803,11 @@
     "metadata": {},
     "projectType": "application"
   },
+<<<<<<< Updated upstream
   "9012393338877766147apps/poliverai/vite.config.ts": {
+=======
+  "16417407409802764019apps/poliverai/vite.config.ts": {
+>>>>>>> Stashed changes
     "targets": {
       "build": {
         "command": "vite build",
@@ -43808,6 +43828,7 @@
           }
         ],
         "outputs": [
+<<<<<<< Updated upstream
           "{workspaceRoot}\\dist\\apps\\poliverai\\web"
         ],
         "metadata": {
@@ -43987,6 +44008,9 @@
         ],
         "outputs": [
           "{workspaceRoot}\\dist\\apps\\poliverai\\web"
+=======
+          "{workspaceRoot}/dist/apps/poliverai/web"
+>>>>>>> Stashed changes
         ],
         "metadata": {
           "technologies": [
