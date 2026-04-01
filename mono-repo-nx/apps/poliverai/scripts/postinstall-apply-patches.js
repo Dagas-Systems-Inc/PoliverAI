@@ -29,6 +29,8 @@ const patchDotLottie = path.join(appRoot, 'scripts', 'patch-dotlottie-react-nati
 const patchLucide = path.join(appRoot, 'scripts', 'patch-lucide-react-native.js');
 const patchDocumentPicker = path.join(appRoot, 'scripts', 'patch-react-native-document-picker.js');
 const patchDevMiddleware = path.join(appRoot, 'scripts', 'patch-react-native-dev-middleware.js');
+const patchHermesExecutor = path.join(appRoot, 'scripts', 'patch-react-native-hermes-executor.js');
+const patchJSRuntimeFactory = path.join(appRoot, 'scripts', 'patch-react-native-jsruntime-factory.js');
 const applyRepo = path.join(appRoot, '..', '..', 'scripts', 'apply-react-native-worklets-patch.js');
 const repoRoot = path.resolve(appRoot, '..', '..');
 
@@ -39,6 +41,8 @@ if (fs.existsSync(patchDotLottie)) run('node', [patchDotLottie], { cwd: appRoot 
 if (fs.existsSync(patchLucide)) run('node', [patchLucide], { cwd: appRoot });
 if (fs.existsSync(patchDocumentPicker)) run('node', [patchDocumentPicker], { cwd: appRoot });
 if (fs.existsSync(patchDevMiddleware)) run('node', [patchDevMiddleware], { cwd: appRoot });
+if (fs.existsSync(patchHermesExecutor)) run('node', [patchHermesExecutor], { cwd: appRoot });
+if (fs.existsSync(patchJSRuntimeFactory)) run('node', [patchJSRuntimeFactory], { cwd: appRoot });
 if (fs.existsSync(applyRepo)) run('node', [applyRepo], { cwd: repoRoot });
 
 ensureAppHoistedLinks({

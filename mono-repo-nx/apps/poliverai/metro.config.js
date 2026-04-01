@@ -31,8 +31,8 @@ function resolveWorkspaceAlias(moduleName) {
 }
 
 const customConfig = {
-  projectRoot: workspaceRoot,
-  watchFolders: [appRoot],
+  projectRoot: appRoot,
+  watchFolders: [workspaceRoot],
   cacheVersion: '@poliverai/poliverai',
   transformer: {
     babelTransformerPath: require.resolve('react-native-svg-transformer/react-native'),

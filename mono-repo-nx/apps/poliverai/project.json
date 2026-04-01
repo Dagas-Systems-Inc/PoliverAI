@@ -13,8 +13,16 @@
       "options": {}
     },
     "run-ios": {
-      "executor": "@nx/react-native:run-ios",
-      "options": {}
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "node ../../scripts/prepare-and-install.js ios && yarn run ios"
+          }
+        ],
+        "cwd": "apps/poliverai",
+        "parallel": false
+      }
     },
     "build-android": {
       "executor": "@nx/react-native:build-android",
